@@ -1,0 +1,53 @@
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{main}">
+
+    <head>
+        <meta charset="UTF-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta  content="width=device-width, value-scale=1"/>
+        <title >Sound Check Records</title>
+    </head>
+
+    <body>
+        <div class="content pt-0" layout:fragment="main-content" >
+            <div class="card" >
+                <div class="card-header header-elements-inline">
+                    <h5 class="card-title">Song List</h5>
+                    <div class="header-elements">
+                        <div class="list-icons">
+                            <a class="list-icons-item" data-action="reload"></a>
+
+                        </div>
+                    </div>
+                </div>
+                <table class="table datatable-sorting">
+                    <thead>
+                        <tr>
+                            <th>Song Title</th>
+                            <th>Artiste</th>
+                            <th>Writer</th>
+                            <th>Producer</th>
+                            <th>Engineer</th>
+                            <th>Date Recorded</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr  th:each="sList:${songlist}">
+                            <td th:text="${sList.songtitle}"></td>
+                            <td th:text="${sList.artistename}"></td>
+                            <td th:text="${sList.writer}"></td>
+                            <td th:text="${sList.producer}"></td>
+                            <td th:text="${sList.engineer}"></td>
+                            <!--<td th:text="${projList.projectstartdate}"></td>-->
+                            <td th:text="${#dates.format(sList.projectstartdate, 'dd-MMM-yyyy')}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+         
+        </div>
+    
+        <!-- /single row selection -->
+    </body>
+</html>

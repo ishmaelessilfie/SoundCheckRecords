@@ -1,0 +1,17 @@
+{
+  "groups": [
+    {
+      "name": "file",
+      "type": "com.SoundTrackRecords.Configuration.FileStorageProperties",
+      "sourceType": "com.SoundTrackRecords.Configuration.FileStorageProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "file.upload-dir",
+      "type": "java.lang.String",
+      "sourceType": "com.SoundTrackRecords.Configuration.FileStorageProperties"
+    }
+  ],
+  "hints": []
+}

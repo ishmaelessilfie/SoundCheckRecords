@@ -1,0 +1,106 @@
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{main}">
+
+    <head>
+        <meta charset="UTF-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta  content="width=device-width, value-scale=1"/>
+        <title >Sound Check Records</title>
+
+    </head>
+
+    <body>
+        <div class="content pt-0" layout:fragment="main-content" >
+
+            <div class="card" >
+                <div class="card-header header-elements-inline">
+                    <h1 class="card-title">Invoice List</h1>
+                    <div class="header-elements">
+                        <div class="list-icons">
+                            <a class="list-icons-item" data-action="reload"></a>
+
+                        </div>
+                    </div>
+                </div>
+                <table class="table datatable-sorting">
+                    <thead >
+                        <tr >
+                            <th>Username</th>
+                            <th>Role</th>
+                            <th>Photo</th>
+                            <th>Date created</th>
+                            <th class="text-center">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr  th:each="userList:${userlist}">
+                            <td th:text="${userList.username}"></td>
+                             <td th:text="${userList.role}"></td>
+                             <td><img th:src="${userList.photo}" width="40" height="40"></img></td>
+                            <td th:text="${userList.datecreated}"></td>
+                            <td class="text-center">
+                                <div class="list-icons">
+                                    <div class="dropdown">
+                                        <a href="#" class="list-icons-item" data-toggle="dropdown">
+                                            <i class="icon-menu9"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right ">
+                                          
+                                            <a th:href="@{edit_user/(id=${userList.id})}" class="dropdown-item updateuser"><i class="icon-pencil"></i> <span class="badge badge-info">Update</span></a>
+                                            <a th:href="@{#delete}" th:attr="data-id=${userList.id}" class="dropdown-item  deletebtnuser"  ><i class="icon-trash"></i> <span class="badge badge-warning">Delete</span></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>  
+                        </tr>
+                    </tbody>
+                </table>
+            </div>  
+            
+            <!--UPDATE PROFILE................................................ -->
+           <div id="updateProfile" class="modal fade" tabindex="-1">
+                <div class="modal-dialog modal-small">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Budget Entry</h5>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div  class="modal-body">
+                            
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <label >Username</label>
+                                        <input type="hidden" id="idupdd" class="form-control"  name="id" />
+                                        <input type="text" id="usernamer" class="form-control"  name="username"  />
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <label >Password</label>
+                                        <input type="password" id="passwordd" class="form-control"  name="password" required/>
+                                        <input type="hidden" id="datecreatt" class="form-control"  name="datecreated" /> 
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <form id="fileUploadFormuppp">
+                                            <label >Photo </label>
+                                            <input type="hidden" id="hotoud" class="form-control"  name="filehidden"/>    
+                                            <input type="file" id="photod" class="form-control"  name="file" required/> 
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="cancel" class="btn btn-link" data-dismiss="modal">close</button>
+                                <button type="submit" class="btn bg-primary" id="btnSubmitprofileupdd" >Submit</button>
+                            </div>
+                          
+                        </div>
+                    </div>
+                </div>
+            </div>
+           <!--END,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,-->
+           
+        </div>
+
+    </body>
+</html>

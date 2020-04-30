@@ -1,0 +1,372 @@
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{main}">
+
+    <head>
+        <meta charset="UTF-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta  content="width=device-width, value-scale=1"/>
+        <title >Sound Check Records</title>
+        
+    </head>
+
+    <body>
+        <div class="content pt-0" layout:fragment="main-content" >
+            
+            <div class="card" >
+                <div class="card-header header-elements-inline">
+                    <h1 class="card-title">Project List</h1>
+                    <div class="header-elements">
+                        <div class="list-icons">
+                            <a class="list-icons-item" data-action="reload"></a>
+
+                        </div>
+                    </div>
+                </div>
+                <table class="table datatable-responsive">
+                    <thead>
+                        <tr >
+                             <th>Code</th>
+                            <th>Artist(s)</th>
+                            <th>Song</th>
+                            <th>Project type</th>
+                            <th>Activity type</th>
+                            <th>Genre</th>
+                            <th>Date</th>
+                            <th class="text-center">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr  th:each="projList:${projectList}">
+                             <td th:text="${projList.number}"<span class="badge badge-success" style="margin-top:15px "></span>></td>
+                            <td th:text="${projList.artistename}"></td>
+                           
+                            <td th:text="${projList.songtitle}"></td>
+                            <td th:text="${projList.projecttype.projecttype}"></td>
+                            <td th:text="${projList.activitytype.activitytype}"></td>
+                            <td th:text="${projList.genre.genre}"></td>
+                            <td th:text="${#dates.format(projList.projectstartdate, 'dd-MMM-yyyy')}"></td>
+                            <td class="text-center">
+                                <div class="list-icons">
+                                    <div class="dropdown">
+                                        
+                                        <a href="#" class="list-icons-item" data-toggle="dropdown">
+                                            <i class="icon-menu9"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right ">
+                                            
+                                            <a th:href="@{get_project/(id=${projList.id})}" class="dropdown-item viewbtn"> <i class="icon-eye"></i> <span class="badge badge-success">View</span></a>
+                                            <a th:href="@{get_project/(id=${projList.id})}" class="dropdown-item editbtn"><i class="icon-pencil"></i> <span class="badge badge-info">Update</span></a>
+                                            <a th:href="@{#delete}" th:attr="data-id=${projList.id}" class="dropdown-item  " id="deleteprojbtn" ><i class="icon-trash"></i> <span class="badge badge-warning">Delete</span></a>
+                                            <a th:href="@{get_project/(id=${projList.id})}" class="dropdown-item invoicebtn"  ><i class="icon-plus3"></i> <span class="badge badge-success">Create invoice</span></a>                   
+                                       </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+               </div>   
+            
+ <!-- EDIT PROJECT........................................................-->
+                <div id="EditRecord" class="modal fade" tabindex="-1">
+                    <form th:action="@{/update_project}"  method="PUT" class="form-valid" > 
+                        <div class="modal-dialog modal-full">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Update  project</h5>
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                </div>
+
+                                <div style="margin-bottom:-15px;">
+                                    <h6 style="text-align:center;">Artiste information</h6>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-sm-8">
+                                                 <input type="hidden" name="id" id="id" >
+                                                <label >Artiste(S)</label>
+                                                <input type="text" class="form-control" name="artistename" id="artistename" required/>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <label >Song tittle</label>
+                                                <input type="text" id="songtitle" class="form-control" name="songtitle" required />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <label >Project Type</label>
+                                                <select class="form-control" id="projecttype" name="projecttype.id" required >
+                                                    <option th:each="i : ${projecttypeList}" th:value="${i.id}" th:text="${i.projecttype}">
+                                                    </option>
+                                                </select>  
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <label >Activity</label>
+                                                <select class="form-control" id="activitytype" name="activitytype.id" required>
+                                                    <option th:each="i : ${activitytypeList}" th:value="${i.id}" th:text="${i.activitytype}">
+                                                    </option>
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <label >Genre</label>
+                                                <select class="form-control" id="genre" name="genre.id">
+                                                    <option th:each="i : ${genreList}" th:value="${i.id}" th:text="${i.genre}">
+                                                    </option>
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <label> Combination</label>
+                                                <select class="form-control" id="combination" name="combination.id" required>
+                                                    
+                                                    <option th:each="i : ${combinationList}" th:value="${i.id}" th:text="${i.combination}">
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <label >Writer(s)</label>
+                                                <input type="text" id="writer" class="form-control" name="writer" required/>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label >Producer(s)</label>
+                                                <input type="text" id="producer" class="form-control" name="producer" required/>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label >Engineer(S) </label>
+                                                <input type="text" id="engineer" class="form-control" name="engineer" required/>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label >Start date </label>
+                                                <input type="text" class="form-control pickadate-accessibility" id="projectstartdate" value=""   name="projectstartdate" />  
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <label >City/Town/Village</label>
+                                                <input type="text" id="town" class="form-control" name="town" required/>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <label >Country</label>
+                                                <input type="text" id="country" class="form-control" name="country" required/>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <label >Project Code</label>
+                                                <input type="text" id="number" class="form-control" name="number" readonly required/>
+                                            </div>   
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <label >Email</label>
+                                                <input type="text" id="email" class="form-control" name="email" required/>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label >Phone #</label>
+                                                <input type="text" id="phone" class="form-control" name="phone" required/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                                    <button type="submit"  class="btn bg-primary ">Submit form</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </form>
+            </div>
+             <!-- END,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,-->
+             
+             
+            <!-- ADD INVOICE............................................... -->
+            <div id="AddInvoice" class="modal fade" tabindex="-1">
+            <form th:action="@{/save-invoice}" id="invice" class="form-validate-jquery container">
+             <div class="modal-dialog modal-small">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Budget Entry</h5>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group another">
+                                <div class="row">
+                                        <div class="col-sm-4">
+                                             <input type="hidden" name="id" id="myid"/>
+<!--                                             <input type="hidden" name="project" id="projectid"/>-->
+                                       
+                                            <label >Studio Hours Cost</label>
+                                             <input type="text" id="studiotimecost" class="form-control another"  name="studiotimecost" placeholder="Enter 0 if no bill required" required/>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <label >Number of Hours</label>
+                                            <input type="text" id="timeinhr" class="form-control another"  name="timeinhr" placeholder="Enter 0 if no bill required" required/>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <label >Mixing Cost(S) </label>
+                                            <input type="text" id="mixingcost" class="form-control"  name="mixingcost"  placeholder="Enter 0 if no bill required" required/>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <label >Mastering Cost </label>
+                                            <input type="text" class="form-control" id="masteringcost" value=""  name="masteringcost" placeholder="Enter 0 if no bill required" required/>
+                                        </div>
+                                     <div class="col-sm-4">
+                                            <label >Cost of Instruments </label>
+                                            <input type="text" class="form-control" id="costofintruments" value=""  name="costofintruments" placeholder="Enter 0 if you don' require it" required />
+                                        </div>
+                                </div>
+                            </div>
+
+                            <div class="modal-footer">
+                               
+                                 <button type="reset" class="btn btn-light" id="reset">Reset <i class="icon-reload-alt ml-2"></i></button>
+                                 <button type="submit" class="btn bg-primary" id="eer">Submit</button>
+
+                            </div>
+                        </div>
+                    </div>
+             </div>
+            </form>
+        </div>
+         <!-- END,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,-->    
+            
+        <!-- VIEW PROJECT DETAIL........................................................-->
+        <div id="ViewDetail" class="modal fade" tabindex="-1">
+                    <form th:action="@{/update_project}" class="editForm" >
+                        <div class="modal-dialog modal-full">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Project Detail</h5>
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-group another">
+                                        <div class="row">
+                                            <div class="col-sm-8">
+                                                 <input type="hidden" name="id" id="idd">
+                                                
+                                                <label >Artiste(S)</label>
+                                                <input type="text" class="form-control" name="artistename" readonly id="artistenameview"/>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <label >Song tittle</label>
+                                                <input type="text" id="songtitleview" class="form-control" readonly name="songtitle" />
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <label >Project Type</label>
+                                                <select class="form-control" id="projecttypeview" readonly name="projecttype.id"  >
+                                                    <option value="" disabled> ---Choose project type--- </option>
+                                                    <option th:each="i : ${projecttypeList}" th:value="${i.id}" th:text="${i.projecttype}">
+                                                    </option>
+                                                </select>  
+
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <label >Activity</label>
+                                                <select class="form-control" id="activitytypeview" readonly name="activitytype.id">
+                                                    <option value="" disabled> ---Choose activity type--- </option>
+                                                    <option th:each="i : ${activitytypeList}" th:value="${i.id}" th:text="${i.activitytype}">
+                                                    </option>
+                                                </select>
+
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <label >Genre</label>
+                                                <select class="form-control" id="genreview" readonly name="genre.id">
+                                                    <option value="" disabled> ---Choose genre--- </option>
+                                                    <option th:each="i : ${genreList}" th:value="${i.id}" th:text="${i.genre}">
+                                                    </option>
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <label> Combination</label>
+                                                <select class="form-control" id="combinationview" readonly name="combination.id">
+                                                    <option value="" disabled> ---Choose combination type--- </option>
+                                                    <option th:each="i : ${combinationList}" th:value="${i.id}" th:text="${i.combination}">
+                                                    </option>
+                                                </select>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group another">
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <label >Writer(s)</label>
+                                                <input type="text" id="writerview" class="form-control" readonly name="writer"/>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label >Producer(s)</label>
+                                                <input type="text" id="producerview" class="form-control" readonly name="producer"/>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label >Engineer(S) </label>
+                                                <input type="text" id="engineerview" class="form-control" readonly name="engineer"/>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label >Start date </label>
+                                                <input type="text" class="form-control" id="projectstartdateview" value="" readonly name="projectstartdate"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group another">
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <label >City/Town/Village</label>
+                                                <input type="text" id="townview" class="form-control" readonly name="town"/>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <label >Country</label>
+                                                <input type="text" id="countryview" class="form-control" readonly name="country"/>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <label >Amount Charged(GHc)</label>
+                                                <input type="text" id="budgetview" class="form-control" readonly name="budget"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <label >Email</label>
+                                                <input type="text" id="emailview" class="form-control" readonly name="email"/>
+
+                                            </div>
+
+                                            <div class="col-sm-6">
+                                                <label >Phone #</label>
+                                                <input type="text" id="phoneview" class="form-control" readonly name="phone"/>
+
+                                                <span class="form-text text-muted">0544793757</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div> 
+         <!--END,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,-->
+        </div>
+        <!-- /single row selection -->
+    </body>
+</html>

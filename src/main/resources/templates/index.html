@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{main}">
+
+    <head>
+        <meta charset="UTF-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta content="width=device-width, value-scale=1"/>
+        <title >Sound Check Records</title>
+    </head>
+
+    <body>
+        <div class="content pt-0" layout:fragment="main-content">  
+        <div class="card" th:fragment="index">
+            <div class="card-header header-elements-inline">
+                <h6 class="card-title">Traffic sources</h6>
+                <div class="header-elements">
+                    <div class="form-check form-check-right form-check-switchery form-check-switchery-sm">
+                        <label class="form-check-label">
+                            Live update:
+                            <input type="checkbox" class="form-input-switchery" checked data-fouc/>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body py-0">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="d-flex align-items-center justify-content-center mb-2">
+                            <a href="#" class="btn bg-transparent border-success-300 text-success-300 rounded-round border-2 btn-icon mr-3">
+                                <i class="icon-plus3"></i>
+                            </a>
+                            <div>
+                                <div class="font-weight-semibold">Total project</div>
+                                <span class="badge badge-pill bg-warning-400 ml-auto ml-md-0" th:text="${ProjectCount}"></span>                      
+                            </div>
+                        </div>
+                        <div class="w-75 mx-auto mb-3" id="new-visitors"></div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="d-flex align-items-center justify-content-center mb-2">
+                            <a href="#" class="btn bg-transparent border-orange-300 text-orange-300 rounded-round border-2 btn-icon mr-3">
+                                <i class="icon-watch2"></i>
+                            </a>
+                            <div>
+                                <div class="font-weight-semibold">Vocal Recording</div>
+                                <span class="badge badge-pill bg-info-400 ml-auto ml-md-0" th:text="${ProjectVocalCount}" ></span>
+                            </div>
+                        </div>
+                        <div class="w-75 mx-auto mb-3" id="new-sessions"></div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="d-flex align-items-center justify-content-center mb-2">
+                            <a href="#" class="btn bg-transparent border-blue-300 text-blue-300 rounded-round border-2 btn-icon mr-3">
+                                <i class="icon-accessibility"></i>
+                            </a>
+                            <div>
+                                <div class="font-weight-semibold">Writing</div>
+                                <span class="badge badge-pill bg-success-400 ml-auto ml-md-0" th:text="${ProjectWritingCount}" >9</span>
+                            </div>
+                        </div>
+                        <div class="w-75 mx-auto mb-3" id="total-online">Writing</div>
+                    </div>     
+                </div>
+            </div>
+            <div class="chart position-relative" id="traffic-sources">
+        </div>
+       </div>
+        </div>  
+    </body>
+</html>

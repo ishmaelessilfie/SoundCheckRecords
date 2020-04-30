@@ -1,0 +1,166 @@
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{main}">
+
+    <head>
+        <meta charset="UTF-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta  content="width=device-width, value-scale=1"/>
+        <title >Sound Check Records</title>
+
+    </head>
+
+    <body>
+
+        <div class="content pt-0" layout:fragment="main-content" >
+
+            <div class="toolbar hidden-print">
+                <div class="text-right">
+                    <!--                        <button  class="btn btn-info" id="print"><i class="fa fa-print"></i> Print</button>-->
+                    <button class="btn btn-info" id="print"><i class="fa fa-file-pdf-o"></i> Export as PDF</button>
+                </div>
+               
+            </div>
+            <div id="invoice">
+
+                <div class="invoice overflow-auto">
+                    <div style="min-width: 600px">
+                        <header>
+                            <div class="row">
+                                <div class="col">
+                                    <a >
+                                        <img src="global_assets/images/SCR.jpg" style="width:100px; height:100px;" alt=""/>
+                                    </a>
+                                </div>
+                                <div class="col company-details">
+                                    <h4 class="name">
+                                       SoundCheck Records
+                                    </h4>
+                                    <div>Teshie Lascala, close to KAIPTC</div>
+                                    <div>+233 243323743</div>
+                                    <div>soundcheckrecords.com.gh</div>
+                                </div>
+                            </div>
+                        </header>
+                        <main>
+                            <div class="row contacts">
+                                <div class="col invoice-to">
+                                    <div class="text-gray-light">INVOICE TO:</div>
+                                    <div style="display:inline;">
+                                        <strong> Name :</strong>
+                                        <span class="to" th:text="${invoicepdfecel.artistename}">John Doe</span>
+                                    </div></br>
+                                    <div style="display:inline;">
+                                        <strong >Town: </strong>
+                                        <span class="address" th:text="${invoicepdfecel.town} ">796 Silver Harbour, TX 79273, US</span>
+                                        <strong>, Phone: </strong>
+                                        <span class="iij" th:text="${invoicepdfecel.phone}">796 Silver Harbour, TX 79273, US</span>
+                                        <strong>, Country: </strong>
+                                        <span class="gg" th:text="${invoicepdfecel.country}">796 Silver Harbour, TX 79273, US</span>
+                                    </div>
+                                    <div ><strong> Email: </strong><a href="mailto:john@example.com" th:text="${invoicepdfecel.email}" style="color:black; font-family: Arial, sans-serif; font-size:12px;">john@example.com</a></div>
+                                </div>
+                                <div class="col invoice-details" sty>
+
+                                    <h1  th:text="${invoicepdfecel.invoiceno}"></h1>
+                                    <div class="date" th:text="${invoicepdfecel.datecreated}"></div>
+
+                                </div>
+                            </div>
+                            <table border="0" cellspacing="0" cellpadding="0">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th class="text-left">DESCRIPTION</th>
+                                        <th class="text-right">HOURS</th>
+                                        <th class="text-right">COST(Ghc)</th>
+                                        <th class="text-right">TOTAL COST(Ghc)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="no"></td>
+                                        <td class="text-left" >
+                                            STUDIO TIME <!--           th:text="${invoicepdfecel.}"                                         Youtube channel-->
+                                        </td>
+                                        <td class="unit" th:text="${invoicepdfecel.timeinhr}">$0.00</td>
+                                        <td class="qty" th:text="${invoicepdfecel.studiotimecost}">100</td>
+                                        <td class="total" th:text="${invoicepdfecel.totalstudicost}">$0.00</td>
+                                    </tr>
+                                    <!--                                      datecreated       | masteringcost | mixingcost | studiotimecost | timeinhr | totalcost | project_id | invoiceno | costofintruments | totalstudicost-->
+                                    <tr>
+                                        <td class="no"></td>
+                                        <td class="text-left">MATERING</td>
+                                        <td class="unit">***</td>
+                                        <td class="qty"th:text="${invoicepdfecel.masteringcost}"></td>
+                                        <td class="total" th:text="${invoicepdfecel.masteringcost}" >$1,200.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="no"></td>
+                                        <td class="text-left">MIXING</td>
+                                        <td class="unit">***</td>
+                                        <td class="qty" th:text="${invoicepdfecel.mixingcost}"></td>
+                                        <td class="total" th:text="${invoicepdfecel.mixingcost} ">$3,200.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="no"></td>
+                                        <td class="text-left">INSTRUMENTS</td>
+                                        <td class="unit">***</td>
+                                        <td class="qty" th:text="${invoicepdfecel.costofintruments}">20</td>
+                                        <td class="total"  th:text="${invoicepdfecel.costofintruments}">$800.00</td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="2"></td>
+                                        <td colspan="2">SUBTOTAL</td>
+                                        <td th:text="${invoicepdfecel.totalcost}">$5,200.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2"></td>
+                                        <td colspan="2">TAX (0%)</td>
+                                        <td>0.0</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2"></td>
+                                        <td colspan="2">GRAND TOTAL</td>
+                                        <td th:text="${invoicepdfecel.totalcost}">$6,500.00</td>
+                                    </tr>
+                                </tfoot>
+                            </table>      
+                            
+                            <div class="row" >
+                                <div class="col-sm-6">
+                                    <div style="margin-left:100px; padding-bottom: 30px;">
+                                    <strong >PAYMENT METHOD</strong>
+                                     <hr  style="border: 1px solid black; width:116px; margin-top:5px; margin-left:1px">
+                                    </div>
+                                    
+                                    <div  >
+                                        <P style="margin-left: 120px;"> <strong> Bank Account</strong></p>
+                                       
+                                        <p style="margin-left:70px;"> <strong>Bank:  </strong>  United Bank for Africa, Ghana</p>
+                                        <p style="margin-left:45px;"> <strong>Account name:   </strong>Addico Nii Awuley Elishama</p>
+                                        <p style="margin-left:70px;"> <strong>Account number:   </strong>01325194401552</p>
+                                         <p style="margin-left:45px;"> <strong>Account number: </strong>Teshie Lascala</p> 
+                                    </div>
+                                 </div>  
+                                <div class="col-sm-6"  >
+                                    <div style="float:right; margin-top:100px;">
+                                    <p style="padding-right: -200px;">................................................................................</p>
+                                    <p>Addico Awuley Elishama</p>
+                                    </di>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr  style="border: 1px solid black; width:290px; margin-top:5px; margin-left :30px">
+                            <div class="notices">
+                                <div class="notice" style="font-family: Gabriola ;">Thanks for business with us.</div>
+                            </div>
+                            <!--DO NOT DELETE THIS div. IT is responsible for showing footer always at the bottom-->
+                            <div></div>
+                    </div>
+                </div>
+            </div>
+    </body>
+</html>
