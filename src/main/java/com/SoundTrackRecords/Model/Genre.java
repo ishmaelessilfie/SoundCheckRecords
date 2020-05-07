@@ -5,7 +5,6 @@
  */
 package com.SoundTrackRecords.Model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import java.io.Serializable;
 import java.util.List;
@@ -31,9 +30,9 @@ import lombok.ToString;
 @Data
 @Table(name = "genre")
 public class Genre implements Serializable {
-
+    
     private static final long serialVersionUID = 1L;
-   
+    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;

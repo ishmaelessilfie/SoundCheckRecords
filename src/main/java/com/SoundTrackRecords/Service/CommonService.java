@@ -48,7 +48,8 @@ public class CommonService {
  
 
 
-     
+   
+    
     @Transactional
     public void saveInvoice( Long id, Double studiotimecost,  Double mixingcost, int timeinhr,Double masteringcost, Double costofintruments) {
       Invoice inv=new Invoice();
@@ -87,8 +88,7 @@ public class CommonService {
 		}
 		return jsonObject.toString();
 	}
-        
-        
+         
          public String deleteuser(Long id) {
 		JSONObject jsonObject = new JSONObject();
 		try {

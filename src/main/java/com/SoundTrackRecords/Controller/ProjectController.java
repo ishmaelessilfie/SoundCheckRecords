@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package com.SoundTrackRecords.Controller;
+
 import com.SoundTrackRecords.Model.ActivityType;
 import com.SoundTrackRecords.Model.Combination;
 import com.SoundTrackRecords.Model.Genre;
@@ -35,11 +36,14 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import com.itextpdf.text.log.Logger;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+import org.springframework.http.ResponseEntity;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
@@ -47,6 +51,8 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -79,7 +85,7 @@ public class ProjectController {
     public ProjectController(SerialNumber serialNumber) {
         this.serialNumber = serialNumber;
     }
-    Logger log = LoggerFactory.getLogger(ProjectController.class); 
+    Logger log = LoggerFactory.getLogger(ProjectController.class);
 //TOTAL NUMBER OF PROJECTS, TOTAL NUMBER OF WRITINGS, AND TOTAL NUMBER OF VOCALS TO INDEX PAGE
     @RequestMapping("/")
     public String index(Model m, Principal principal) {
@@ -94,56 +100,52 @@ public class ProjectController {
     public String profile(Principal principal, String username) {
         String un = principal.getName();
         return usersRepository.getUserPhoto(un);
-    } 
+    }
 //GET LOGGEDIN USER BY USERNAME
     @RequestMapping(value = "/myprofile")
     @ResponseBody
     public Users profiles(Principal principal) {
         String un = principal.getName();
         return usersRepository.findByUsername(un);
-    }  
-//LIST OF ALL PROJECT TYPE
-    @ModelAttribute("projecttypeList")
+    }
+//LIST OF ALL PROJECT TYPE 
+    @RequestMapping(value = "/projecttypeList")
     @ResponseBody
     public List<ProjectType> getProjectTypeList() {
         return projectTypeRepository.findAll();
     }
 //LIST OF ALL ACTIVITIES
-    @ModelAttribute("activitytypeList")
+    @RequestMapping("/activitytypeList")
     @ResponseBody
     public List<ActivityType> getActivityTypeList() {
         return activityTypeRepository.findAll();
     }
 //LIST OF ALL GENRES
-    @ModelAttribute("genreList")
+    @RequestMapping("/genreList")
     @ResponseBody
     public List<Genre> getgenreList() {
         return genreRepository.findAll();
-    }  
+    }
 //LIST OF ALL COMBINATIONS
-    @ModelAttribute("combinationList")
+    @RequestMapping("/combinationList")
     @ResponseBody
     public List<Combination> combinationList() {
         return combinationRepository.findAll();
-    }  
+    }
 //ADD NEW PROJECT
-    @GetMapping("/save-project")
-    //@ResponseBody
-    public String save(@Valid @ModelAttribute Project project, Model model) {
-        project.setNumber(serialNumber.generateRegistrationNumber());
-        model.addAttribute("cmd", new Project());
-        projectRepository.save(project);
-        return "redirect:/";
+    @RequestMapping(value = "/project", method = {RequestMethod.POST})
+    ResponseEntity<Project> createCategory(@Valid Project project) throws URISyntaxException {
+         project.setNumber(serialNumber.generateRegistrationNumber());
+        Project result = projectRepository.save(project);
+        return ResponseEntity.created(new URI("/project" + result.getId())).body(result);
     }
 //LIST OF ALL PROJECTS
     @GetMapping(value = "/projectlist")
     //@ResponseBody
     public String projectList(Model model) {
         model.addAttribute("projectList", projectRepository.findAll());
-        //model.addAttribute("projectList", projectRepository.findAllByOrderByArtistenameDesc());
         return "table";
     }
-    
 //LIST OF ALL SONGS
     @GetMapping("/songlist")
     public String songlist(Model m) {
@@ -156,18 +158,12 @@ public class ProjectController {
         m.addAttribute("artistlist", projectRepository.getArtisteDetail());
         return "artistlist"; //html
     }
-
-//    @GetMapping("/delete_project")
-//    public String delete(Model m, Long id) {
-//        projectRepository.deleteById(id);
-//        return "redirect:/projectlist";
-//    }
-    
 //DELETE A PROJECT
     @GetMapping(value = "/delete_project/{id}")
-	public @ResponseBody String addressProect(@PathVariable Long id) {
-		return commonservice.deleteproj(id);
-	}
+    public @ResponseBody
+    String addressProect(@PathVariable Long id) {
+        return commonservice.deleteproj(id);
+    }
 //LIST OF ALL INVOICE
     @GetMapping(value = "/invoicelist")
     public String invoiceList(Model model) {
@@ -176,24 +172,24 @@ public class ProjectController {
     }
 //GETTING INVOICE TO VIEW
     @GetMapping("/invoice")
-    public String invoicepdfexcel(Long id, Project project ,Model model) {
+    public String invoicepdfexcel(Long id, Project project, Model model) {
         model.addAttribute("invoicepdfecel", invoiceRepository.getInvoice(id));
         //model.addAttribute("invproj", projectRepository.getOne(id));
         return "invoice";
     }
- //GET ONE PROJECT BY ID
+    //GET ONE PROJECT BY ID
     @GetMapping("/get_project")
     @ResponseBody
     public Project getOneProject(Long id) {
         return projectRepository.getOne(id);
     }
- //UPDATE PROJECT
-    @RequestMapping(value = "/update_project", method = {RequestMethod.PUT, RequestMethod.GET})
-    public String update(Project project) {
-        projectRepository.save(project);
-        return "redirect:projectlist";
+    //UPDATE PROJECT
+    @RequestMapping(value = "/update_project/{id}", method = {RequestMethod.GET, RequestMethod.PUT})
+    ResponseEntity<Project> updateCategory(Project project) {
+        Project result = projectRepository.save(project);
+        return ResponseEntity.ok().body(result);
     }
- //ADD NEW INVOICE
+    //ADD NEW INVOICE
     @GetMapping("/save-invoice")
     public String saveInvoice(@RequestParam Long id, @RequestParam double masteringcost,
             @RequestParam double mixingcost, @RequestParam double studiotimecost, @RequestParam double costofintruments, @RequestParam int timeinhr) {
@@ -208,13 +204,12 @@ public class ProjectController {
     public List<Project> getact() {
         return projectRepository.findAllByOrderByProjectstartdateAsc();
     }
-    
 //GET INVOICE BY ID
     @GetMapping("/edit_invoice")
     @ResponseBody
     public Invoice editInvoice(Long id) {
         return invoiceRepository.getOne(id);
-    }   
+    }
     @RequestMapping(value = "/update_invoice", method = {RequestMethod.PUT, RequestMethod.GET})
     @Transactional
     public String updateinvoice(Invoice invoice, @RequestParam Long id, @RequestParam double masteringcost,
@@ -236,10 +231,11 @@ public class ProjectController {
     }
 //DELETE INVOICE
     @GetMapping(value = "/delete_invoice/{id}")
-	public @ResponseBody String addressIvoice(@PathVariable Long id) {
-            projectRepository.updatedelete(id);
-		return commonservice.deleteinv(id);
-	}
+    public @ResponseBody
+    String addressIvoice(@PathVariable Long id) {
+        projectRepository.updatedelete(id);
+        return commonservice.deleteinv(id);
+    }
 
 //GENERATE INVOICE AS PDF
     @RequestMapping(value = "/invoicePDF", method = RequestMethod.GET)
@@ -248,7 +244,7 @@ public class ProjectController {
     void soundcheckInvoicePDF(HttpServletResponse response, @RequestParam Long invoiceid) throws ClassNotFoundException, SQLException, IOException {
         // InvoiceDto invoicedto = invoiceRepository.getInvoice(invoic_id);
         try {
-           
+
             //Connection conexion = jdbcTemplate.getDataSource().getConnection();
             java.sql.Connection conexion = DriverManager.getConnection("jdbc:postgresql://localhost:5432/soundcheck", "postgres", "E0544793757I");
             JasperReport report = JasperCompileManager.compileReport(getClass().getResourceAsStream("/Report/SounCheckInvoice.jrxml"));

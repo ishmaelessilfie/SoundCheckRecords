@@ -57,7 +57,8 @@
                                             
                                             <a th:href="@{get_project/(id=${projList.id})}" class="dropdown-item viewbtn"> <i class="icon-eye"></i> <span class="badge badge-success">View</span></a>
                                             <a th:href="@{get_project/(id=${projList.id})}" class="dropdown-item editbtn"><i class="icon-pencil"></i> <span class="badge badge-info">Update</span></a>
-                                            <a th:href="@{#delete}" th:attr="data-id=${projList.id}" class="dropdown-item  " id="deleteprojbtn" ><i class="icon-trash"></i> <span class="badge badge-warning">Delete</span></a>
+<!--                                             <a th:href="@{get_project/(id=${projList.id})}" class="dropdown-item editbtn"><i class="icon-pencil"></i> <span class="badge badge-info">Update</span></a>-->
+                                            <a th:href="@{#}" th:attr="data-id=${projList.id}" class="dropdown-item  " id="deleteprojbtn" ><i class="icon-trash"></i> <span class="badge badge-warning">Delete</span></a>
                                             <a th:href="@{get_project/(id=${projList.id})}" class="dropdown-item invoicebtn"  ><i class="icon-plus3"></i> <span class="badge badge-success">Create invoice</span></a>                   
                                        </div>
                                     </div>
@@ -70,7 +71,7 @@
             
  <!-- EDIT PROJECT........................................................-->
                 <div id="EditRecord" class="modal fade" tabindex="-1">
-                    <form th:action="@{/update_project}"  method="PUT" class="form-valid" > 
+                    <form  class="form-valid" id="editformid" > 
                         <div class="modal-dialog modal-full">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -179,7 +180,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
-                                    <button type="submit"  class="btn bg-primary ">Submit form</button>
+                                    <button type="submit"  class="btn bg-primary submitupdatebtn">Submit form</button>
                                 </div>
 
                             </div>
@@ -195,7 +196,7 @@
              <div class="modal-dialog modal-small">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title">Budget Entry</h5>
+                            <h5 class="modal-title">Invoice Entry</h5>
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                         </div>
                         <div class="modal-body">

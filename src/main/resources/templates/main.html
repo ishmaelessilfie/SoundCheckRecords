@@ -8,7 +8,7 @@
         <meta  content="width=device-width, value-scale=1"/>
         <title >Sound Check Records</title>
     </head>
-    
+
     <body>
         <div class="navbar navbar-expand-md navbar-light navbar-static" >
             <div class="navbar-brand">
@@ -162,7 +162,7 @@
                 <div class="sidebar-content">
 
                     <!-- User menu -->
-                <div class="sidebar-user">
+                    <div class="sidebar-user">
                         <div class="card-body">
                             <div class="media">
                                 <div class="mr-3">
@@ -250,8 +250,8 @@
                 <div th:replace="footer::footer">
                 </div>
             </div>
-            
-             <!--ADD PROJECT................................................ -->
+
+            <!--ADD PROJECT................................................ -->
             <div id="AddRecord" class="modal fade " tabindex="-1">
                 <div class="modal-dialog modal-full">
                     <div class="modal-content">
@@ -259,7 +259,7 @@
                             <h5 class="modal-title">Add Project</h5>
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                         </div>
-                        <form th:action="@{/save-project}" th:object="${cmd}" id="main" class="form-validate" >
+                        <form  id="main" class="form-validate" >
                             <div style="margin-bottom:-15px;">
                                 <h6 style="text-align:center;">Artiste information</h6>
                             </div>
@@ -268,13 +268,13 @@
                                     <div class="row">
                                         <div class="col-sm-8">
                                             <label >Artiste(S)<span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" name="artistename" required/>
+                                            <input type="text" class="form-control"id="artistenamead" name="artistename" required/>
                                             <div class="invalid-feedback">Please enter artiste name to continue.</div>
                                         </div>
                                         <div class="col-sm-4">
                                             <label >Song tittle<span class="text-danger">*</span></label>
 
-                                            <input type="text" class="form-control" name="songtitle" required/>
+                                            <input type="text" class="form-control" id="songtitlead" name="songtitle" required/>
                                             <!--                                         <div class="invalid-feedback">Please enter song title to continue</div>-->
                                         </div>
                                     </div>
@@ -283,37 +283,29 @@
                                     <div class="row">
                                         <div class="col-sm-3">
                                             <label >Project Type<span class="text-danger">*</span></label>
-                                            <select class="form-control select-basic" id="ac-combo" name="projecttype.id" required>
-                                                <option value="" selected disabled> ---Choose project type--- </option>
-                                                <option th:each="i : ${projecttypeList}" th:value="${i.id}" th:text="${i.projecttype}">
-                                                </option>
+                                            <select class="form-control select-basic  projecttypead" id="projecttypead" name="projecttype" required>
+                                                 <option value="">--Select poject type--</option>
                                             </select>  
                                             <!--                                         <div class="invalid-feedback">Please enter select project type to continue</div>-->
                                         </div>
                                         <div class="col-sm-3">
                                             <label >Activity<span class="text-danger">*</span></label>
-                                            <select class="form-control" id="activitytype" name="activitytype.id" required>
-                                                <option value="" selected disabled> ---Choose Activity type--- </option>
-                                                <option th:each="i : ${activitytypeList}" th:value="${i.id}" th:text="${i.activitytype}">
-                                                </option>
+                                            <select class="form-control activitytypead" id="activitytypead" name="activitytype" required>
+                                                <option value="">--Select activity type--</option>
                                             </select>
                                             <!--                                        <div class="invalid-feedback">Please select activity type to continue</div>-->
                                         </div>
                                         <div class="col-sm-3">
                                             <label >Genre<span class="text-danger">*</span></label>
-                                            <select class="form-control" id="gen" name="genre.id" required>
-                                                <option value="" selected disabled> ---Choose Activity type--- </option>
-                                                <option th:each="i : ${genreList}" th:value="${i.id}" th:text="${i.genre}">
-                                                </option>
+                                            <select class="form-control genread" id="genread" name="genre" required>
+                                                <option value="">--Select genre--</option>
                                             </select>
                                             <!--                                        <div class="invalid-feedback">Please select activity type to continue</div>-->
                                         </div>
                                         <div class="col-sm-3">
                                             <label> Combination<span class="text-danger">*</span></label>
-                                            <select class="form-control" id="combtype_id" name="combination.id" required>
-                                                <option value="" selected disabled> ---Choose combination--- </option>
-                                                <option th:each="i : ${combinationList}" th:value="${i.id}" th:text="${i.combination}">
-                                                </option>
+                                            <select class="form-control combinationad" id="combinationad" name="combination" required>
+                                                <option value="">--Select combination--</option>
                                             </select>
                                             <!--                                         <div class="invalid-feedback">Please select combination type to continue</div>-->
                                         </div>
@@ -323,23 +315,23 @@
                                     <div class="row">
                                         <div class="col-sm-6">
                                             <label >Writer(s)<span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" name="writer" required/>
+                                            <input type="text" class="form-control" id="writerad" name="writer" required/>
                                             <!--                                         <div class="invalid-feedback">Please enter song title to continue</div>
                                             -->
                                         </div>
                                         <div class="col-sm-6">
                                             <label >Producer(s)<span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" name="producer" required/>
-                                       <!-- <div class="invalid-feedback">Please enter producer to continue</div>-->
+                                            <input type="text" class="form-control" id="producerad" name="producer" required/>
+                                            <!-- <div class="invalid-feedback">Please enter producer to continue</div>-->
                                         </div>
                                         <div class="col-sm-6">
                                             <label >Engineer(S)<span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" name="engineer" required/>
+                                            <input type="text" class="form-control" id="engineerad" name="engineer" required/>
                                             <!--                                         <div class="invalid-feedback">Please enter engineer to continue</div>-->
                                         </div>
                                         <div class="col-sm-6">
                                             <label >Start date<span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control pickadate-accessibility" value=""   name="projectstartdate" required/>   
+                                            <input type="text" class="form-control pickadate-accessibility" id="projectstartdatead" name="projectstartdate"  required/>   
                                         </div>
                                     </div>
                                 </div>
@@ -347,17 +339,17 @@
                                     <div class="row">
                                         <div class="col-sm-4">
                                             <label >City/Town/Village<span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" name="town" required/>
+                                            <input type="text" class="form-control" id="townad" name="town" required/>
                                             <!--                                          <div class="invalid-feedback">Please enter City/Town/Village to continue</div>-->
                                         </div>
                                         <div class="col-sm-4">
                                             <label >Country<span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" name="country" required/>
+                                            <input type="text" class="form-control" id="countryad" name="country" required/>
                                             <!--                                        <div class="invalid-feedback">Please enter country to continue</div>-->
                                         </div>
                                         <div class="col-sm-4">
                                             <label >Phone #<span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" name="phone" required/>
+                                            <input type="text" class="form-control" id="phonead" name="phone" required/>
                                             <!--                                        <div class="invalid-feedback">Please enter phone to continue</div>-->
                                         </div>
                                     </div>
@@ -366,8 +358,8 @@
                                     <div class="row">
                                         <div class="col-sm-6">
                                             <label >Email<span class="text-danger">*</span></label>
-                                            <input type="email" class="form-control" name="email" required/>
-                                      <!--  <div class="invalid-feedback">Please enter valid email to continue</div>-->
+                                            <input type="email" class="form-control" id="emailad" name="email"  required/>
+                                            <!--  <div class="invalid-feedback">Please enter valid email to continue</div>-->
                                         </div>
                                     </div>
                                 </div>
@@ -380,14 +372,14 @@
                     </div>
                 </div>
             </div>      
-       <!--END,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,, -->
+            <!--END,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,, -->
 
-     <!-- VIEW PROFILE ......................................... -->
+            <!-- VIEW PROFILE ......................................... -->
             <div id="ViewProfile" class="modal fade" tabindex="-1">
                 <div class="modal-dialog modal-small">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title">Budget Entry</h5>
+                            <h5 class="modal-title">View or update logged in user</h5>
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                         </div>
                         <div  class="modal-body">
@@ -422,14 +414,14 @@
                     </div>
                 </div>
             </div>
-       <!--END,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,, -->
-       
-        <!--ADD USER................................................ -->
+            <!--END,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,, -->
+
+            <!--ADD USER................................................ -->
             <div id="AddUsers" class="modal fade" tabindex="-1">
                 <div class="modal-dialog modal-small">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title">Budget Entry</h5>
+                            <h5 class="modal-title">Add user</h5>
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                         </div>
                         <div class="modal-body ">
@@ -461,38 +453,39 @@
                     </div>
                 </div>
             </div>
-         <!--END................................................ -->
-    </body>
-     <script th:src="@{assets/js/printThis.js}"></script>
-    <script>
-$('#print').click(function(){
-    $('#invoice').printThis({
-        debug: false,               // show the iframe for debugging
-        importCSS: true,            // import parent page css
-        importStyle: false,         // import style tags
-        printContainer: true,       // print outer container/$.selector
-        loadCSS: " assets/css/custom.css",             
-        pageTitle: "",              // add title to print page
-        removeInline: false,        // remove inline styles from print elements
-        removeInlineSelector: "*",  // custom selectors to filter inline styles. removeInline must be true
-        printDelay: 333,            // variable print delay
-        header: null,               // prefix to html
-        footer: null,               // postfix to html
-        base: false,                // preserve the BASE tag or accept a string for the URL
-        formValues: true,           // preserve input/form values
-        canvas: false,              // copy canvas content
-        doctypeString: '<!DOCTYPE html>', // enter a different doctype for older markup
-        removeScripts: false,       // remove script tags from print content
-        copyTagClasses: false,      // copy classes from the html & body tag
-        beforePrintEvent: null,     // callback function for printEvent in iframe
-        beforePrint: null,          // function called before iframe is filled
-        afterPrint: null            // function called before iframe is removed
-    });
+            <!--END................................................ -->
             
-});
-//$('#export').click(function(){
-var viewer = $("#invoice");
-PDFObject.embed("SounCheckRecord", viewer);
+    </body>
 
-</script>
+    <script th:src="@{assets/js/printThis.js}"></script>
+    <script>
+        
+   
+        $('#print').click(function () {
+            $('#invoice').printThis({
+                debug: false, // show the iframe for debugging
+                importCSS: true, // import parent page css
+                importStyle: false, // import style tags
+                printContainer: true, // print outer container/$.selector
+                loadCSS: " assets/css/custom.css",
+                pageTitle: "", // add title to print page
+                removeInline: false, // remove inline styles from print elements
+                removeInlineSelector: "*", // custom selectors to filter inline styles. removeInline must be true
+                printDelay: 333, // variable print delay
+                header: null, // prefix to html
+                footer: null, // postfix to html
+                base: false, // preserve the BASE tag or accept a string for the URL
+                formValues: true, // preserve input/form values
+                canvas: false, // copy canvas content
+                doctypeString: '<!DOCTYPE html>', // enter a different doctype for older markup
+                removeScripts: false, // remove script tags from print content
+                copyTagClasses: false, // copy classes from the html & body tag
+                beforePrintEvent: null, // callback function for printEvent in iframe
+                beforePrint: null, // function called before iframe is filled
+                afterPrint: null            // function called before iframe is removed
+            });
+
+        });
+
+    </script>
 </html>
