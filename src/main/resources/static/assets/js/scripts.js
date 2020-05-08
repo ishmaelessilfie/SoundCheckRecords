@@ -85,15 +85,14 @@ $('document').ready(function () {
             dataType: "json",
             success: function (data) {
 //              document.getElementById("main").reset();
+                if (data===1)
+                 $("#main")[0].reset();
                  swalInit.fire({
                     title: 'Good job!',
                     text: 'Project added successfully!',
                     type: 'success',
                     showCloseButton: true
                 });
-               
-                        
-
             }
         });
     });
