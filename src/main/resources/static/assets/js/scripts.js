@@ -12,7 +12,7 @@ var swalInit = swal.mixin({
     confirmButtonClass: 'btn btn-primary',
     cancelButtonClass: 'btn btn-light'
 });
-//GET PROJECT TYPE INTO SELETION BOX....................................
+//GET PROJECT TYPE INTO SELECTION BOX....................................
 $('document').ready(function () {
     $.ajax({
         url: "/projecttypeList",
@@ -28,7 +28,7 @@ $('document').ready(function () {
             });
         }
     });
-//GET ACTIVITY TYPE INTO SELETION BOX....................................
+//GET ACTIVITY TYPE INTO SELECTION BOX....................................
     $.ajax({
         url: "/activitytypeList",
         type: "GET",
@@ -43,7 +43,7 @@ $('document').ready(function () {
             });
         }
     });
-//GET GENRE INTO SELETION BOX....................................
+//GET GENRE INTO SELECTION BOX....................................
     $.ajax({
         url: "/genreList",
         type: "GET",
@@ -58,7 +58,7 @@ $('document').ready(function () {
             });
         }
     });
-//GET COMBINATION INTO SELET BOX....................................
+//GET COMBINATION INTO SELECTION BOX....................................
     $.ajax({
         url: "/combinationList",
         type: "GET",
@@ -84,8 +84,7 @@ $('document').ready(function () {
             data: formData,
             dataType: "json",
             success: function (data) {
-               
-              document.getElementById("main").reset();
+//              document.getElementById("main").reset();
                  swalInit.fire({
                     title: 'Good job!',
                     text: 'Project added successfully!',

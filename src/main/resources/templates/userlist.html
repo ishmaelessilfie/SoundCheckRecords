@@ -7,7 +7,6 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
         <meta  content="width=device-width, value-scale=1"/>
         <title >Sound Check Records</title>
-
     </head>
 
     <body>
@@ -15,7 +14,7 @@
 
             <div class="card" >
                 <div class="card-header header-elements-inline">
-                    <h1 class="card-title">Invoice List</h1>
+                    <h1 class="card-title">User List</h1>
                     <div class="header-elements">
                         <div class="list-icons">
                             <a class="list-icons-item" data-action="reload"></a>
@@ -24,8 +23,8 @@
                     </div>
                 </div>
                 <table class="table datatable-sorting">
-                    <thead >
-                        <tr >
+                    <thead>
+                        <tr>
                             <th>Username</th>
                             <th>Role</th>
                             <th>Photo</th>
@@ -34,7 +33,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr  th:each="userList:${userlist}">
+                        
+                        <tr th:each="userList:${userlist}">
                             <td th:text="${userList.username}"></td>
                              <td th:text="${userList.role}"></td>
                              <td><img th:src="${userList.photo}" width="40" height="40"></img></td>
@@ -46,7 +46,6 @@
                                             <i class="icon-menu9"></i>
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-right ">
-                                          
                                             <a th:href="@{edit_user/(id=${userList.id})}" class="dropdown-item updateuser"><i class="icon-pencil"></i> <span class="badge badge-info">Update</span></a>
                                             <a th:href="@{#delete}" th:attr="data-id=${userList.id}" class="dropdown-item  deletebtnuser"  ><i class="icon-trash"></i> <span class="badge badge-warning">Delete</span></a>
                                         </div>
