@@ -15,7 +15,7 @@ var swalInit = swal.mixin({
 //GET PROJECT TYPE INTO SELETION BOX....................................
 $('document').ready(function () {
     $.ajax({
-        url: "http://localhost:8080/projecttypeList",
+        url: "/projecttypeList",
         type: "GET",
         dataType: 'json',
         success: function (data) {
@@ -30,7 +30,7 @@ $('document').ready(function () {
     });
 //GET ACTIVITY TYPE INTO SELETION BOX....................................
     $.ajax({
-        url: "http://localhost:8080/activitytypeList",
+        url: "/activitytypeList",
         type: "GET",
         dataType: 'json',
         success: function (data) {
@@ -45,7 +45,7 @@ $('document').ready(function () {
     });
 //GET GENRE INTO SELETION BOX....................................
     $.ajax({
-        url: "http://localhost:8080/genreList",
+        url: "/genreList",
         type: "GET",
         dataType: 'json',
         success: function (data) {
@@ -60,7 +60,7 @@ $('document').ready(function () {
     });
 //GET COMBINATION INTO SELET BOX....................................
     $.ajax({
-        url: "http://localhost:8080/combinationList",
+        url: "/combinationList",
         type: "GET",
         dataType: 'json',
         success: function (data) {
@@ -79,7 +79,7 @@ $('document').ready(function () {
         var formData = $(this).serialize();
         console.log(formData);
         $.ajax({
-            url: "http://localhost:8080/project",
+            url: "/project",
             type: "POST",
             data: formData,
             dataType: "json",
