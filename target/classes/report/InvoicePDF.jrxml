@@ -104,7 +104,7 @@
 			<staticText>
 				<reportElement x="440" y="51" width="101" height="38" forecolor="#660066" uuid="306b7e27-c845-4d83-bcc0-d6edd3ff781a"/>
 				<textElement markup="none">
-					<font fontName="Berlin Sans FB" size="22" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+					<font fontName="SansSerif" size="22" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
 				</textElement>
 				<text><![CDATA[Invoice]]></text>
 			</staticText>
