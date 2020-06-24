@@ -60,15 +60,10 @@
                                     </div>
                                     <div ><strong> Email: </strong><a href="mailto:john@example.com" th:text="${invoicepdfecel.email}" style="color:black; font-family: Arial, sans-serif; font-size:12px;">john@example.com</a></div>
                                 </div>
-                                <div class="col invoice-details" >
-                                    <div >
-                                       <strong>invoice #</strong>
-                                      <h1 th:text="${invoicepdfecel.invoiceno}" style="font-size:12px;display:inline;"></h1> 
-                                    </div>
-                                    <div >
-                                        <strong>date:</strong>
-                                        <p  th:text="${invoicepdfecel.datecreated}"style="display:inline;" ></p>
-                                    </div>
+                                <div class="col invoice-details" sty>
+
+                                    <h1  th:text="${invoicepdfecel.invoiceno}"></h1>
+                                    <div class="date" th:text="${invoicepdfecel.datecreated}"></div>
 
                                 </div>
                             </div>

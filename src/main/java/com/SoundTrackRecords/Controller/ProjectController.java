@@ -5,6 +5,7 @@
  */
 package com.SoundTrackRecords.Controller;
 
+import com.SoundTrackRecords.DTO.InvoiceDto;
 import com.SoundTrackRecords.Model.ActivityType;
 import com.SoundTrackRecords.Model.Combination;
 import com.SoundTrackRecords.Model.Genre;
@@ -36,6 +37,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import com.itextpdf.text.log.Logger;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.DriverManager;
@@ -50,6 +53,12 @@ import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.export.JRPdfExporter;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.export.SimpleExporterInput;
+import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -232,7 +241,7 @@ public class ProjectController {
 
 //GENERATE INVOICE AS PDF
     @GetMapping("/invoicePDF")
-    public void soundcheckInvoicePDF(HttpServletResponse response, Long id) throws NullPointerException,FileNotFoundException, ClassNotFoundException, SQLException, IOException, JRException {        
+    public void soundcheckInvoicePDF(HttpServletResponse response, Long id) throws NullPointerException, SQLException, IOException, JRException {        
       List<InvoiceDto> invoice=  invoiceRepository.getInoiceForPdf(id);
       JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(invoice);
       InputStream jrxmlInput = this.getClass().getResourceAsStream("/report/InvoicePDF.jrxml");
