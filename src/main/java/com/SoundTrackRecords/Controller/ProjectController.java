@@ -5,6 +5,7 @@
  */
 package com.SoundTrackRecords.Controller;
 
+import com.SoundTrackRecords.DTO.InvoiceDto;
 import com.SoundTrackRecords.Model.ActivityType;
 import com.SoundTrackRecords.Model.Combination;
 import com.SoundTrackRecords.Model.Genre;
@@ -34,25 +35,39 @@ import java.io.OutputStream;
 import java.security.Principal;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Map;
 import com.itextpdf.text.log.Logger;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.sql.DriverManager;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+import net.sf.jasperreports.engine.JRDataSource;
 import org.springframework.http.ResponseEntity;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
+
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.design.JRDesignQuery;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.export.JRPdfExporter;
+import net.sf.jasperreports.engine.util.JRLoader;
+
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.export.SimpleExporterInput;
+import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
+import net.sf.jasperreports.view.JasperViewer;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -61,7 +76,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  *
  * @author Ish
  */
-@Controller
+ @Controller
 public class ProjectController {
 
     @Autowired
@@ -85,6 +100,8 @@ public class ProjectController {
     public ProjectController(SerialNumber serialNumber) {
         this.serialNumber = serialNumber;
     }
+    
+    
     Logger log = LoggerFactory.getLogger(ProjectController.class);
 //TOTAL NUMBER OF PROJECTS, TOTAL NUMBER OF WRITINGS, AND TOTAL NUMBER OF VOCALS TO INDEX PAGE
     @RequestMapping("/")
@@ -108,36 +125,72 @@ public class ProjectController {
         String un = principal.getName();
         return usersRepository.findByUsername(un);
     }
-//LIST OF ALL PROJECT TYPE 
-    @RequestMapping(value = "/projecttypeList")
-    @ResponseBody
+    
+@ModelAttribute("projecttypeList")
     public List<ProjectType> getProjectTypeList() {
         return projectTypeRepository.findAll();
     }
-//LIST OF ALL ACTIVITIES
-    @RequestMapping("/activitytypeList")
-    @ResponseBody
+
+    @ModelAttribute("activitytypeList")
     public List<ActivityType> getActivityTypeList() {
         return activityTypeRepository.findAll();
     }
-//LIST OF ALL GENRES
-    @RequestMapping("/genreList")
-    @ResponseBody
+
+    @ModelAttribute("genreList")
     public List<Genre> getgenreList() {
         return genreRepository.findAll();
     }
-//LIST OF ALL COMBINATIONS
-    @RequestMapping("/combinationList")
-    @ResponseBody
+
+    @ModelAttribute("combinationList")
     public List<Combination> combinationList() {
         return combinationRepository.findAll();
     }
+////LIST OF ALL PROJECT TYPE 
+//    @RequestMapping(value = "/projecttypeList")
+//    @ResponseBody
+//    public List<ProjectType> getProjectTypeList() {
+//        return projectTypeRepository.findAll();
+//    }
+////LIST OF ALL ACTIVITIES
+//    @RequestMapping("/activitytypeList")
+//    @ResponseBody
+//    public List<ActivityType> getActivityTypeList() {
+//        return activityTypeRepository.findAll();
+//    }
+////LIST OF ALL GENRES
+//    @RequestMapping("/genreList")
+//    @ResponseBody
+//    public List<Genre> getgenreList() {
+//        return genreRepository.findAll();
+//    }
+////LIST OF ALL COMBINATIONS
+//    @RequestMapping("/combinationList")
+//    @ResponseBody
+//    public List<Combination> combinationList() {
+//        return combinationRepository.findAll();
+//    }
+    
+    
 //ADD NEW PROJECT
-    @RequestMapping(value = "/project", method = {RequestMethod.POST})
-    ResponseEntity<Project> createCategory(@Valid Project project) throws URISyntaxException {
-         project.setNumber(serialNumber.generateRegistrationNumber());
-        Project result = projectRepository.save(project);
-        return ResponseEntity.created(new URI("/project" + result.getId())).body(result);
+//    @RequestMapping(value = "/project", method = {RequestMethod.POST})
+//    ResponseEntity<Project> createCategory(@Valid Project project, BindingResult results) throws URISyntaxException {
+//        
+////        if (results.hasErrors()){
+////         
+////			return Error.customErrors(results.getAllErrors());
+////        }
+//         project.setNumber(serialNumber.generateRegistrationNumber());
+//        Project result = projectRepository.save(project);
+//        return ResponseEntity.created(new URI("/project" + result.getId())).body(result);
+//    }
+    
+@GetMapping("/save-project")
+    //@ResponseBody
+    public String save(@Valid @ModelAttribute Project project, Model model) {
+        project.setNumber(serialNumber.generateRegistrationNumber());
+        model.addAttribute("cmd", new Project());
+        projectRepository.save(project);
+        return "redirect:/";
     }
 //LIST OF ALL PROJECTS
     @GetMapping(value = "/projectlist")
@@ -148,6 +201,7 @@ public class ProjectController {
     }
 //LIST OF ALL SONGS
     @GetMapping("/songlist")
+    //@ResponseBody
     public String songlist(Model m) {
         m.addAttribute("songlist", projectRepository.getSongDetail());
         return "songlist"; //html
@@ -155,7 +209,7 @@ public class ProjectController {
 //LIST OF ALL ARTISTES
     @GetMapping("/artistlist")
     public String artiste(Model m) {
-        m.addAttribute("artistlist", projectRepository.getArtisteDetail());
+       projectRepository.getArtisteDetail();
         return "artistlist"; //html
     }
 //DELETE A PROJECT
@@ -171,12 +225,13 @@ public class ProjectController {
         return "invoicelist";
     }
 //GETTING INVOICE TO VIEW
-    @GetMapping("/invoice")
-    public String invoicepdfexcel(Long id, Project project, Model model) {
-        model.addAttribute("invoicepdfecel", invoiceRepository.getInvoice(id));
-        //model.addAttribute("invproj", projectRepository.getOne(id));
-        return "invoice";
-    }
+//    @GetMapping("/invoice")
+//    @ResponseBody
+//    public String invoicepdfexcel(Long id, Project project, Model model) {
+//        model.addAttribute("invoicepdfecel", invoiceRepository.getInvoice(id));
+//        //model.addAttribute("invproj", projectRepository.getOne(id));
+//        return "invoice";
+//    }
     //GET ONE PROJECT BY ID
     @GetMapping("/get_project")
     @ResponseBody
@@ -204,12 +259,14 @@ public class ProjectController {
     public List<Project> getact() {
         return projectRepository.findAllByOrderByProjectstartdateAsc();
     }
+    
 //GET INVOICE BY ID
     @GetMapping("/edit_invoice")
     @ResponseBody
     public Invoice editInvoice(Long id) {
         return invoiceRepository.getOne(id);
     }
+    
     @RequestMapping(value = "/update_invoice", method = {RequestMethod.PUT, RequestMethod.GET})
     @Transactional
     public String updateinvoice(Invoice invoice, @RequestParam Long id, @RequestParam double masteringcost,
@@ -238,27 +295,29 @@ public class ProjectController {
     }
 
 //GENERATE INVOICE AS PDF
-    @RequestMapping(value = "/invoicePDF", method = RequestMethod.GET)
-    @Transactional
-    public @ResponseBody
-    void soundcheckInvoicePDF(HttpServletResponse response, @RequestParam Long invoiceid) throws ClassNotFoundException, SQLException, IOException {
-        // InvoiceDto invoicedto = invoiceRepository.getInvoice(invoic_id);
-        try {
+    @GetMapping("/invoicePDF")
+    public void soundcheckInvoicePDF(HttpServletResponse response, Long id) throws NullPointerException,FileNotFoundException, ClassNotFoundException, SQLException, IOException, JRException {        
+      List<InvoiceDto> invoice=  invoiceRepository.getInoiceForPdf(id);
+      JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(invoice);
+      InputStream jrxmlInput = this.getClass().getResourceAsStream("/report/InvoicePDF.jrxml");
+      JasperDesign design = JRXmlLoader.load(jrxmlInput);
+      JasperReport jasperReport = JasperCompileManager.compileReport(design);
+      JasperPrint jasperPrint  =  JasperFillManager.fillReport(jasperReport,null, dataSource);
+   
+      JRPdfExporter pdfExporter = new JRPdfExporter();
+      pdfExporter.setExporterInput(new SimpleExporterInput(jasperPrint));
+      ByteArrayOutputStream pdfReportStream = new ByteArrayOutputStream();
+      pdfExporter.setExporterOutput(new SimpleOutputStreamExporterOutput(pdfReportStream));
+      pdfExporter.exportReport();
+      
+      response.setContentType("application/pdf");
+      response.setHeader("Content-Length", String.valueOf(pdfReportStream.size()));
+      response.addHeader("Content-Disposition", "inline; filename=SCR-Invoice.pdf");
 
-            //Connection conexion = jdbcTemplate.getDataSource().getConnection();
-            java.sql.Connection conexion = DriverManager.getConnection("jdbc:postgresql://localhost:5432/soundcheck", "postgres", "E0544793757I");
-            JasperReport report = JasperCompileManager.compileReport(getClass().getResourceAsStream("/Report/SounCheckInvoice.jrxml"));
-            //JasperReport report = JasperCompileManager.compileReport("/Report/SounCheckInvoice.jrxml");
-            //JasperReport report = JasperCompileManager.compileReport("/Report/SounCheckInvoic.jasper");
-            Map<String, Object> parameterMap = new HashMap();
-            parameterMap.put("invoiceid", invoiceid);
-            JasperPrint jasperPrint = JasperFillManager.fillReport(report, parameterMap, conexion);
-            response.setContentType("application/x-pdf");
-            response.setHeader("Content-Disposition", "inline; filename=SCR-Invoice.pdf");
-            final OutputStream outputStream = response.getOutputStream();
-            JasperExportManager.exportReportToPdfStream(jasperPrint, outputStream);
-        } catch (JRException ex) {
-            log.info("pdf creation error");
-        }
+      OutputStream responseOutputSteam = response.getOutputStream();
+      responseOutputSteam.write(pdfReportStream.toByteArray());
+      responseOutputSteam.close();
+      pdfReportStream.close();
+      
     }
 }

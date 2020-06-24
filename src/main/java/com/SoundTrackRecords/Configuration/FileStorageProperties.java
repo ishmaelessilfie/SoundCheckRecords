@@ -2,7 +2,7 @@ package com.SoundTrackRecords.Configuration;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-import com.SoundTrackRecords.utils.AppConstants;
+import com.SoundTrackRecords.Util.AppConstants;
 import org.springframework.context.annotation.Configuration;
 @Configuration
 @ConfigurationProperties(prefix = AppConstants.FILE_PROPERTIES_PREFIX)

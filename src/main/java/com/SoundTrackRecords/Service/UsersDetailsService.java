@@ -6,8 +6,6 @@
 package com.SoundTrackRecords.Service;
 
 import com.SoundTrackRecords.Repository.UserRepository;
-import com.SoundTrackRecords.Service.UserPrincipal;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -23,9 +21,9 @@ import org.springframework.stereotype.Service;
 public class UsersDetailsService implements UserDetailsService{
 
     @Autowired
-    UserRepository userRepository;
+    UserRepository userRepository; 
     
-    @Override
+    @Override    
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         
        Users user = userRepository.findByUsername(username);

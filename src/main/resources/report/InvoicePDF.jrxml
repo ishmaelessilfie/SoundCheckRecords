@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="InvoicePDF" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="30349cfb-726e-42e4-8773-b66b14be5630">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[select i.datecreated,i.masteringcost,i.mixingcost,i.studiotimecost,i.timeinhr,i.totalcost,i.invoiceno,i.costofintruments, i.totalstudicost,p.email, p.artistename from invoice i join project p on i.project_id=p.id]]>
+	</queryString>
+	<field name="datecreated" class="java.sql.Timestamp"/>
+	<field name="masteringcost" class="java.lang.Double"/>
+	<field name="mixingcost" class="java.lang.Double"/>
+	<field name="studiotimecost" class="java.lang.Double"/>
+	<field name="timeinhr" class="java.lang.Integer"/>
+	<field name="totalcost" class="java.lang.Double"/>
+	<field name="invoiceno" class="java.lang.String"/>
+	<field name="costofintruments" class="java.lang.Double"/>
+	<field name="totalstudicost" class="java.lang.Double"/>
+	<field name="email" class="java.lang.String"/>
+	<field name="artistename" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="625" splitType="Stretch">
+			<staticText>
+				<reportElement x="40" y="5" width="167" height="18" uuid="fc420f40-a674-41c7-9e05-fa49dc1b4ad9"/>
+				<textElement textAlignment="Justified" markup="none">
+					<font fontName="Times New Roman" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[SoundCheck reocords studio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="54" y="18" width="92" height="20" uuid="327e9459-1963-4f40-a2bd-c01528db9878"/>
+				<textElement markup="none">
+					<font fontName="Times New Roman" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[P. O.Box GHF43A]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="49" y="31" width="177" height="17" uuid="e9422b8c-0726-416f-b72d-ee2dbcf663b8"/>
+				<textElement markup="none">
+					<font fontName="Times New Roman" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Teshie-Nungua First Junction]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="82" y="43" width="60" height="21" uuid="97128def-a797-4f4c-bb9f-b12b95102a53"/>
+				<textElement markup="none">
+					<font fontName="Times New Roman" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Accra]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="57" y="56" width="101" height="17" uuid="c8e2d8cc-3143-4049-83b7-97d855ce7668"/>
+				<textElement>
+					<font fontName="Times New Roman" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Tel: 0243323743]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="34" y="71" width="181" height="17" uuid="31329016-fdb7-435f-90a5-4084e289e48b"/>
+				<textElement>
+					<font fontName="Times New Roman" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[email: addicolishama@gmail.com]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="84" width="214" height="17" uuid="65cbca76-d122-4ca0-9993-e9fdbb05c7a4"/>
+				<textElement>
+					<font fontName="Times New Roman" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[website: www.sounccheckgh.com]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="23" y="115" width="75" height="20" uuid="16be1f32-7bcf-442b-aec6-d137bb21d177"/>
+				<textElement markup="none">
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Invoice To:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="23" y="135" width="42" height="20" uuid="01440b64-494b-4517-9778-3ea1f39a666e"/>
+				<textElement markup="none">
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<text><![CDATA[Name:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="23" y="155" width="42" height="20" uuid="a42ea0e2-4b03-4125-b003-c40c61aca772"/>
+				<textElement markup="none">
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<text><![CDATA[Email:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="440" y="51" width="101" height="38" forecolor="#660066" uuid="306b7e27-c845-4d83-bcc0-d6edd3ff781a"/>
+				<textElement markup="none">
+					<font fontName="Berlin Sans FB" size="22" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[Invoice]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="408" y="109" width="58" height="20" uuid="feb86da6-dfa0-4d95-9c11-dab1ed9578fc"/>
+				<textElement markup="none">
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<text><![CDATA[Invoice #:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="408" y="129" width="35" height="20" uuid="20d376d8-ab2a-4abc-97ca-2f58a2ca01b3"/>
+				<textElement markup="none">
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<text><![CDATA[Date:]]></text>
+			</staticText>
+			<line>
+				<reportElement mode="Transparent" x="17" y="192" width="535" height="1" uuid="1c1d1a29-36fd-49d3-adf7-9ea56b614007"/>
+				<graphicElement>
+					<pen lineWidth="1.25"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="17" y="221" width="535" height="1" uuid="1e593f90-d857-453b-a905-1d53ccc3ecd7"/>
+				<graphicElement>
+					<pen lineWidth="1.25"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="17" y="375" width="535" height="1" uuid="e38e7e3a-e562-4b9d-8667-c744679ec06e"/>
+			</line>
+			<line>
+				<reportElement x="17" y="193" width="1" height="182" uuid="8aa0652a-efd8-43cd-b778-870817674318"/>
+			</line>
+			<line>
+				<reportElement x="552" y="192" width="1" height="214" uuid="044c0d5c-0ea2-4ba3-a79b-9a5225e62a50"/>
+			</line>
+			<line>
+				<reportElement x="407" y="406" width="145" height="1" uuid="ed77eb07-f5da-4718-b2ec-4398280e85bc"/>
+			</line>
+			<line>
+				<reportElement x="407" y="193" width="1" height="213" uuid="eaf90935-4c24-44d1-b19e-ed4361c3931e"/>
+			</line>
+			<line>
+				<reportElement x="148" y="193" width="1" height="182" uuid="ca6edcc3-0cd5-4a99-9899-b388f53428a1"/>
+			</line>
+			<line>
+				<reportElement x="280" y="193" width="1" height="182" uuid="1ee0da16-8c13-41cc-96d8-8277bb2f7c43"/>
+			</line>
+			<staticText>
+				<reportElement x="42" y="422" width="126" height="20" forecolor="#000000" backcolor="#660066" uuid="d40ec723-fb93-470f-ab31-58b3f316f3a1"/>
+				<textElement textAlignment="Center" markup="none">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Payment Method]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="409" y="388" width="144" height="18" uuid="61abbe82-6ef8-42bf-b800-84c4bc3d98b2"/>
+				<textElement markup="none">
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<text><![CDATA[Sub Total =]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="34" y="201" width="100" height="20" uuid="fba03735-a817-4977-afcb-2240b1873fdd"/>
+				<textElement textAlignment="Center" markup="none">
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Description]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="428" y="202" width="100" height="19" uuid="6445ac3d-2960-4f5a-b5bc-c3002a26ea59"/>
+				<textElement textAlignment="Center" markup="none">
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Cost(GHc)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="168" y="202" width="100" height="19" uuid="bad09ff8-5dea-4a52-a3a2-e7b48deb69f4"/>
+				<textElement textAlignment="Center" markup="none">
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[No of Hours]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="291" y="202" width="100" height="19" uuid="35190d48-3328-421e-a40b-14edb3768315"/>
+				<textElement textAlignment="Center" markup="none">
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cost(GHc)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="23" y="234" width="100" height="20" uuid="c47fd232-1ea5-4376-8a17-e29a0b122b77"/>
+				<textElement textAlignment="Right" markup="none">
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Studio Time]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="23" y="269" width="100" height="20" uuid="0bc7f238-eddb-4254-9ac2-15b88128191b"/>
+				<textElement textAlignment="Right" markup="none">
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Mastering]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="23" y="306" width="100" height="20" uuid="427736ae-8e54-48f8-94f2-8de00073789d"/>
+				<textElement textAlignment="Right" markup="none">
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Missing]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="23" y="341" width="100" height="20" uuid="18ef5013-a346-4448-aeb8-6520bc9693c0"/>
+				<textElement textAlignment="Right" markup="none">
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Instruments]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="412" y="422" width="145" height="20" uuid="92567b45-5b2f-485e-9159-109302875995"/>
+				<textElement markup="none">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<text><![CDATA[Tax(0%)  =             0.0]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="395" y="460" width="87" height="20" uuid="62c2f811-947f-4fb7-bdc9-5a5370281f7e"/>
+				<textElement markup="none">
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<text><![CDATA[Grand Total =]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="391" y="552" width="161" height="20" uuid="a87eceef-581d-45f9-9056-e7780d5076df"/>
+				<textElement markup="none">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Addico Nii Awuley Elishama]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="391" y="574" width="130" height="20" uuid="10e55a2f-b830-4e75-9ad0-98f142599280"/>
+				<textElement markup="none">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Studio Manager]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="350" y="532" width="203" height="20" uuid="4899a453-d4e1-4796-a344-cfd503b7a70c"/>
+				<textElement markup="none"/>
+				<text><![CDATA[...................................................................]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="40" y="481" width="149" height="20" uuid="e0eba73a-0033-496a-b07b-9bcff1dbad60"/>
+				<textElement markup="none">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Bank: United bank of Africa]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="11" y="501" width="220" height="20" uuid="4e84e335-ce7a-4421-9215-630355748a83"/>
+				<textElement markup="none">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Account Name:  Addico Nii Awuley Elishama]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="35" y="521" width="180" height="20" uuid="e2124ec5-6ba3-4f0c-9fa4-1498a0da680d"/>
+				<textElement markup="none">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Account Number:  01325194401552]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="9" y="537" width="123" height="20" uuid="793f2330-cd12-4f0e-917c-5b01496a881e"/>
+				<textElement markup="none">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Branch: Teshie Lascala]]></text>
+			</staticText>
+			<line>
+				<reportElement x="11" y="567" width="199" height="1" uuid="a1fc5ded-b9e8-4d70-8b93-22745a73051b"/>
+				<graphicElement>
+					<pen lineWidth="3.5"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="23" y="577" width="203" height="33" uuid="9ac72801-5bb2-43f6-9b99-46a4bd42a292"/>
+				<textElement markup="none">
+					<font fontName="Palace Script MT" size="12"/>
+				</textElement>
+				<text><![CDATA[Thanks for business with us.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="49" y="460" width="100" height="20" uuid="28d54dc5-40ca-49ab-bded-13037724cfbd"/>
+				<textElement markup="none">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Bank Account]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="149" y="269" width="131" height="20" uuid="bca9c7a4-3dac-474e-94de-b29b9a17c510"/>
+				<textElement textAlignment="Center" markup="none">
+					<font fontName="Times New Roman" size="14" isBold="false"/>
+				</textElement>
+				<text><![CDATA[***]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="149" y="306" width="133" height="20" uuid="7c4fe08e-8dd8-4ee9-aa68-10373c51f6ff"/>
+				<textElement textAlignment="Center" markup="none">
+					<font fontName="Times New Roman" size="14" isBold="false"/>
+				</textElement>
+				<text><![CDATA[***]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="147" y="341" width="133" height="20" uuid="f1ee04df-929f-4f20-a764-9f66533c11e9"/>
+				<textElement textAlignment="Center" markup="none">
+					<font fontName="Times New Roman" size="14" isBold="false"/>
+				</textElement>
+				<text><![CDATA[***]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="62" y="157" width="111" height="20" uuid="9231ee9a-d85b-4e2b-b42d-ebcc79a05acb"/>
+				<textFieldExpression><![CDATA[$F{email}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="62" y="137" width="100" height="20" uuid="8bbd8467-4534-4dba-9265-92d4b426dc42"/>
+				<textFieldExpression><![CDATA[$F{artistename}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="466" y="112" width="100" height="20" uuid="12bc8b1e-3e84-4159-bd52-42090bcb8043"/>
+				<textFieldExpression><![CDATA[$F{invoiceno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="443" y="131" width="100" height="20" uuid="c6090b19-a00c-4d07-b301-13b3a75ac7b2"/>
+				<textFieldExpression><![CDATA[$F{datecreated}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="149" y="234" width="131" height="20" uuid="6e70092f-4773-43c7-b2d2-923a3cd47c67"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{timeinhr}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="274" y="306" width="96" height="20" uuid="1d882aea-b9fb-464f-bc4d-9381efb115eb"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{mixingcost}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="274" y="234" width="96" height="20" uuid="e6641ce8-5327-4397-b3de-97afd5edd097"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{studiotimecost}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="274" y="269" width="97" height="20" uuid="8278b005-2adc-49ce-8f1f-be8def1d86c4"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{masteringcost}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="274" y="341" width="96" height="20" uuid="8d109b40-e35c-4424-b3b4-db7afbe1e828"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{costofintruments}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="428" y="234" width="100" height="20" uuid="824a7f1e-f971-42fd-821e-aefe1fdc2152"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{totalstudicost}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="428" y="269" width="100" height="20" uuid="f0c5e3dc-cc09-4a65-99b5-056083c3f58a"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{masteringcost}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="429" y="306" width="100" height="20" uuid="884950d4-2c71-4bf4-bc54-9fc721338751"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{mixingcost}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="429" y="341" width="100" height="20" uuid="6d9c27fc-0e26-4bb1-8d15-493865611315"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{costofintruments}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="483" y="388" width="100" height="20" uuid="0066d0dc-56f8-4f6a-b18e-93dc85871d2b"/>
+				<textFieldExpression><![CDATA[$F{totalcost}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="486" y="461" width="97" height="20" uuid="bcfa47a1-0023-4fcd-b4cf-1e36e0fea7c9"/>
+				<textFieldExpression><![CDATA[$F{totalcost}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

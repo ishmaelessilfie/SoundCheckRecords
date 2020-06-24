@@ -32,7 +32,7 @@ import lombok.ToString;
 @Data
 @Table(name = "users")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Users implements Serializable {
+public class Users extends Auditable<String> implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,5 +51,7 @@ public class Users implements Serializable {
     private Date datecreated;
     @NotNull
     private String filename;
+    
+    
    }
 

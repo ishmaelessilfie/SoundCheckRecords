@@ -1,5 +1,6 @@
 package com.SoundTrackRecords.Service;
 
+import com.SoundTrackRecords.Configuration.FileStorageProperties;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -19,10 +20,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.SoundTrackRecords.Configuration.FileStorageProperties;
+
 import com.SoundTrackRecords.Exception.FileStorageException;
 import com.SoundTrackRecords.Exception.MyFileNotFoundException;
-import com.SoundTrackRecords.utils.AppConstants;
+import com.SoundTrackRecords.Util.AppConstants;
 
 @Service
 public class FileStorageServiceImpl implements FileStorageService {
@@ -35,11 +36,10 @@ public class FileStorageServiceImpl implements FileStorageService {
 
 		try {
 			Files.createDirectories(this.fileStorageLocation);
-		} catch (Exception ex) {
-			throw new FileStorageException(AppConstants.FILE_STORAGE_EXCEPTION_PATH_NOT_FOUND, ex);
+		} catch (IOException ex) {
+			throw new FileStorageException(AppConstants.FILE_STORAGE_EXCEPTION_PATH_NOT_FOUND);
 		}
 	}
-
 	@Override
 	public String storeFile(MultipartFile file) throws IOException {
 		
@@ -55,6 +55,7 @@ public class FileStorageServiceImpl implements FileStorageService {
 			 BufferedImage image = ImageIO.read(f);
 		   int height = image.getHeight();
 		   int width = image.getWidth();
+                   
 		   if(width>300 || height>300) {
 			   if(f.exists())
 				   f.delete();
@@ -75,7 +76,7 @@ public class FileStorageServiceImpl implements FileStorageService {
 			Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
 			return newFileName;
 		} catch (IOException ex) {
-			throw new FileStorageException(String.format(AppConstants.FILE_STORAGE_EXCEPTION, fileName), ex);
+			throw new FileStorageException(String.format(AppConstants.FILE_STORAGE_EXCEPTION, fileName));
 		}
 
 	}

@@ -45,9 +45,9 @@
                                             <i class="icon-menu9"></i>
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-right ">
-                                            <a th:href="@{invoice?(id=${projList.id})}" class="dropdown-item "><i class="icon-eye"></i> <span class="badge badge-success">View</span></a>
+                                            <a th:href="@{invoicePDF/(id=${projList.id})}" class="dropdown-item "><i class="icon-eye"></i> <span class="badge badge-success">Create pdf</span></a>
                                             <a th:href="@{edit_invoice/(id=${projList.id})}" class="dropdown-item editbtninv"><i class="icon-pencil"></i> <span class="badge badge-info">Update</span></a>
-                                            <a th:href="@{#delete}" th:attr="data-id=${projList.id}" id="btDelete" class="dropdown-item" ><i class="icon-trash"></i> <span class="badge badge-warning">Delete</span></a>
+                                           <a th:href="@{#delete}" th:attr="data-id=${projList.id}" id="btDelete" class="dropdown-item" ><i class="icon-trash"></i> <span class="badge badge-warning">Delete</span></a>
                                         </div>
                                     </div>
                                 </div>

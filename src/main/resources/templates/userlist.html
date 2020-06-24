@@ -47,7 +47,7 @@
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-right ">
                                             <a th:href="@{edit_user/(id=${userList.id})}" class="dropdown-item updateuser"><i class="icon-pencil"></i> <span class="badge badge-info">Update</span></a>
-                                            <a th:href="@{#delete}" th:attr="data-id=${userList.id}" class="dropdown-item  deletebtnuser"  ><i class="icon-trash"></i> <span class="badge badge-warning">Delete</span></a>
+                                            <a href="javascript:;" th:attr="data-id=${userList.id}" class="dropdown-item  deletebtnuser"  ><i class="icon-trash"></i> <span class="badge badge-warning">Delete</span></a>
                                         </div>
                                     </div>
                                 </div>

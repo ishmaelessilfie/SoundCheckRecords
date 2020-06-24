@@ -8,7 +8,6 @@ package com.SoundTrackRecords.Controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-
 /**
  *
  * @author Ish
@@ -17,10 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AuthenticationController {
     
     @RequestMapping("/login")
-    public String login() { 
-        
+    public String login() {
         return "login";
     }
+    
     @RequestMapping("/logout")
     public String logoutPage() {   
         return "login";
