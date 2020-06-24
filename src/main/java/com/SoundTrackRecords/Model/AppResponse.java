@@ -1,6 +1,4 @@
-package com.SoundTrackRecords.Util;
-
-
+package com.SoundTrackRecords.Model;
 
 public class AppResponse {
 

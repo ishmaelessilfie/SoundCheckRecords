@@ -20,7 +20,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
@@ -35,8 +34,7 @@ import lombok.ToString;
 @Data
 @Table(name="invoice")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-@EqualsAndHashCode(callSuper=false)
-public class Invoice extends Auditable<String> implements Serializable {
+public class Invoice implements Serializable{
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -55,5 +53,21 @@ public class Invoice extends Auditable<String> implements Serializable {
     private Double totalstudicost;
     @ManyToOne
     private Project project;
-     
-} 
+   
+    
+    
+    
+    
+    
+    
+    }
+
+   
+
+    
+    
+    
+    
+    
+    
+

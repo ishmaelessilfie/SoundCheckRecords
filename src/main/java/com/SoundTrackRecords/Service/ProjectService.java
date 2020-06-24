@@ -5,18 +5,10 @@
  */
 package com.SoundTrackRecords.Service;
 
-
-import com.SoundTrackRecords.Model.Users;
-import org.springframework.stereotype.Service;
-
-
 /**
  *
  * @author Ish
  */
-@Service
-public interface UsersService {
-
-    public boolean saveUsers(Users users) ;
-      
+public interface ProjectService {
+    
 }

@@ -21,8 +21,10 @@ public interface InvoiceDto {
     String getInvoiceno(); 
     Double getCostofintruments(); 
     Double getTotalstudicost();
+    String getCountry();
     String getArtistename();
+    String getPhone();
     String getEmail();
-    
+    String getTown();
     
 }

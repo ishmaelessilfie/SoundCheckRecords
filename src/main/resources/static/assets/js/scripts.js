@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-/* global Document */
+/* global Document, swal */
 
 var project = {};
 
@@ -12,11 +12,93 @@ var swalInit = swal.mixin({
     confirmButtonClass: 'btn btn-primary',
     cancelButtonClass: 'btn btn-light'
 });
-
+//GET PROJECT TYPE INTO SELECTION BOX....................................
 $('document').ready(function () {
+    $.ajax({
+        url: "/projecttypeList",
+        type: "GET",
+        dataType: 'json',
+        success: function (data) {
+            var dataSet = data;
+            $.each(dataSet, function (i, item) {
+                $('#projecttypead').append($('<option>', {
+                    value: item.id,
+                    text: item.projecttype
+                }));
+            });
+        }
+    });
+//GET ACTIVITY TYPE INTO SELECTION BOX....................................
+    $.ajax({
+        url: "/activitytypeList",
+        type: "GET",
+        dataType: 'json',
+        success: function (data) {
+            var dataSet = data;
+            $.each(dataSet, function (i, item) {
+                $('#activitytypead').append($('<option>', {
+                    value: item.id,
+                    text: item.activitytype
+                }));
+            });
+        }
+    });
+//GET GENRE INTO SELECTION BOX....................................
+    $.ajax({
+        url: "/genreList",
+        type: "GET",
+        dataType: 'json',
+        success: function (data) {
+            var dataSet = data;
+            $.each(dataSet, function (i, item) {
+                $('#genread').append($('<option>', {
+                    value: item.id,
+                    text: item.genre
+                }));
+            });
+        }
+    });
+//GET COMBINATION INTO SELECTION BOX....................................
+    $.ajax({
+        url: "/combinationList",
+        type: "GET",
+        dataType: 'json',
+        success: function (data) {
+            var dataSet = data;
+            $.each(dataSet, function (i, item) {
+                $('#combinationad').append($('<option>', {
+                    value: item.id,
+                    text: item.combination
+                }));
+            });
+        }
+    });
+//ADD PROJECT..........................................................
+    $('#main').on('submit', function (e) {
+        e.preventDefault();
+        var formData = $(this).serialize();
+        console.log(formData);
+        $.ajax({
+            url: "/project",
+            type: "POST",
+            data: formData,
+            dataType: "json",
+            success: function (data) {
+//              document.getElementById("main").reset();
+                 swalInit.fire({
+                    title: 'Good job!',
+                    text: 'Project added successfully!',
+                    type: 'success',
+                    showCloseButton: true
+                });
+               
+                        
 
+            }
+        });
+    });
 //EDIT PROJECT..............................................
-   $('.editbtn').on('click', function (event) {
+    $('.editbtn').on('click', function (event) {
         event.preventDefault();
         var href = $(this).attr('href');
         $.get(href, function (projList, status) {
@@ -40,6 +122,7 @@ $('document').ready(function () {
         });
         $('#EditRecord').modal();
     });
+
     $('#editformid').on('submit', function (e) {
         e.preventDefault();
         var id = $('#id').val();
@@ -62,9 +145,6 @@ $('document').ready(function () {
         });
     });
 
-//END,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-
-
 //VIEW PROJECT......................................
     $('.viewbtn').on('click', function (event) {
         event.preventDefault();
@@ -86,14 +166,9 @@ $('document').ready(function () {
             $('#emailview').val(List.email);
             $('#countryview').val(List.country);
             $('#phoneview').val(List.phone);
-            $('#createdBy').val(List.createdBy);
-            $('#createdDate').val(List.createdDate.substr(0,19).replace("T", " "));
-            $('#lastUpdatedOn').val(List.lastUpdatedOn.str(0,19).replace("T", " "));
-            $('#lastUpdatetedBy').val(List.lastUpdatetedBy);
         });
         $('#ViewDetail').modal();
     });
-//END,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 
 //EDIT INVOICE..........................................................
     $('.editbtninv').on('click', function (event) {
@@ -110,9 +185,9 @@ $('document').ready(function () {
         });
         $('#EditInvoice').modal();
     });
-   //END,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-   
-   //ADD INVOICE........................................
+
+
+//ADD INVOICE........................................
     $('.invoicebtn').on('click', function (event) {
         event.preventDefault();
         var href = $(this).attr('href');
@@ -123,13 +198,12 @@ $('document').ready(function () {
         $('#eer').on('click', function () {
             swalInit.fire({
                 title: 'Good job!',
-                text: 'User added successfully!',
+                text: 'Invoice added successfully!',
                 type: 'success',
                 showCloseButton: true
             });
         });
     });
-//END,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 
 //ADD USER................................................
     $(' #photoButton').on('click', function (event) {
@@ -170,8 +244,6 @@ $('document').ready(function () {
             }
         });
     });
-//END,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-
 //UPDATE LOOGEDIN USER PROFILE......................................
     $('.profilebtn').on('click', function (event) {
         event.preventDefault();
@@ -215,11 +287,8 @@ $('document').ready(function () {
             }
         });
     });
-  //END,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-    
-    
-  //UPDATE APP USER....................................................  
- $('.updateuser').on('click', function (event) {
+    //UPDATE APP USER....................................................  
+    $('.updateuser').on('click', function (event) {
         event.preventDefault();
         var href = $(this).attr('href');
         $.get(href, function (userList, status) {
@@ -229,8 +298,8 @@ $('document').ready(function () {
             $('#datecreatt').val(userList.datecreated);
         });
         $('#updateProfile').modal();
-  });    
-$("#btnSubmitprofileupdd").click(function () {
+    });
+    $("#btnSubmitprofileupdd").click(function () {
         var form = $('#fileUploadFormuppp')[0];
         var data = new FormData(form);
         var jsonDataObj = {
@@ -252,7 +321,7 @@ $("#btnSubmitprofileupdd").click(function () {
             success: function (data) {
                 swalInit.fire({
                     title: 'Good job!',
-                    text: 'User profile updated successfully!',
+                    text: 'User updated successfully!',
                     type: 'success',
                     showCloseButton: true
                 });
@@ -260,11 +329,7 @@ $("#btnSubmitprofileupdd").click(function () {
             }
         });
     });
-    //END,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-    
-    
-  
-   //DELETE INVOICE............................................ 
+//DELETE INVOICE............................................ 
     $(Document).on('click', '#btDelete', function () {
         project.deleteInvoice($(this).data("id"));
     });
@@ -307,13 +372,11 @@ $("#btnSubmitprofileupdd").click(function () {
             }
         });
     };
-  //END,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,, 
-   
- //DELETE PROJECT...........................................
-$(Document).on('click', '#deleteprojbtn', function () {
+//DELETE PROJECT...........................................
+    $(Document).on('click', '#deleteprojbtn', function () {
         project.deleteProject($(this).data("id"));
     });
- project.deleteProject = function (res) {
+    project.deleteProject = function (res) {
         url = "/delete_project/";
 
         swalInit.fire({
@@ -335,7 +398,7 @@ $(Document).on('click', '#deleteprojbtn', function () {
                     success: function () {
                         swalInit.fire(
                                 'Deleted!',
-                                'Your file has been deleted.',
+                                'Your record has been deleted.',
                                 'success'
                                 );
                     }
@@ -345,20 +408,16 @@ $(Document).on('click', '#deleteprojbtn', function () {
                         'Cancelled',
                         'Your imaginary file is safe :)',
                         'error'
-
                         );
             }
         });
     };
-    //END,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-    
-    //DELETE USER.................................
-$(Document).on('click', '.deletebtnuser', function () {
+//DELETE USER.................................
+    $(Document).on('click', '.deletebtnuser', function () {
         project.deleteUsers($(this).data("id"));
     });
- project.deleteUsers = function (res) {
+    project.deleteUsers = function (res) {
         url = "/delete_user/";
-
         swalInit.fire({
             title: 'Are you sure?',
             text: "You won't be able to recover this invoice!",
@@ -378,7 +437,7 @@ $(Document).on('click', '.deletebtnuser', function () {
                     success: function () {
                         swalInit.fire(
                                 'Deleted!',
-                                'Your file has been deleted.',
+                                'Your record has been deleted.',
                                 'success'
                                 );
                     }

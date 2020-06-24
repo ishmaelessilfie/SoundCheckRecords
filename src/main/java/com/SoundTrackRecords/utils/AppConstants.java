@@ -1,4 +1,4 @@
-package com.SoundTrackRecords.Util;
+package com.SoundTrackRecords.utils;
 
 public class AppConstants {
         public static final String USERUPDATE_URI ="updateprofile";
@@ -7,7 +7,7 @@ public class AppConstants {
         public static final String USER_PASS="password";
 	public static final String USER_FILE_PARAM = "file";
         public static final String USER_FILEHIDDEN_PARAM = "filehidden";
-	public static final String SUCCESS_CODE = "200";
+	public static final String SUCCESS_CODE = "EMP-200";
 	public static final String SUCCESS_MSG = "User created successfully";
 	public static final String FILE_SEPERATOR = "_";
 	public static final String DOWNLOAD_PATH = "/downloadFile/";
@@ -20,6 +20,8 @@ public class AppConstants {
 	public static final String FILE_NOT_FOUND = "File not found ";
 	public static final String FILE_STORAGE_EXCEPTION = "Could not store file %s !! Please try again!";
 	public static final CharSequence INVALID_FILE_DELIMITER = "..";
+	//public static final String INDEX_PAGE_URI = "/index";
+	//public static final String INDEX_PAGE = "index";
 	public static final String TEMP_DIR = "E:\\uploads";
 	public static final String INVALID_FILE_DIMENSIONS = "Invalid file dimensions. File dimension should note be more than 300 X 300";
 	public static final String INVALID_FILE_FORMAT = "Only PNG, JPEG and JPG images are allowed";

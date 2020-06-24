@@ -9,6 +9,6 @@ package com.SoundTrackRecords.Model;
  *
  * @author Ish
  */
-public class Booking {
+public class DB_Connection {
     
 }

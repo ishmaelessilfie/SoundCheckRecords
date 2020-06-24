@@ -5,7 +5,6 @@
  */
 package com.SoundTrackRecords.Controller;
 
-import com.SoundTrackRecords.DTO.InvoiceDto;
 import com.SoundTrackRecords.Model.ActivityType;
 import com.SoundTrackRecords.Model.Combination;
 import com.SoundTrackRecords.Model.Genre;
@@ -35,39 +34,25 @@ import java.io.OutputStream;
 import java.security.Principal;
 import java.util.Date;
 import java.util.HashMap;
-import com.itextpdf.text.log.Logger;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.Map;
+import com.itextpdf.text.log.Logger;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
-import net.sf.jasperreports.engine.JRDataSource;
 import org.springframework.http.ResponseEntity;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
-
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.engine.design.JRDesignQuery;
-import net.sf.jasperreports.engine.design.JasperDesign;
-import net.sf.jasperreports.engine.export.JRPdfExporter;
-import net.sf.jasperreports.engine.util.JRLoader;
-
-import net.sf.jasperreports.engine.xml.JRXmlLoader;
-import net.sf.jasperreports.export.SimpleExporterInput;
-import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
-import net.sf.jasperreports.view.JasperViewer;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -76,7 +61,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  *
  * @author Ish
  */
- @Controller
+@Controller
 public class ProjectController {
 
     @Autowired
@@ -100,8 +85,6 @@ public class ProjectController {
     public ProjectController(SerialNumber serialNumber) {
         this.serialNumber = serialNumber;
     }
-    
-    
     Logger log = LoggerFactory.getLogger(ProjectController.class);
 //TOTAL NUMBER OF PROJECTS, TOTAL NUMBER OF WRITINGS, AND TOTAL NUMBER OF VOCALS TO INDEX PAGE
     @RequestMapping("/")
@@ -125,72 +108,36 @@ public class ProjectController {
         String un = principal.getName();
         return usersRepository.findByUsername(un);
     }
-    
-@ModelAttribute("projecttypeList")
+//LIST OF ALL PROJECT TYPE 
+    @RequestMapping(value = "/projecttypeList")
+    @ResponseBody
     public List<ProjectType> getProjectTypeList() {
         return projectTypeRepository.findAll();
     }
-
-    @ModelAttribute("activitytypeList")
+//LIST OF ALL ACTIVITIES
+    @RequestMapping("/activitytypeList")
+    @ResponseBody
     public List<ActivityType> getActivityTypeList() {
         return activityTypeRepository.findAll();
     }
-
-    @ModelAttribute("genreList")
+//LIST OF ALL GENRES
+    @RequestMapping("/genreList")
+    @ResponseBody
     public List<Genre> getgenreList() {
         return genreRepository.findAll();
     }
-
-    @ModelAttribute("combinationList")
+//LIST OF ALL COMBINATIONS
+    @RequestMapping("/combinationList")
+    @ResponseBody
     public List<Combination> combinationList() {
         return combinationRepository.findAll();
     }
-////LIST OF ALL PROJECT TYPE 
-//    @RequestMapping(value = "/projecttypeList")
-//    @ResponseBody
-//    public List<ProjectType> getProjectTypeList() {
-//        return projectTypeRepository.findAll();
-//    }
-////LIST OF ALL ACTIVITIES
-//    @RequestMapping("/activitytypeList")
-//    @ResponseBody
-//    public List<ActivityType> getActivityTypeList() {
-//        return activityTypeRepository.findAll();
-//    }
-////LIST OF ALL GENRES
-//    @RequestMapping("/genreList")
-//    @ResponseBody
-//    public List<Genre> getgenreList() {
-//        return genreRepository.findAll();
-//    }
-////LIST OF ALL COMBINATIONS
-//    @RequestMapping("/combinationList")
-//    @ResponseBody
-//    public List<Combination> combinationList() {
-//        return combinationRepository.findAll();
-//    }
-    
-    
 //ADD NEW PROJECT
-//    @RequestMapping(value = "/project", method = {RequestMethod.POST})
-//    ResponseEntity<Project> createCategory(@Valid Project project, BindingResult results) throws URISyntaxException {
-//        
-////        if (results.hasErrors()){
-////         
-////			return Error.customErrors(results.getAllErrors());
-////        }
-//         project.setNumber(serialNumber.generateRegistrationNumber());
-//        Project result = projectRepository.save(project);
-//        return ResponseEntity.created(new URI("/project" + result.getId())).body(result);
-//    }
-    
-@GetMapping("/save-project")
-    //@ResponseBody
-    public String save(@Valid @ModelAttribute Project project, Model model) {
-        project.setNumber(serialNumber.generateRegistrationNumber());
-        model.addAttribute("cmd", new Project());
-        projectRepository.save(project);
-        return "redirect:/";
+    @RequestMapping(value = "/project", method = {RequestMethod.POST})
+    ResponseEntity<Project> createCategory(@Valid Project project) throws URISyntaxException {
+         project.setNumber(serialNumber.generateRegistrationNumber());
+        Project result = projectRepository.save(project);
+        return ResponseEntity.created(new URI("/project" + result.getId())).body(result);
     }
 //LIST OF ALL PROJECTS
     @GetMapping(value = "/projectlist")
@@ -201,7 +148,6 @@ public class ProjectController {
     }
 //LIST OF ALL SONGS
     @GetMapping("/songlist")
-    //@ResponseBody
     public String songlist(Model m) {
         m.addAttribute("songlist", projectRepository.getSongDetail());
         return "songlist"; //html
@@ -209,7 +155,7 @@ public class ProjectController {
 //LIST OF ALL ARTISTES
     @GetMapping("/artistlist")
     public String artiste(Model m) {
-       projectRepository.getArtisteDetail();
+        m.addAttribute("artistlist", projectRepository.getArtisteDetail());
         return "artistlist"; //html
     }
 //DELETE A PROJECT
@@ -224,14 +170,6 @@ public class ProjectController {
         model.addAttribute("invoicelist", invoiceRepository.invoiceList());
         return "invoicelist";
     }
-//GETTING INVOICE TO VIEW
-//    @GetMapping("/invoice")
-//    @ResponseBody
-//    public String invoicepdfexcel(Long id, Project project, Model model) {
-//        model.addAttribute("invoicepdfecel", invoiceRepository.getInvoice(id));
-//        //model.addAttribute("invproj", projectRepository.getOne(id));
-//        return "invoice";
-//    }
     //GET ONE PROJECT BY ID
     @GetMapping("/get_project")
     @ResponseBody
@@ -259,14 +197,12 @@ public class ProjectController {
     public List<Project> getact() {
         return projectRepository.findAllByOrderByProjectstartdateAsc();
     }
-    
 //GET INVOICE BY ID
     @GetMapping("/edit_invoice")
     @ResponseBody
     public Invoice editInvoice(Long id) {
         return invoiceRepository.getOne(id);
     }
-    
     @RequestMapping(value = "/update_invoice", method = {RequestMethod.PUT, RequestMethod.GET})
     @Transactional
     public String updateinvoice(Invoice invoice, @RequestParam Long id, @RequestParam double masteringcost,
@@ -321,3 +257,4 @@ public class ProjectController {
       
     }
 }
+

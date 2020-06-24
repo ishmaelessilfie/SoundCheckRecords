@@ -5,7 +5,6 @@
  */
 package com.SoundTrackRecords.Model;
 
-import com.SoundTrackRecords.Validator.Validate;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -20,6 +19,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -44,7 +44,7 @@ import lombok.ToString;
 @Table(name="project")
 
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Project extends Auditable<String> implements Serializable{
+public class Project implements Serializable{
 
   
     private static final long serialVersionUID = 1L;
@@ -85,7 +85,6 @@ public class Project extends Auditable<String> implements Serializable{
     @NotNull(message="Please select project type")
     private ProjectType projecttype;
     @ManyToOne
-    @NotNull
     @NotNull(message="Please enter activity type")
     private ActivityType activitytype;
     private boolean ispdfexcelcreated =false;

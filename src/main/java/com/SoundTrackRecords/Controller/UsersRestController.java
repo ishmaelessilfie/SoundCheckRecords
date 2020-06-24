@@ -1,7 +1,7 @@
 package com.SoundTrackRecords.Controller;
 
-import com.SoundTrackRecords.Exception.FileStorageException;
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -19,13 +19,13 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.SoundTrackRecords.Util.AppResponse;
+import com.SoundTrackRecords.Model.AppResponse;
 import com.SoundTrackRecords.Model.Users;
 import com.SoundTrackRecords.Repository.UserRepository;
 import com.SoundTrackRecords.Service.ApplicationService;
 import com.SoundTrackRecords.Service.CommonService;
 import com.SoundTrackRecords.Service.FileStorageService;
-import com.SoundTrackRecords.Util.AppConstants;
+import com.SoundTrackRecords.utils.AppConstants;
 import java.security.Principal;
 import java.util.Date;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -49,25 +49,25 @@ public class UsersRestController {
     CommonService commonservice;
     @Autowired
     UserRepository usersRepository;
-    
    //ADD USER....................................
    @RequestMapping(value = AppConstants.USER_URI, method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
    @ResponseBody
     public AppResponse createUsers(
             @RequestParam(value = AppConstants.USER_JSON_PARAM, required = true) String empJson,
             @RequestParam(required = true, value = AppConstants.USER_FILE_PARAM) MultipartFile file)
-            throws JsonParseException, JsonMappingException, IOException{
+            throws JsonParseException, JsonMappingException, IOException {
         String fileName = fileStorageService.storeFile(file);
         String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path(AppConstants.DOWNLOAD_PATH)
                 .path(fileName).toUriString();
         Users users = objectMapper.readValue(empJson, Users.class);
-        
         users.setRole("ADMIN");
         users.setPassword(encoder.encode(users.getPassword()));
         users.setPhoto(fileDownloadUri);
         users.setDatecreated(new Date());
         users.setFilename(fileName);
-        applicationService.createUser(users ,file);
+        applicationService.createUser(users);
+        users.setPhoto(fileDownloadUri);
+        applicationService.createUser(users);
         return new AppResponse(AppConstants.SUCCESS_CODE, AppConstants.SUCCESS_MSG);
     }
    // END,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
@@ -83,6 +83,7 @@ public class UsersRestController {
         String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path(AppConstants.DOWNLOAD_PATH)
                 .path(fileName).toUriString();
         Users users = objectMapper.readValue(empJson, Users.class);
+
         String inputpassword = usersRepository.getPassword(users.getUsername());
         String inputphotos = usersRepository.getPhotos(users.getUsername());
        
@@ -98,7 +99,7 @@ public class UsersRestController {
         }
         users.setRole("ADMIN");
       users.setFilename(fileName);
-        applicationService.createUser(users,file);
+        applicationService.createUser(users);
         return new AppResponse(AppConstants.SUCCESS_CODE, AppConstants.SUCCESS_MSG);
     }
     //END,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
