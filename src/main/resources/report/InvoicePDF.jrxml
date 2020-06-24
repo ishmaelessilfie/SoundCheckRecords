@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="InvoicePDF" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="30349cfb-726e-42e4-8773-b66b14be5630">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="212"/>
+	<property name="ireport.y" value="192"/>
 	<queryString>
 		<![CDATA[select i.datecreated,i.masteringcost,i.mixingcost,i.studiotimecost,i.timeinhr,i.totalcost,i.invoiceno,i.costofintruments, i.totalstudicost,p.email, p.artistename from invoice i join project p on i.project_id=p.id]]>
 	</queryString>
@@ -158,7 +158,7 @@
 			<staticText>
 				<reportElement x="42" y="422" width="126" height="20" forecolor="#000000" backcolor="#660066" uuid="d40ec723-fb93-470f-ab31-58b3f316f3a1"/>
 				<textElement textAlignment="Center" markup="none">
-					<font fontName="SansSerif" size="14" isBold="true"/>
+					<font fontName="SansSerif" size="14" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Payment Method]]></text>
 			</staticText>
@@ -172,56 +172,56 @@
 			<staticText>
 				<reportElement x="34" y="201" width="100" height="20" uuid="fba03735-a817-4977-afcb-2240b1873fdd"/>
 				<textElement textAlignment="Center" markup="none">
-					<font fontName="SansSerif" size="14" isBold="true"/>
+					<font fontName="SansSerif" size="14" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Description]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="428" y="202" width="100" height="19" uuid="6445ac3d-2960-4f5a-b5bc-c3002a26ea59"/>
 				<textElement textAlignment="Center" markup="none">
-					<font fontName="SansSerif" size="14" isBold="true"/>
+					<font fontName="SansSerif" size="14" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Total Cost(GHc)]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="168" y="202" width="100" height="19" uuid="bad09ff8-5dea-4a52-a3a2-e7b48deb69f4"/>
 				<textElement textAlignment="Center" markup="none">
-					<font fontName="SansSerif" size="14" isBold="true"/>
+					<font fontName="SansSerif" size="14" isBold="false"/>
 				</textElement>
 				<text><![CDATA[No of Hours]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="291" y="202" width="100" height="19" uuid="35190d48-3328-421e-a40b-14edb3768315"/>
 				<textElement textAlignment="Center" markup="none">
-					<font fontName="SansSerif" size="14" isBold="true"/>
+					<font fontName="SansSerif" size="14" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Cost(GHc)]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="23" y="234" width="100" height="20" uuid="c47fd232-1ea5-4376-8a17-e29a0b122b77"/>
 				<textElement textAlignment="Right" markup="none">
-					<font fontName="SansSerif" size="14" isBold="true"/>
+					<font fontName="SansSerif" size="14" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Studio Time]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="23" y="269" width="100" height="20" uuid="0bc7f238-eddb-4254-9ac2-15b88128191b"/>
 				<textElement textAlignment="Right" markup="none">
-					<font fontName="SansSerif" size="14" isBold="true"/>
+					<font fontName="SansSerif" size="14" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Mastering]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="23" y="306" width="100" height="20" uuid="427736ae-8e54-48f8-94f2-8de00073789d"/>
 				<textElement textAlignment="Right" markup="none">
-					<font fontName="SansSerif" size="14" isBold="true"/>
+					<font fontName="SansSerif" size="14" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Missing]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="23" y="341" width="100" height="20" uuid="18ef5013-a346-4448-aeb8-6520bc9693c0"/>
 				<textElement textAlignment="Right" markup="none">
-					<font fontName="SansSerif" size="14" isBold="true"/>
+					<font fontName="SansSerif" size="14" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Instruments]]></text>
 			</staticText>
@@ -233,7 +233,7 @@
 				<text><![CDATA[Tax(0%)  =             0.0]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="395" y="460" width="87" height="20" uuid="62c2f811-947f-4fb7-bdc9-5a5370281f7e"/>
+				<reportElement x="395" y="460" width="106" height="20" uuid="62c2f811-947f-4fb7-bdc9-5a5370281f7e"/>
 				<textElement markup="none">
 					<font fontName="SansSerif" size="14"/>
 				</textElement>
@@ -263,28 +263,28 @@
 			<staticText>
 				<reportElement x="40" y="481" width="149" height="20" uuid="e0eba73a-0033-496a-b07b-9bcff1dbad60"/>
 				<textElement markup="none">
-					<font fontName="SansSerif" size="12" isBold="true"/>
+					<font fontName="SansSerif" size="12" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Bank: United bank of Africa]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="11" y="501" width="220" height="20" uuid="4e84e335-ce7a-4421-9215-630355748a83"/>
 				<textElement markup="none">
-					<font fontName="SansSerif" size="12" isBold="true"/>
+					<font fontName="SansSerif" size="12" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Account Name:  Addico Nii Awuley Elishama]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="35" y="521" width="180" height="20" uuid="e2124ec5-6ba3-4f0c-9fa4-1498a0da680d"/>
 				<textElement markup="none">
-					<font fontName="SansSerif" size="12" isBold="true"/>
+					<font fontName="SansSerif" size="12" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Account Number:  01325194401552]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="9" y="537" width="123" height="20" uuid="793f2330-cd12-4f0e-917c-5b01496a881e"/>
 				<textElement markup="none">
-					<font fontName="SansSerif" size="12" isBold="true"/>
+					<font fontName="SansSerif" size="12" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Branch: Teshie Lascala]]></text>
 			</staticText>
@@ -304,7 +304,7 @@
 			<staticText>
 				<reportElement x="49" y="460" width="100" height="20" uuid="28d54dc5-40ca-49ab-bded-13037724cfbd"/>
 				<textElement markup="none">
-					<font fontName="SansSerif" size="12"/>
+					<font fontName="SansSerif" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Bank Account]]></text>
 			</staticText>
@@ -330,14 +330,14 @@
 				<text><![CDATA[***]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="72" y="157" width="111" height="20" uuid="9231ee9a-d85b-4e2b-b42d-ebcc79a05acb"/>
+				<reportElement x="79" y="157" width="111" height="20" uuid="9231ee9a-d85b-4e2b-b42d-ebcc79a05acb"/>
 				<textElement>
 					<font fontName="SansSerif"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{email}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="72" y="137" width="100" height="20" uuid="8bbd8467-4534-4dba-9265-92d4b426dc42"/>
+				<reportElement x="79" y="137" width="100" height="20" uuid="8bbd8467-4534-4dba-9265-92d4b426dc42"/>
 				<textElement>
 					<font fontName="SansSerif"/>
 				</textElement>
@@ -421,15 +421,15 @@
 				<textFieldExpression><![CDATA[$F{costofintruments}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="483" y="388" width="100" height="20" uuid="0066d0dc-56f8-4f6a-b18e-93dc85871d2b"/>
-				<textElement>
+				<reportElement x="466" y="392" width="70" height="20" uuid="0066d0dc-56f8-4f6a-b18e-93dc85871d2b"/>
+				<textElement textAlignment="Right">
 					<font fontName="SansSerif"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{totalcost}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="486" y="461" width="97" height="20" uuid="bcfa47a1-0023-4fcd-b4cf-1e36e0fea7c9"/>
-				<textElement>
+				<reportElement x="471" y="464" width="69" height="20" uuid="bcfa47a1-0023-4fcd-b4cf-1e36e0fea7c9"/>
+				<textElement textAlignment="Right">
 					<font fontName="SansSerif"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{totalcost}]]></textFieldExpression>
