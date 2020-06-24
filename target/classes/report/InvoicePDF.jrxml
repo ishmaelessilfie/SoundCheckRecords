@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="InvoicePDF" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="30349cfb-726e-42e4-8773-b66b14be5630">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="192"/>
+	<property name="ireport.y" value="68"/>
 	<queryString>
 		<![CDATA[select i.datecreated,i.masteringcost,i.mixingcost,i.studiotimecost,i.timeinhr,i.totalcost,i.invoiceno,i.costofintruments, i.totalstudicost,p.email, p.artistename from invoice i join project p on i.project_id=p.id]]>
 	</queryString>
@@ -109,14 +109,14 @@
 				<text><![CDATA[Invoice]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="408" y="109" width="58" height="20" uuid="feb86da6-dfa0-4d95-9c11-dab1ed9578fc"/>
+				<reportElement x="408" y="109" width="75" height="20" uuid="feb86da6-dfa0-4d95-9c11-dab1ed9578fc"/>
 				<textElement markup="none">
 					<font fontName="SansSerif" size="14"/>
 				</textElement>
 				<text><![CDATA[Invoice #:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="408" y="129" width="35" height="20" uuid="20d376d8-ab2a-4abc-97ca-2f58a2ca01b3"/>
+				<reportElement x="408" y="129" width="43" height="20" uuid="20d376d8-ab2a-4abc-97ca-2f58a2ca01b3"/>
 				<textElement markup="none">
 					<font fontName="SansSerif" size="14"/>
 				</textElement>
@@ -156,7 +156,7 @@
 				<reportElement x="280" y="193" width="1" height="182" uuid="1ee0da16-8c13-41cc-96d8-8277bb2f7c43"/>
 			</line>
 			<staticText>
-				<reportElement x="42" y="422" width="126" height="20" forecolor="#000000" backcolor="#660066" uuid="d40ec723-fb93-470f-ab31-58b3f316f3a1"/>
+				<reportElement x="17" y="422" width="126" height="20" forecolor="#000000" backcolor="#660066" uuid="d40ec723-fb93-470f-ab31-58b3f316f3a1"/>
 				<textElement textAlignment="Center" markup="none">
 					<font fontName="SansSerif" size="14" isBold="false"/>
 				</textElement>
@@ -261,28 +261,28 @@
 				<text><![CDATA[...................................................................]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="40" y="481" width="149" height="20" uuid="e0eba73a-0033-496a-b07b-9bcff1dbad60"/>
+				<reportElement x="33" y="481" width="193" height="20" uuid="e0eba73a-0033-496a-b07b-9bcff1dbad60"/>
 				<textElement markup="none">
 					<font fontName="SansSerif" size="12" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Bank: United bank of Africa]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="11" y="501" width="220" height="20" uuid="4e84e335-ce7a-4421-9215-630355748a83"/>
+				<reportElement x="11" y="501" width="257" height="20" uuid="4e84e335-ce7a-4421-9215-630355748a83"/>
 				<textElement markup="none">
 					<font fontName="SansSerif" size="12" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Account Name:  Addico Nii Awuley Elishama]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="35" y="521" width="180" height="20" uuid="e2124ec5-6ba3-4f0c-9fa4-1498a0da680d"/>
+				<reportElement x="33" y="521" width="220" height="20" uuid="e2124ec5-6ba3-4f0c-9fa4-1498a0da680d"/>
 				<textElement markup="none">
 					<font fontName="SansSerif" size="12" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Account Number:  01325194401552]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="9" y="537" width="123" height="20" uuid="793f2330-cd12-4f0e-917c-5b01496a881e"/>
+				<reportElement x="34" y="541" width="166" height="20" uuid="793f2330-cd12-4f0e-917c-5b01496a881e"/>
 				<textElement markup="none">
 					<font fontName="SansSerif" size="12" isBold="false"/>
 				</textElement>
@@ -300,13 +300,6 @@
 					<font fontName="SansSerif" size="12"/>
 				</textElement>
 				<text><![CDATA[Thanks for business with us.]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="49" y="460" width="100" height="20" uuid="28d54dc5-40ca-49ab-bded-13037724cfbd"/>
-				<textElement markup="none">
-					<font fontName="SansSerif" size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Bank Account]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="149" y="269" width="131" height="20" uuid="bca9c7a4-3dac-474e-94de-b29b9a17c510"/>
@@ -330,28 +323,28 @@
 				<text><![CDATA[***]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="79" y="157" width="111" height="20" uuid="9231ee9a-d85b-4e2b-b42d-ebcc79a05acb"/>
+				<reportElement x="79" y="159" width="111" height="20" uuid="9231ee9a-d85b-4e2b-b42d-ebcc79a05acb"/>
 				<textElement>
 					<font fontName="SansSerif"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{email}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="79" y="137" width="100" height="20" uuid="8bbd8467-4534-4dba-9265-92d4b426dc42"/>
+				<reportElement x="79" y="139" width="100" height="20" uuid="8bbd8467-4534-4dba-9265-92d4b426dc42"/>
 				<textElement>
 					<font fontName="SansSerif"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{artistename}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="466" y="112" width="100" height="20" uuid="12bc8b1e-3e84-4159-bd52-42090bcb8043"/>
+				<reportElement x="473" y="113" width="100" height="20" uuid="12bc8b1e-3e84-4159-bd52-42090bcb8043"/>
 				<textElement>
 					<font fontName="SansSerif"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{invoiceno}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="443" y="131" width="100" height="20" uuid="c6090b19-a00c-4d07-b301-13b3a75ac7b2"/>
+				<reportElement x="450" y="133" width="100" height="20" uuid="c6090b19-a00c-4d07-b301-13b3a75ac7b2"/>
 				<textElement>
 					<font fontName="SansSerif"/>
 				</textElement>
