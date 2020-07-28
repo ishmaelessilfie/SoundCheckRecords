@@ -21,7 +21,7 @@
                         </div>
                     </div>
                 </div>
-                <table class="table datatable-sorting">
+                <table class="table " id="songlisttable" >
                     <thead>
                         <tr>
                             <th>Song Title</th>
@@ -32,17 +32,7 @@
                             <th>Date Recorded</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr  th:each="sList:${songlist}">
-                            <td th:text="${sList.songtitle}"></td>
-                            <td th:text="${sList.artistename}"></td>
-                            <td th:text="${sList.writer}"></td>
-                            <td th:text="${sList.producer}"></td>
-                            <td th:text="${sList.engineer}"></td>
-                            <!--<td th:text="${projList.projectstartdate}"></td>-->
-                            <td th:text="${#dates.format(sList.projectstartdate, 'dd-MMM-yyyy')}"></td>
-                        </tr>
-                    </tbody>
+                  
                 </table>
             </div>
          

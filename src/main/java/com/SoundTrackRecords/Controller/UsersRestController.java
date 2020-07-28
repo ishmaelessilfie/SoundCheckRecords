@@ -23,19 +23,16 @@ import com.SoundTrackRecords.Model.AppResponse;
 import com.SoundTrackRecords.Model.Users;
 import com.SoundTrackRecords.Repository.UserRepository;
 import com.SoundTrackRecords.Service.ApplicationService;
-import com.SoundTrackRecords.Service.CommonService;
 import com.SoundTrackRecords.Service.FileStorageService;
 import com.SoundTrackRecords.utils.AppConstants;
-import java.security.Principal;
 import java.util.Date;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
 public class UsersRestController {
 
     @Autowired
@@ -46,12 +43,10 @@ public class UsersRestController {
     @Autowired
     private BCryptPasswordEncoder encoder;
     @Autowired
-    CommonService commonservice;
-    @Autowired
     UserRepository usersRepository;
-   //ADD USER....................................
-   @RequestMapping(value = AppConstants.USER_URI, method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-   @ResponseBody
+    //ADD USER....................................
+
+    @RequestMapping(value = AppConstants.USER_URI, method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public AppResponse createUsers(
             @RequestParam(value = AppConstants.USER_JSON_PARAM, required = true) String empJson,
             @RequestParam(required = true, value = AppConstants.USER_FILE_PARAM) MultipartFile file)
@@ -64,80 +59,62 @@ public class UsersRestController {
         users.setPassword(encoder.encode(users.getPassword()));
         users.setPhoto(fileDownloadUri);
         users.setDatecreated(new Date());
-        users.setFilename(fileName);
+//        users.setFilename(fileName);
         applicationService.createUser(users);
         users.setPhoto(fileDownloadUri);
         applicationService.createUser(users);
         return new AppResponse(AppConstants.SUCCESS_CODE, AppConstants.SUCCESS_MSG);
     }
-   // END,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+    // END,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 
     //UPDATE USER........................
     @RequestMapping(value = AppConstants.USERUPDATE_URI, method = {RequestMethod.GET, RequestMethod.PUT}, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    @ResponseBody
     public AppResponse updateUser(
-            @RequestParam(value = AppConstants.USER_JSON_PARAM, required = true) String empJson,
-            @RequestParam(required = true, value = AppConstants.USER_FILE_PARAM) MultipartFile file)
+          @RequestParam(value = AppConstants.USER_JSON_PARAM, required = true) String empJson,
+            @RequestParam(required = true, value = "file") MultipartFile file)
             throws JsonParseException, JsonMappingException, IOException {
         String fileName = fileStorageService.storeFile(file);
         String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path(AppConstants.DOWNLOAD_PATH)
                 .path(fileName).toUriString();
-        Users users = objectMapper.readValue(empJson, Users.class);
+       Users users = objectMapper.readValue(empJson, Users.class);
 
         String inputpassword = usersRepository.getPassword(users.getUsername());
         String inputphotos = usersRepository.getPhotos(users.getUsername());
-       
-        if(users.getPassword().equals(inputpassword)){
+
+        if (users.getPassword().equals(inputpassword)) {
             users.setPassword(users.getPassword());
-        }else {
-          users.setPassword(encoder.encode(users.getPassword()));
+        } else {
+            users.setPassword(encoder.encode(users.getPassword()));
         }
-        if(!file.isEmpty()){
+        if (!file.isEmpty()) {
             users.setPhoto(fileDownloadUri);
-        }else{
+        } else {
             users.setPhoto(inputphotos);
         }
         users.setRole("ADMIN");
-      users.setFilename(fileName);
+//      users.setFilename(fileName);
         applicationService.createUser(users);
         return new AppResponse(AppConstants.SUCCESS_CODE, AppConstants.SUCCESS_MSG);
     }
     //END,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-    
-    //GET PROFILE PICTURE....................
-    @ModelAttribute("profilepic")
-    public String profile(Principal principal, String username) {
-        String un = principal.getName();
-        return usersRepository.getUserPhoto(un);
-    }
-    //END,,,,,,,,,,,,,,,,,,,,,,
-    
+
     //USER LIST................
-    @GetMapping(value = "/userlist")
-    public String getAllUsers(Model model) {
-        model.addAttribute("userlist", usersRepository.findAll());
-        return "userlist";
+    @GetMapping("/userlist")
+    public List<Users> getAllUsers() {
+        return usersRepository.findAll();
     }
     //END.,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
     
-    //EDIT USER...................
-    @GetMapping("/edit_user")
-    @ResponseBody
-    public Users getUser(Long id) {
-        return usersRepository.getOne(id);
-    }
-    //END,,,,,,,,,,,,,,,,,,,,,,
 
     //DELETE USER....................
-     @GetMapping(value = "/delete_user/{id}")
-	public @ResponseBody String addressIvoice(@PathVariable Long id) {
-		return commonservice.deleteuser(id);
-       }
+    @GetMapping(value = "/delete_user/{id}")
+    public void addressIvoice(@PathVariable Long id) {
+         usersRepository.deleteById(id);
+    }
     //END,,,,,,,,,,,,,,,,,,,,,,,,,,    
-        
+
     //DOWNLOAD FILE....................
     @RequestMapping(value = AppConstants.DOWNLOAD_URI, method = RequestMethod.GET)
-    //@ResponseBody
     public ResponseEntity<Resource> downloadFile(@PathVariable String fileName, HttpServletRequest request) {
         Resource resource = fileStorageService.loadFileAsResource(fileName);
         String contentType = null;

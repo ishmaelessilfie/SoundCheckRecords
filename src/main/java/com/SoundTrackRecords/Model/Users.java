@@ -49,7 +49,7 @@ public class Users implements Serializable {
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @Temporal(TemporalType.TIMESTAMP)
     private Date datecreated;
-    @NotNull
-    private String filename;
+//    @NotNull
+//    private String filename;
    }
 

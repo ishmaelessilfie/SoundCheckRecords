@@ -8,7 +8,6 @@
         <meta  content="width=device-width, value-scale=1"/>
         <title >Sound Check Records</title>
     </head>
-
     <body>
         <div class="content pt-0" layout:fragment="main-content" >
             <div class="card" >
@@ -17,11 +16,10 @@
                     <div class="header-elements">
                         <div class="list-icons">
                             <a class="list-icons-item" data-action="reload"></a>
-
                         </div>
                     </div>
                 </div>
-                <table class="table datatable-sorting">
+                <table class="table " id="artisteList">
                     <thead>
                         <tr>
                             <th>Artiste name</th>
@@ -32,20 +30,8 @@
                            <th>Date</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr  th:each="aList:${artistlist}">
-                            <td th:text="${aList.artistename}"></td>
-                            <td th:text="${aList.phone}"></td>
-                            <td th:text="${aList.email}"></td>
-                            <td th:text="${aList.town}"></td>
-                            <td th:text="${aList.country}"></td>
-                            <td th:text="${#dates.format(aList.projectstartdate, 'dd-MMM-yyyy')}"></td>
-                        </tr>
-                    </tbody>
                 </table>
-            </div>
-         
+            </div>        
         </div>
-        <!-- /single row selection -->
     </body>
 </html>

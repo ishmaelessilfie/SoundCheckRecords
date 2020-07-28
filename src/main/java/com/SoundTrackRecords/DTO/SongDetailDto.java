@@ -18,7 +18,7 @@ public interface SongDetailDto{
     String getEngineer();
     String getProducer();
     String getWriter();
-    String getCombination();
+//    String getCombination();
     String getSongtitle();
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     Date getProjectstartdate();

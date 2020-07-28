@@ -23,42 +23,20 @@
                         </div>
                     </div>
                 </div>
-                <table class="table">
+                <table class="table invoicellist">
                     <thead >
                         <tr >
                             <th>Project code</th>
                             <th>Date Created</th>
                             <th>Invoice Number</th>
                             <th class="text-center">Actions</th>
-                        </tr>
-                        </tr>
+                        </tr> 
                     </thead>
-                    <tbody>
-                        <tr th:each="projList:${invoicelist}">
-                            <td th:text="${projList.number}"></td>
-                            <td th:text="${projList.datecreated}"></td>
-                            <td th:text="${projList.invoiceno}"></td>
-                            <td class="text-center">
-                                <div class="list-icons">
-                                    <div class="dropdown">
-                                        <a href="#" class="list-icons-item" data-toggle="dropdown">
-                                            <i class="icon-menu9"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right ">
-                                            <a th:href="@{invoicePDF/(id=${projList.id})}" class="dropdown-item "><i class="icon-file-pdf"></i> <span class="badge badge-success">Export to pdf</span></a>
-                                            <a th:href="@{edit_invoice/(id=${projList.id})}" class="dropdown-item editbtninv"><i class="icon-pencil"></i> <span class="badge badge-info">Update</span></a>
-                                           <a th:href="@{#delete}" th:attr="data-id=${projList.id}" id="btDelete" class="dropdown-item" ><i class="icon-trash"></i> <span class="badge badge-warning">Delete</span></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>  
-                        </tr>
-                    </tbody>
                 </table>
             </div>  
              <!--EDIT INVOICE................................................ -->
             <div id="EditInvoice" class="modal fade" tabindex="-1">
-                <form th:action="@{/update_invoice}" class="form-validation" >
+                <form  class="form-validation editinvoiceform" >
                     <div class="modal-dialog modal-small">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -70,7 +48,7 @@
                                     <div class="row">
                                         <div class="col-sm-4">
                                             <input type="hidden" name="id" id="idinv"/>
-                                            <input type="hidden" name="project.id" id="projectid"/>
+                                            <input type="hidden" name="project" id="projectid"/>
                                             <label >Studio Hours Cost</label>
                                             <input type="text" id="studiotimecost" class="form-control"  name="studiotimecost" required/>
                                         </div>
@@ -94,7 +72,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn bg-primary" >Submit form</button>
+                                    <button type="button" class="btn bg-primary invbtn" >Submit form</button>
                                 </div>
                             </div>
                         </div>

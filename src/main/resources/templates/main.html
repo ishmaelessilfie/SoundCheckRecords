@@ -6,9 +6,7 @@
         <meta charset="UTF-8"/>
         <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
         <meta  content="width=device-width, value-scale=1"/>
-        <title >Sound Check Records</title>
-        
-        
+        <title >Sound Check Records</title>        
         <link href="../global_assets/css/icons/icomoon/styles.min.css" rel="stylesheet" type="text/css"/>
         <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
         <link href="../assets/css/bootstrap_limitless.min.css" rel="stylesheet" type="text/css"/>
@@ -17,7 +15,6 @@
         <link href="../assets/css/colors.min.css" rel="stylesheet" type="text/css"/>
         <link href="../assets/css/custom.css" rel="stylesheet" type="text/css"/> 
     </head>
-
     <body>
         <div class="navbar navbar-expand-md navbar-light navbar-static" >
             <div class="navbar-brand">
@@ -111,11 +108,11 @@
                 </ul>
                 <span class="badge bg-success my-3 my-md-0 ml-md-3 mr-md-auto">Online</span>
                 <span class="mr-1"><i class=" mr-3 "></i>
-                    <span th:text="${#dates.format(#dates.createNow(), 'hh:mm a')}" style="color:greenyellow"></span>
+                    <span id="timee"  style="color:greenyellow"></span>
                 </span>
-                <span><i class='icon_clock_alt'></i>
+<!--                <span><i class='icon_clock_alt'></i>
                     <span th:text="${#dates.format(#dates.createNow(), 'dd MMM yyyy')}" style="color:greenyellow"></span>
-                </span>
+                </span>-->
                 <ul class="navbar-nav">
                     <li class="nav-item dropdown">
                         <a href="#" class="navbar-nav-link dropdown-toggle caret-0" data-toggle="dropdown">
@@ -132,13 +129,12 @@
                     </li>
                     <li class="nav-item dropdown dropdown-user">
                         <a href="#" class="navbar-nav-link d-flex align-items-center dropdown-toggle" data-toggle="dropdown">
-                            <img th:src="${profilepic}" height="38" width="38" class="rounded-circle mr-2" alt=""/>
-                            <span th:text="${#authentication.getPrincipal().getUsername()}">Guest</span>
-                        </a>
-                        <!-- <a  th:href="@{profile?(username=${#authentication.getPrincipal().getUsername()})}"class="dropdown-item profilebtn"><i class="icon-user-plus "></i> My profile</a>-->
-                        <div class="dropdown-menu dropdown-menu-right">
-                            <a  th:href="@{myprofile?(username=${#authentication.getPrincipal().getUsername()})}"class="dropdown-item profilebtn"><i class="icon-user-plus "></i> My profile</a>                          
-                            <a href="userlist" class="dropdown-item"><i class="icon-users"></i> View Users</a>
+                            <img src="" height="38" width="38" class="rounded-circle mr-2 profilepic" alt=""/>
+                            <span class="username">Guest</span>
+                        </a>                   
+                       <div class="dropdown-menu dropdown-menu-right">
+                            <a  class="dropdown-item profilebtn"><i class="icon-user-plus "></i> My profile</a>                          
+                            <a href="usersList" class="dropdown-item"><i class="icon-users"></i> View Users</a>
                             <a data-toggle="modal" href="#AddUsers"  class="dropdown-item"><i class="icon-user"></i> Add new user</a>
                             <div class="dropdown-divider"></div>
                             <a href="#" class="dropdown-item"><i class="icon-cog5"></i> Account settings</a>
@@ -197,7 +193,7 @@
                             <!-- Main -->
                             <li class="nav-item-header"><div class="text-uppercase font-size-xs line-height-xs">Main</div> <i class="icon-menu" title="Main"></i></li>
                             <li class="nav-item">
-                                <a th:href="@{/}"class="nav-link">
+                                <a href="/"class="nav-link">
                                     <i class="icon-home4"></i>
                                     <span>
                                         Dashboard
@@ -209,21 +205,21 @@
 
                                 <ul class="nav nav-group-sub" data-submenu-title="Layouts">
                                     <li class="nav-item"><a data-toggle="modal" href="#AddRecord" class="nav-link active">New Project</a></li>
-                                    <li class="nav-item"><a  th:href="@{/projectlist}" class="nav-link">Project List</a></li>
+                                    <li class="nav-item"><a  href="projList" class="nav-link">Project List</a></li>
                                 </ul>
                             </li>
                             <li class="nav-item nav-item-submenu">
                                 <a href="#" class="nav-link"><i class="icon-music"></i> <span>Songs</span></a>
 
                                 <ul class="nav nav-group-sub" data-submenu-title="Themes">
-                                    <li class="nav-item"><a href="songlist" class="nav-link">Song List</a></li>
+                                    <li class="nav-item"><a href="songList" class="nav-link">Song List</a></li>
                                 </ul>
                             </li>
                             <li class="nav-item nav-item-submenu">
                                 <a href="#" class="nav-link"><i class="icon-user"></i> <span>Artists</span></a>
 
                                 <ul class="nav nav-group-sub" data-submenu-title="Themes">
-                                    <li class="nav-item"><a href="artistlist" class="nav-link">Artiste List</a></li>
+                                    <li class="nav-item"><a href="artistList" class="nav-link">Artiste List</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -245,21 +241,19 @@
                         <div class="header-elements d-none mb-3 mb-md-0">
                             <div class="d-flex justify-content-center" >
                                 <a href="#" class="btn btn-link btn-float text-default caret-0"><i class="icon-bars-alt"></i><span>Statistics</span></a>
-                                <a href="invoicelist" class="btn btn-link btn-float text-default"><i class="icon-calculator"></i> <span>Invoices</span></a>
-                                <a href="#" class="btn btn-link btn-float text-default"><i class="icon-calendar5"></i> <span>Schedule</span></a>
+                                <a href="invoiceList" class="btn btn-link btn-float text-default"><i class="icon-calculator"></i> <span>Invoices</span></a>
+                                <a href="bookings" class="btn btn-link btn-float text-default"><i class="icon-calendar5"></i> <span>Schedule</span></a>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="content pt-0" layout:fragment="main-content" >
-
-                    <div class="alert alert-success">File uploaded successfully</div>
-                    <div class="alert alert-danger">File is not uploaded. Error occurred</div>
+                <div class="content pt-0" layout:fragment="main-content" >                  
                 </div>
                 <div th:replace="footer::footer">
                 </div>
             </div>
 
+            
             <!--ADD PROJECT................................................ -->
             <div id="AddRecord" class="modal fade " tabindex="-1">
                 <div class="modal-dialog modal-full">
@@ -283,9 +277,8 @@
                                         <div class="col-sm-4">
                                             <label >Song tittle<span class="text-danger">*</span></label>
 
-                                            <input type="text" class="form-control" id="songtitlead" name="songtitle" required/>
-                                            <!--                                         <div class="invalid-feedback">Please enter song title to continue</div>-->
-                                        </div>
+                                            <input type="text" class="form-control" id="songtitlead" name="songtitle" required/>                                
+                                        </div>                                       
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -375,13 +368,14 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="reset" class="btn btn-light" id="reset">Reset <i class="icon-reload-alt ml-2"></i></button>
-                                <button type="submit" class="btn btn-primary ml-3"id="df" >Submit <i class="icon-paperplane ml-2"></i></button>
+                                <button type="button" class="btn btn-primary ml-3"id="addprojectbtn" >Submit <i class="icon-paperplane ml-2"></i></button>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>      
             <!--END,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,, -->
+            
 
             <!-- VIEW PROFILE ......................................... -->
             <div id="ViewProfile" class="modal fade" tabindex="-1">
@@ -486,48 +480,17 @@
         <script src="../global_assets/js/plugins/forms/selects/select2.min.js"></script>
         <script src="../global_assets/js/plugins/extensions/jquery_ui/widgets.min.js"></script>
         <script src="../global_assets/js/plugins/extensions/jquery_ui/effects.min.js"></script>
-        <script src="../global_assets/js/plugins/forms/styling/uniform.min.js"></script>
-        <script src="../assets/js/scripts.js"></script>
+        <script src="../global_assets/js/plugins/forms/styling/uniform.min.js"></script>      
         <script src="../assets/js/app.js"></script>
         <script src="../assets/js/bootstrap-datepicker.js"></script>
         <script src="../global_assets/js/demo_pages/login.js"></script>
         <script src="../global_assets/js/demo_pages/form_validation.js"></script>
         <script src="../global_assets/js/demo_pages/form2valid.js"></script>
         <script src="../global_assets/js/demo_pages/datatables_responsive.js"></script>
-        <script src="../global_assets/js/demo_pages/datatables_sorting.js"></script>
-        <script src="../global_assets/js/demo_pages/picker_date.js"></script>
+        <script src="../global_assets/js/demo_pages/picker_date.js"></script>       
+         <script src="../assets/js/scripts.js"></script>
             
 </body>
    
-<script th:src="@{assets/js/printThis.js}"></script>
 
-<script>
-        
-$('#print').click(function () {
-            $('#invoice').printThis({
-                debug: false, // show the iframe for debugging
-                importCSS: true, // import parent page css
-                importStyle: false, // import style tags
-                printContainer: true, // print outer container/$.selector
-                loadCSS: " assets/css/custom.css",
-                pageTitle: "", // add title to print page
-                removeInline: false, // remove inline styles from print elements
-                removeInlineSelector: "*", // custom selectors to filter inline styles. removeInline must be true
-                printDelay: 333, // variable print delay
-                header: null, // prefix to html
-                footer: null, // postfix to html
-                base: false, // preserve the BASE tag or accept a string for the URL
-                formValues: true, // preserve input/form values
-                canvas: false, // copy canvas content
-                doctypeString: '<!DOCTYPE html>', // enter a different doctype for older markup
-                removeScripts: false, // remove script tags from print content
-                copyTagClasses: false, // copy classes from the html & body tag
-                beforePrintEvent: null, // callback function for printEvent in iframe
-                beforePrint: null, // function called before iframe is filled
-                afterPrint: null            // function called before iframe is removed
-            });
-
-        });
-
-    </script>
 </html>

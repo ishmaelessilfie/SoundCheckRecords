@@ -1,0 +1,41 @@
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{main}">
+
+    <head>
+        <meta charset="UTF-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta  content="width=device-width, value-scale=1"/>
+        <title >Sound Check Records</title>
+    </head>
+    <body>
+        <div class="content pt-0" layout:fragment="main-content" >
+            <div class="card" >
+                <div class="card-header header-elements-inline">
+                    <h5 class="card-title">Booking</h5>
+                    <div class="header-elements">
+                        <div class="list-icons">
+                            <a class="list-icons-item" data-action="reload"></a>
+                        </div>
+                    </div>
+                </div>
+                <table class="table " id="booking">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Address</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Project type</th>
+                            <th>Number of hours</th>
+                            <th>Date booked</th>
+                           <th>Action</th>
+                           <th>Status</th>
+                           
+                        </tr>
+                    </thead>
+                </table>
+            </div>        
+        </div>
+    </body>
+</html>

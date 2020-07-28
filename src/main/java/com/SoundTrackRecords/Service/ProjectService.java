@@ -5,10 +5,32 @@
  */
 package com.SoundTrackRecords.Service;
 
+import com.SoundTrackRecords.DTO.ProjectDto;
+import com.SoundTrackRecords.Model.Genre;
+import com.SoundTrackRecords.Repository.GenreRepository;
+import com.SoundTrackRecords.Repository.ProjectRepository;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestMapping;
+
 /**
  *
  * @author Ish
  */
-public interface ProjectService {
-    
+@Service
+public class ProjectService {
+   @Autowired
+   ProjectRepository projectRepository;
+   @Autowired
+   GenreRepository genreRepository;
+   
+   
+//   @Cacheable(cacheNames = { "projectCache" })
+   public List<ProjectDto> getProjectList(){
+      return projectRepository.getProjectlist();
+   }
+   
+   
 }

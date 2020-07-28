@@ -22,7 +22,7 @@
                         </div>
                     </div>
                 </div>
-                <table class="table datatable-sorting">
+                <table id="userlistt" class="table ">
                     <thead>
                         <tr>
                             <th>Username</th>
@@ -31,29 +31,7 @@
                             <th>Date created</th>
                             <th class="text-center">Actions</th>
                         </tr>
-                    </thead>
-                    <tbody>
-                        
-                        <tr th:each="userList:${userlist}">
-                            <td th:text="${userList.username}"></td>
-                             <td th:text="${userList.role}"></td>
-                             <td><img th:src="${userList.photo}" width="40" height="40"></img></td>
-                            <td th:text="${userList.datecreated}"></td>
-                            <td class="text-center">
-                                <div class="list-icons">
-                                    <div class="dropdown">
-                                        <a href="#" class="list-icons-item" data-toggle="dropdown">
-                                            <i class="icon-menu9"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right ">
-                                            <a th:href="@{edit_user/(id=${userList.id})}" class="dropdown-item updateuser"><i class="icon-pencil"></i> <span class="badge badge-info">Update</span></a>
-                                            <a th:href="@{#delete}" th:attr="data-id=${userList.id}" class="dropdown-item  deletebtnuser"  ><i class="icon-trash"></i> <span class="badge badge-warning">Delete</span></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>  
-                        </tr>
-                    </tbody>
+                    </thead>            
                 </table>
             </div>  
             
@@ -62,7 +40,7 @@
                 <div class="modal-dialog modal-small">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title">Update Invoice</h5>
+                            <h5 class="modal-title">Update User</h5>
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                         </div>
                         <div  class="modal-body">
@@ -90,7 +68,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="cancel" class="btn btn-link" data-dismiss="modal">close</button>
-                                <button type="submit" class="btn bg-primary" id="btnSubmitprofileupdd" >Submit</button>
+                                <button type="button" class="btn bg-primary" id="btnSubmitprofileupdd" >Submit</button>
                             </div>
                           
                         </div>

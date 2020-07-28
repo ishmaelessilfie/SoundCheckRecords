@@ -26,7 +26,6 @@ import lombok.ToString;
  * @author Ish
  */
 @Entity
-@ToString
 @NoArgsConstructor
 @Data
 @Table(name="projecttype")

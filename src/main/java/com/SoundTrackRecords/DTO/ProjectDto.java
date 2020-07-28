@@ -14,6 +14,7 @@ import java.util.Date;
  */
 public interface ProjectDto {
     Long getId();
+    String getNumber();
     String getArtistename();
     String getSongtitle();
     String getProjecttype();
@@ -21,4 +22,4 @@ public interface ProjectDto {
     String getGenre();
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     Date getProjectstartdate();
-}
+}        

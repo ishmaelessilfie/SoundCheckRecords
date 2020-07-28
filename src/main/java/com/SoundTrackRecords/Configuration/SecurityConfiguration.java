@@ -38,7 +38,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter  {
                         "/global_assets/css/icons/fontawsome/**", "/global_assets/css/icons/fontawsome/fonts/**", "/global_assets/css/icons/icomoon/**",
                         "/assets/css/**"
                         
-                       ).permitAll()            
+                       ).permitAll()
+                //.antMatchers("/songlist/**").permitAll()
+                //.antMatchers("/invoicelisting").permitAll()
+                //.antMatchers("/save-invoice/**").permitAll()
+                 .antMatchers("/booking/**").permitAll()
+                 .antMatchers("/listbooking/**").permitAll()
 		.anyRequest().authenticated()
 		.and()
 		.formLogin()

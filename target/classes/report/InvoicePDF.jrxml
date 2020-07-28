@@ -230,7 +230,7 @@
 				<textElement markup="none">
 					<font fontName="SansSerif" size="12"/>
 				</textElement>
-				<text><![CDATA[Tax(0%)  =             0.0]]></text>
+				<text><![CDATA[Tax(0%)  =              0.0]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="395" y="460" width="106" height="20" uuid="62c2f811-947f-4fb7-bdc9-5a5370281f7e"/>

@@ -18,9 +18,7 @@ import org.springframework.data.jpa.repository.Query;
  */
 
 public interface InvoiceRepository extends JpaRepository<Invoice, Long> {
-       
-// @Query("SELECT i.id, i.datecreated as datt, i.masteringcost as mas,i.mixingcost as mix,i.timeinhr as tr,i.studiotimecost as st,i.totalcost as tt, i.project as pi FROM Invoice as i WHERE i.project.id=?1 ORDER BY i.datecreated desc")
-// List<Invoice> getInvoicesById(Long id);
+  
    @Query("SELECT i.datecreated as datecreated,"
             + "i.masteringcost as masteringcost,"
             + "i.mixingcost as mixingcost,"

@@ -92,6 +92,10 @@ public class Project implements Serializable{
     @Transient
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
     private List<Invoice> invoice;
+    
+    private CheeseType type;
+    
+    
   
     
 }

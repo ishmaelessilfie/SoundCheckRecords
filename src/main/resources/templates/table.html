@@ -9,7 +9,6 @@
         <title >Sound Check Records</title>
         
     </head>
-
     <body>
         <div class="content pt-0" layout:fragment="main-content" >
             
@@ -23,10 +22,10 @@
                         </div>
                     </div>
                 </div>
-                <table class="table datatable-responsive">
+                <table id="projectList" class="table display"  >
                     <thead>
-                        <tr >
-                             <th>Code</th>
+                        <tr>
+                            <th>Code</th>
                             <th>Artist(s)</th>
                             <th>Song</th>
                             <th>Project type</th>
@@ -35,37 +34,7 @@
                             <th>Date</th>
                             <th class="text-center">Actions</th>
                         </tr>
-                    </thead>
-                    <tbody>
-                        <tr  th:each="projList:${projectList}">
-                             <td th:text="${projList.number}"<span class="badge badge-success" style="margin-top:15px "></span>></td>
-                            <td th:text="${projList.artistename}"></td>
-                           
-                            <td th:text="${projList.songtitle}"></td>
-                            <td th:text="${projList.projecttype.projecttype}"></td>
-                            <td th:text="${projList.activitytype.activitytype}"></td>
-                            <td th:text="${projList.genre.genre}"></td>
-                            <td th:text="${#dates.format(projList.projectstartdate, 'dd-MMM-yyyy')}"></td>
-                            <td class="text-center">
-                                <div class="list-icons">
-                                    <div class="dropdown">
-                                        
-                                        <a href="#" class="list-icons-item" data-toggle="dropdown">
-                                            <i class="icon-menu9"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right ">
-                                            
-                                            <a th:href="@{get_project/(id=${projList.id})}" class="dropdown-item viewbtn"> <i class="icon-eye"></i> <span class="badge badge-success">View</span></a>
-                                            <a th:href="@{get_project/(id=${projList.id})}" class="dropdown-item editbtn"><i class="icon-pencil"></i> <span class="badge badge-info">Update</span></a>
-<!--                                             <a th:href="@{get_project/(id=${projList.id})}" class="dropdown-item editbtn"><i class="icon-pencil"></i> <span class="badge badge-info">Update</span></a>-->
-                                            <a th:href="@{#}" th:attr="data-id=${projList.id}" class="dropdown-item  " id="deleteprojbtn" ><i class="icon-trash"></i> <span class="badge badge-warning">Delete</span></a>
-                                            <a th:href="@{get_project/(id=${projList.id})}" class="dropdown-item invoicebtn"  ><i class="icon-plus3"></i> <span class="badge badge-success">Create invoice</span></a>                   
-                                       </div>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
+                    </thead>             
                 </table>
                </div>   
             
@@ -95,36 +64,33 @@
                                                 <input type="text" id="songtitle" class="form-control" name="songtitle" required />
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group">
+                                    </div>                                                                    <div class="form-group">
                                         <div class="row">
                                             <div class="col-sm-3">
                                                 <label >Project Type</label>
-                                                <select class="form-control" id="projecttype" name="projecttype.id" required >
-                                                    <option th:each="i : ${projecttypeList}" th:value="${i.id}" th:text="${i.projecttype}">
-                                                    </option>
+                                                <select class="form-control" id="projecttype" readonly name="projecttype"  >
+                                                    <option value="" disabled> ---Choose project type--- </option>
+                                                   
                                                 </select>  
+
                                             </div>
                                             <div class="col-sm-3">
                                                 <label >Activity</label>
-                                                <select class="form-control" id="activitytype" name="activitytype.id" required>
-                                                    <option th:each="i : ${activitytypeList}" th:value="${i.id}" th:text="${i.activitytype}">
-                                                    </option>
+                                                <select class="form-control" id="activitytype" readonly name="activitytype">
+                                                    <option value="" disabled> ---Choose activity type--- </option>
+                                                   
                                                 </select>
                                             </div>
                                             <div class="col-sm-3">
                                                 <label >Genre</label>
-                                                <select class="form-control" id="genre" name="genre.id">
-                                                    <option th:each="i : ${genreList}" th:value="${i.id}" th:text="${i.genre}">
-                                                    </option>
+                                                <select class="form-control" id="genre" readonly name="genre">
+                                                    <option value="" disabled> ---Choose genre--- </option>                                                  
                                                 </select>
                                             </div>
                                             <div class="col-sm-3">
                                                 <label> Combination</label>
-                                                <select class="form-control" id="combination" name="combination.id" required>
-                                                    
-                                                    <option th:each="i : ${combinationList}" th:value="${i.id}" th:text="${i.combination}">
-                                                    </option>
+                                                <select class="form-control" id="combination" readonly name="combination">
+                                                    <option value="" disabled> ---Choose combination type--- </option>                                                   
                                                 </select>
                                             </div>
                                         </div>
@@ -180,7 +146,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
-                                    <button type="submit"  class="btn bg-primary submitupdatebtn">Submit form</button>
+                                    <button type="button"  class="btn bg-primary submitupdatebtn">Submit form</button>
                                 </div>
 
                             </div>
@@ -192,7 +158,7 @@
              
             <!-- ADD INVOICE............................................... -->
             <div id="AddInvoice" class="modal fade" tabindex="-1">
-            <form th:action="@{/save-invoice}" id="invice" class="form-validate-jquery container">
+            <form  id="invice" class="form-validate-jquery container">
              <div class="modal-dialog modal-small">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -231,7 +197,7 @@
                             <div class="modal-footer">
                                
                                  <button type="reset" class="btn btn-light" id="reset">Reset <i class="icon-reload-alt ml-2"></i></button>
-                                 <button type="submit" class="btn bg-primary" id="eer">Submit</button>
+                                 <button type="button" class="btn bg-primary" id="eer">Submit</button>
 
                             </div>
                         </div>
@@ -243,8 +209,8 @@
             
         <!-- VIEW PROJECT DETAIL........................................................-->
         <div id="ViewDetail" class="modal fade" tabindex="-1">
-                    <form th:action="@{/update_project}" class="editForm" >
-                        <div class="modal-dialog modal-full">
+                    <form  class="editForm" >
+                        <div class="modal-dialog modal-md">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title">Project Detail</h5>
@@ -262,46 +228,26 @@
                                             <div class="col-sm-4">
                                                 <label >Song tittle</label>
                                                 <input type="text" id="songtitleview" class="form-control" readonly name="songtitle" />
-
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <div class="row">
-                                            <div class="col-sm-3">
+                                            <div class="col-sm-6">
                                                 <label >Project Type</label>
-                                                <select class="form-control" id="projecttypeview" readonly name="projecttype.id"  >
-                                                    <option value="" disabled> ---Choose project type--- </option>
-                                                    <option th:each="i : ${projecttypeList}" th:value="${i.id}" th:text="${i.projecttype}">
-                                                    </option>
-                                                </select>  
-
+                                                 <input type="text" id="projecttypeview" class="form-control" readonly name="projecttype"/>
                                             </div>
-                                            <div class="col-sm-3">
+                                            <div class="col-sm-6">
                                                 <label >Activity</label>
-                                                <select class="form-control" id="activitytypeview" readonly name="activitytype.id">
-                                                    <option value="" disabled> ---Choose activity type--- </option>
-                                                    <option th:each="i : ${activitytypeList}" th:value="${i.id}" th:text="${i.activitytype}">
-                                                    </option>
-                                                </select>
-
+                                                <input type="text" id="activitytypeview" class="form-control" readonly name="activitytype"/>
                                             </div>
-                                            <div class="col-sm-3">
+                                            <div class="col-sm-6">
                                                 <label >Genre</label>
-                                                <select class="form-control" id="genreview" readonly name="genre.id">
-                                                    <option value="" disabled> ---Choose genre--- </option>
-                                                    <option th:each="i : ${genreList}" th:value="${i.id}" th:text="${i.genre}">
-                                                    </option>
-                                                </select>
+                                               <input type="text" id="genreview" class="form-control" readonly name="genre"/>
                                             </div>
-                                            <div class="col-sm-3">
+                                            <div class="col-sm-6">
                                                 <label> Combination</label>
-                                                <select class="form-control" id="combinationview" readonly name="combination.id">
-                                                    <option value="" disabled> ---Choose combination type--- </option>
-                                                    <option th:each="i : ${combinationList}" th:value="${i.id}" th:text="${i.combination}">
-                                                    </option>
-                                                </select>
-
+                                                 <input type="text" id="combinationview" class="form-control" readonly name="combination"/>
                                             </div>
                                         </div>
                                     </div>
@@ -327,17 +273,13 @@
                                     </div>
                                     <div class="form-group another">
                                         <div class="row">
-                                            <div class="col-sm-4">
+                                            <div class="col-sm-6">
                                                 <label >City/Town/Village</label>
                                                 <input type="text" id="townview" class="form-control" readonly name="town"/>
                                             </div>
-                                            <div class="col-sm-4">
+                                            <div class="col-sm-6">
                                                 <label >Country</label>
                                                 <input type="text" id="countryview" class="form-control" readonly name="country"/>
-                                            </div>
-                                            <div class="col-sm-4">
-                                                <label >Amount Charged(GHc)</label>
-                                                <input type="text" id="budgetview" class="form-control" readonly name="budget"/>
                                             </div>
                                         </div>
                                     </div>
@@ -346,9 +288,7 @@
                                             <div class="col-sm-6">
                                                 <label >Email</label>
                                                 <input type="text" id="emailview" class="form-control" readonly name="email"/>
-
                                             </div>
-
                                             <div class="col-sm-6">
                                                 <label >Phone #</label>
                                                 <input type="text" id="phoneview" class="form-control" readonly name="phone"/>
@@ -368,6 +308,5 @@
                 </div> 
          <!--END,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,-->
         </div>
-        <!-- /single row selection -->
     </body>
 </html>
