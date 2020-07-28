@@ -12,6 +12,7 @@ $('document').ready(function () {
     project.getUser();
     project.viewArtisteList();
     project.viewSongList();
+    project.viewBookingList();
 });
 //DATE AND TIME DISPLAY 
 $("#timee").html(formatAMPM());
@@ -672,8 +673,27 @@ project.viewArtisteList = function () {
         });
     }
 };
+ project.viewSongList = function () {
+    if (!$.fn.DataTable.isDataTable('#songlisttable')) {
+        $("#songlisttable").DataTable({
+            "ajax": {
+                "url": "/songlist",
+                "type": "GET",
+                "dataSrc": ""
+            },
+            "columns": [
+                {"data": "songtitle"},
+                {"data": "artistename"},
+                {"data": "writer"},
+                {"data": "producer"},
+                {"data": "engineer"},
+                {"data": "projectstartdate"}
+            ]
+        });
+    }
+};
 //BOOKING................................................ 
-project.viewSongList = function () {
+project.viewBookingList = function () {
     if (!$.fn.DataTable.isDataTable('#booking')) {
         $("#booking").DataTable({
             "ajax": {
