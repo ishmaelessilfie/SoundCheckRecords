@@ -28,7 +28,8 @@ public class WebsiteUpdateController {
     @Autowired
     BookingRepository bookingRepository;
 
-    @CrossOrigin(origins="http://soundcheckgh.com")
+//    @CrossOrigin(origins="http://soundcheckgh.com")
+    @CrossOrigin(origins= {"http://localhost/soundcheckstudio.com.gh","http://soundcheckgh.com"})
     @RequestMapping(value = "/booking", method = {RequestMethod.POST})
     public AppResponse booking(Booking booking) {
         bookingRepository.save(booking);
