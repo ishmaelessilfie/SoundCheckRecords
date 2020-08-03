@@ -38,7 +38,8 @@ public class WebsiteUpdateController {
     SerialNumber serialNumber;
 
 
-    @CrossOrigin(origins= "http://localhost")
+//    @CrossOrigin(origins= "http://localhost")
+    @CrossOrigin(origins= "http://soundcheckgh.com")   
     @RequestMapping(value = "/booking", method = {RequestMethod.POST})
     public AppResponse booking(Booking booking ) {
         booking.setNumberofours((serialNumber.convert(booking.getNumberofours())));

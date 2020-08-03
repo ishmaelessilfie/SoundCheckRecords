@@ -142,7 +142,8 @@ public class ProjectController {
         return projectTypeRepository.findAll();
     }
 //LIST OF ALL ACTIVITIES
-    @CrossOrigin(origins= "http://localhost")
+//    @CrossOrigin(origins= "http://localhost")
+    @CrossOrigin(origins= "http://soundcheckgh.com")
     @RequestMapping("/activitytypeList")
     @Cacheable(cacheNames = { "projectCache" })
     public List<ActivityType> getActivityTypeList() {
