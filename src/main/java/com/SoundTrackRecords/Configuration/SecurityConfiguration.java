@@ -36,13 +36,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter  {
 		.antMatchers("/assets/js/demo_pages/**", "/assets/font/**", "/font/**","/global_assets/js/main/**",
                         "/global_assets/images/**", "/global_assets/images/brands/**", "/global_assets/images/brands/**","/global_assets/js/demo_pages/**",
                         "/global_assets/css/icons/fontawsome/**", "/global_assets/css/icons/fontawsome/fonts/**", "/global_assets/css/icons/icomoon/**",
-                        "/assets/css/**"
-                        
+                        "/assets/css/**"                       
                        ).permitAll()
-                //.antMatchers("/songlist/**").permitAll()
-                //.antMatchers("/invoicelisting").permitAll()
-                //.antMatchers("/save-invoice/**").permitAll()
                  .antMatchers("/booking/**").permitAll()
+                  .antMatchers("/activitytypeList/**").permitAll()
                  .antMatchers("/listbooking/**").permitAll()
 		.anyRequest().authenticated()
 		.and()
@@ -55,8 +52,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter  {
 		.logoutSuccessUrl("/login").permitAll();
 	}
 	
-	@Bean
-        
+	@Bean 
         public BCryptPasswordEncoder bCryptpasswordEncoder() {
 		return new BCryptPasswordEncoder();
 	}

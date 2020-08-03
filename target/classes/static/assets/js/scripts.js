@@ -26,6 +26,7 @@ function formatAMPM() {
             days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     return days[d.getDay()] + ' ' + months[d.getMonth()] + ' ' + d.getDate() + ' ' + d.getFullYear() + ' ' + hours + ':' + minutes + ':' + seconds + ampm;
 }
+
 //GET PROJECT TYPE INTO SELECTION BOX....................................        
 var _fetchProjectType = function (callback) {
     var req = $.ajax({
@@ -36,7 +37,6 @@ var _fetchProjectType = function (callback) {
     req.done(function (data) {
         callback(data);
     }).fail(function (jqXHR, textStatus) {
-
     });
 };
 _fetchProjectType(function (data) {
@@ -57,7 +57,6 @@ var _fetchActivityType = function (callback) {
     req.done(function (data) {
         callback(data);
     }).fail(function (jqXHR, textStatus) {
-
     });
 };
 _fetchActivityType(function (data) {
@@ -78,7 +77,6 @@ var _fetchGenre = function (callback) {
     req.done(function (data) {
         callback(data);
     }).fail(function (jqXHR, textStatus) {
-
     });
 };
 _fetchGenre(function (data) {
@@ -110,7 +108,8 @@ _fetchCombination(function (data) {
     });
 });
 //ADD PROJECT................................................
-$('#addprojectbtn').on('click', function () {
+$('#addprojectbtn').on('click', function (e) {
+    e.preventDefault();
     var formData = $("#main").serialize();
     console.log(formData);
     $.ajax({
@@ -125,6 +124,9 @@ $('#addprojectbtn').on('click', function () {
                 type: 'success',
                 showCloseButton: true
             });
+//             swal("Good job!!","Project added successfully!", "success")            
+             $('#main')[0].reset();
+             $( "#main" ).validate().reset();
             $('#projectList').DataTable().ajax.reload();
             project.statistics().ajax.reload();
         }
@@ -147,9 +149,18 @@ project.viewProject = function () {
                 {"data": "activitytype.activitytype"},
                 {"data": "genre.genre"},
                 {"data": "projectstartdate"},
-                {"data": "id", "render": function (data) {
-                        return '<div class="text-center"><div class="list-icons"> <div class="dropdown"><a href="#" class="list-icons-item" data-toggle="dropdown"><i class="icon-menu9"></i></a><div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item viewbtn"> <i class="icon-eye"></i> <span class="badge badge-success">View</span></a><a  class="dropdown-item editbtn"><i class="icon-pencil"></i> <span class="badge badge-info">Update</span></a><a  class="dropdown-item" id="deleteprojbtn" ><i class="icon-trash"></i> <span class="badge badge-warning">Delete</span></a><a class="dropdown-item invoicebtn"><i class="icon-plus3"></i> <span class="badge badge-success ">Create invoice</span></a></div></div></div></div>';
-                    }}
+                {"data": null, "render": function (data) {
+                        if (data.ispdfexcelcreated === true) {
+                            return  '<div class="text-center"><div class="list-icons"> <div class="dropdown"><a href="#" class="list-icons-item" data-toggle="dropdown"><i class="icon-menu9"></i></a>\n\
+                          <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item viewbtn"> <i class="icon-eye"></i> <span class="badge badge-success">View</span></a>\n\
+                          <a class="dropdown-item editbtn"><i class="icon-pencil"></i> <span class="badge badge-info">Update</span></a><a  class="dropdown-item" id="deleteprojbtn" ><i class="icon-trash"></i> <span class="badge badge-warning">Delete</span></a></div></div></div></div>'
+                        } else {
+                            return '<div class="text-center"><div class="list-icons"> <div class="dropdown"><a href="#" class="list-icons-item" data-toggle="dropdown"><i class="icon-menu9"></i></a>\n\
+                               <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item viewbtn"> <i class="icon-eye"></i> <span class="badge badge-success">View</span></a><a  class="dropdown-item editbtn"><i class="icon-pencil"></i> <span class="badge badge-info">Update</span></a>\n\
+                               <a class="dropdown-item" id="deleteprojbtn" ><i class="icon-trash"></i> <span class="badge badge-warning">Delete</span></a><a class="dropdown-item invoicebtn"><i class="icon-plus3"></i> <span class="badge badge-success ">Create invoice</span></a></div></div></div></div>'
+                        }
+                    }
+                }
             ]
         });
         var projTable = $('#projectList').DataTable();
@@ -300,24 +311,28 @@ project.viewProject = function () {
                     data: $('#invice').serialize(),
                     dataType: "json",
                     success: function (data) {
-                         if(data.code==200){
-                        swalInit.fire({
-                            title: 'Good job!',
-                            text: data.message,
-                            type: 'success',
-                            showCloseButton: true
-                        });
-                    }else {
-                          swalInit.fire(
-                                'Cannot cerate Invoice',
-                                ' invoice is already genrated for this project',
-                               'info'
-                               );
-                    };
+                        if (data.code == 200) {
+                            swalInit.fire({
+                                title: 'Good job!',
+                                text: data.message,
+                                type: 'success',
+                                showCloseButton: true
+                            });
+                         $('#invice')[0].reset();
+                            projTable.ajax.reload();
+                            $('#AddInvoice').modal('hide');
+                            
+                        } else {
+                            swalInit.fire(
+                                    'Cannot cerate Invoice',
+                                    ' invoice is already genrated for this project',
+                                    'info'
+                                    );
+                        }; 
                     }
-                  
                 });
             });
+            
         });
     }
 };
@@ -334,13 +349,19 @@ project.viewInvoice = function () {
                 {"data": "number"},
                 {"data": "datecreated"},
                 {"data": "invoiceno"},
-                {"data": "action", "render": function (data) {
-                        return '<div class="text-center"><div class="list-icons"> <div class="dropdown"><a href="#" class="list-icons-item" data-toggle="dropdown"><i class="icon-menu9"></i></a><div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item exportpdfbtn"> <i class="icon-eye"></i> <span class="badge badge-success">Export to pdf</span></a><a  class="dropdown-item editinvoicebtn"><i class="icon-file-pdf"></i> <span class="badge badge-info">Update</span></a><a  class="dropdown-item" id="deleteinvoicebtn" ><i class="icon-trash"></i> <span class="badge badge-warning">Delete</span></a></div></div></div></div>';
-                    }}
+                {"data": null,                    
+                    "render": function (data, type, row) {                     
+                      return  '<div class="text-center"><div class="list-icons"> <div class="dropdown"><a href="#" class="list-icons-item" data-toggle="dropdown"><i class="icon-menu9"></i></a> \n\
+                              <div class="dropdown-menu dropdown-menu-right"><a href="/invoicePDF/'+data.id+'" class="dropdown-item exportpdfbtn"> <i class="icon-eye"></i> <span class="badge badge-success">Export to pdf</span></a>\n\
+                              <a class="dropdown-item editinvoicebtn"><i class="icon-file-pdf"></i> <span class="badge badge-info">Update</span></a><a  class="dropdown-item" id="deleteinvoicebtn" ><i class="icon-trash"></i> \n\
+                              <span class="badge badge-warning">Delete</span></a></div></div></div></div>';
+                    }
+                }
             ]
         });
     }
 };
+
 project.viewInvoice();
 //UPDATE INVOICE..........................................    
 var invoiceTable = $('.invoicellist').DataTable();
@@ -377,23 +398,7 @@ $('.invbtn').on('click', function () {
                 type: 'success',
                 showCloseButton: true
             });
-        }
-    });
-});
-
-//EXPORT INVOICE TO PDF...................................
-invoiceTable.on('click', '.exportpdfbtn', function () {
-    $tr = $(this).closest('tr');
-    var data = invoiceTable.row($tr).data();
-    var id = data.id;
-
-    $.ajax({
-        url: "/invoicePDF/" + id,
-        type: "GET",
-        processData: "false",
-        contentType: 'application/octet-stream',
-        success: function (response) {
-            createRenderURL(response);
+            $('#EditInvoice').modal('hide');
         }
     });
 });
@@ -453,6 +458,7 @@ project.statistics = function () {
             $('.totalProject').html(data.ProjectCount);
             $('.vocalRecording').html(data.ProjectVocalCount);
             $('.writing').html(data.ProjectWritingCount);
+            $('.booking').html(data.booking);
         }
     });
 };
@@ -504,6 +510,7 @@ $("#btnSubmitprofileupdd").click(function () {
                 type: 'success',
                 showCloseButton: true
             });
+            $('#fileUploadFormuppp')[0].reset();
             $('#ViewProfile').modal('hide');
             $("#userlistt").DataTable().ajax.reload();
         }
@@ -527,9 +534,11 @@ project.viewUsers = function () {
                     }
                 },
                 {"data": "datecreated"},
-                {"data": "id", "render": function (data) {
-                        return '<div class="text-center"><div class="list-icons"><div class="dropdown"><a href="#" class="list-icons-item" data-toggle="dropdown"><i class="icon-menu9"></i></a><div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item edituserbtn"><i class="icon-pencil"></i> <span class="badge badge-info">Update</span></a><a class="dropdown-item" id="deleteuserbtn" ><i class="icon-trash"></i><span class="badge badge-warning">Delete</span></a></div></div></div></div>';
-                    }}
+                {"data": null,
+                    "defaultContent": '<div class="text-center"><div class="list-icons"><div class="dropdown"><a href="#" class="list-icons-item" data-toggle="dropdown"><i class="icon-menu9"></i></a>\n\
+                                       <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item edituserbtn"><i class="icon-pencil"></i> <span class="badge badge-info">Update</span></a>\n\
+                                       <a class="dropdown-item" id="deleteuserbtn" ><i class="icon-trash"></i><span class="badge badge-warning">Delete</span></a></div></div></div></div>'
+                }
             ]
         });
     }
@@ -614,6 +623,8 @@ $("#btnSubmitt").click(function () {
                 type: 'success',
                 showCloseButton: true
             });
+            $('#fileUploadFormup')[0].reset();
+            $('#AddUsers').modal('hide');
             $('#userlistt').DataTable().ajax.reload();
         },
         error: function (e) {
@@ -648,6 +659,7 @@ $("#btnSubmitprofileupd").click(function () {
                 type: 'success',
                 showCloseButton: true
             });
+
             $('#ViewProfile').modal('hide');
             project.getUser().ajax.reload();
         }
@@ -673,7 +685,7 @@ project.viewArtisteList = function () {
         });
     }
 };
- project.viewSongList = function () {
+project.viewSongList = function () {
     if (!$.fn.DataTable.isDataTable('#songlisttable')) {
         $("#songlisttable").DataTable({
             "ajax": {
@@ -706,17 +718,155 @@ project.viewBookingList = function () {
                 {"data": "address"},
                 {"data": "email"},
                 {"data": "phone"},
-                {"data": "projecttype"},
+                {"data": "activitytype.activitytype"},
                 {"data": "numberofours"},
-                 {"data": "dateofbooking"},
-                 {"data": "id", "render": function (data) {
-                        return '<div class="text-center"><div class="list-icons"><div class="dropdown"><a href="#" class="list-icons-item" data-toggle="dropdown"><i class="icon-menu9"></i></a><div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item edituserbtn"><i class="icon-pencil"></i> <span class="badge badge-info">Reschedule</span></a><a class="dropdown-item" id="deleteuserbtn" ><i class="icon-trash"></i><span class="badge badge-warning">Delete</span></a></div></div></div></div>';
-                    }}
-                
+                {"data": "dateofbooking"},
+                {
+                    "data": null,
+                    "render": function (data, type, row) {
+                        if (data.seen == 0) {//unattended to (show all buttons)
+                            return'<div class="text-center"><div class="list-icons"><div class="dropdown">\n\
+                               <a href="#" class="list-icons-item" data-toggle="dropdown"><i class="icon-menu9"></i></a>\n\
+                               <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item confirmbookingbtn"><i class="icon-check"></i> <span class="badge badge-success">Confirm</span></a>\n\
+                               <a class="dropdown-item reschedulebookingbtn"  ><i class="icon-undo"></i><span class="badge badge-info">Reschedule</span></a></div></div></div></div>'
+                        } else //confirmed (show rescheduled button and cient showedup)
+                            return'<div class="text-center"><div class="list-icons"><div class="dropdown"><a href="#" class="list-icons-item" data-toggle="dropdown"><i class="icon-menu9"></i></a>\n\
+                                <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item reschedulebookingbtn"  ><i class="icon-undo"></i><span class="badge badge-info">Reschedule</span></a>\n\
+                                <a class="dropdown-item signoutbtn"  ><i class="icon-exit"></i><span class="badge badge-warning">Sign Out</span></a></div></div></div></div>'
+                    }
+                },
+                {
+                    "data": "seen",
+                    "render": function (data, type, row) {
+                        if (data == 0) {
+                            return '<a  class="confirmlink"><span class="badge badge-warning">unattended to</span></a>'
+
+                        } else if (data == 1) {
+                            return '<a "><span class="badge badge-success">confirmed</span></a>'
+                        } else
+                            return '<a  class="reschedulelink"><span class="badge badge-info">rescheduled</span></a> '
+                    }
+                }
             ]
+        });
+        var bookingTable = $("#booking").DataTable();
+        bookingTable.on('click', '.reschedulebookingbtn', function () {
+            $tr = $(this).closest('tr');
+            var data = bookingTable.row($tr).data();
+            var bookingid = data.id;
+            $('#id').val(bookingid);
+            $('#dateofbooking').val(data.dateofbooking);
+            $('#BookingModal').modal('show');
+            $('#reschedulebtn').on('click', function () {
+                $.ajax({
+                    type: "PUT",
+                    url: "/reschedule/" + data.id,
+                    data: {
+                        'seen': 2,
+                        'rescheduleddate': $('#rescheduleddate').val(),
+                        'message': $.trim($("#message").val()),
+                        'datebooked ': data.datebooked,
+                        'dateofbooking': $('#dateofbooking').val(), //rescheduleddate
+                        'email': data.email,
+                        'activitytype': data.activitytype.id,
+                        'country': data.country,
+                        'phone': data.phone,
+                        'address': data.address,
+                        'name': data.name,
+                        'numberofours': data.numberofours
+                    },
+                    success: function (response) {
+                        $('#BookingModal').modal('hide');
+                        $("#booking").DataTable().ajax.reload();
+                    }
+                });
+            });
+             project.statistics().ajax.reload();
+        });
+        bookingTable.on('click', '.confirmbookingbtn', function () {
+            $tr = $(this).closest('tr');
+            var data = bookingTable.row($tr).data();
+            $.ajax({
+                type: "PUT",
+                url: "/reschedule/" + data.id,
+                data: {
+                    'seen': 1,
+                    'datebooking': data.datebooking,
+                    'message': data.message,
+                    'dateofbooking': data.dateofbooking,
+                    'datebooked': data.datebooked,
+                    'country': data.country,
+                    'email': data.email,
+                    'activitytype': data.activitytype.id,
+                    'phone': data.phone,
+                    'address': data.address,
+                    'name': data.name,
+                    'numberofours': data.numberofours
+                },
+                success: function (response) {
+                    $('#BookingModal').modal('hide');
+                     
+                    $("#booking").DataTable().ajax.reload();
+                    project.statistics().ajax.reload();
+                }
+            }); 
+        });
+        bookingTable.on('click', '.signoutbtn', function () {
+            $tr = $(this).closest('tr');
+            var data = bookingTable.row($tr).data();
+//    alert(data.phone);
+            $('#artistename').val(data.name);
+            $('#town').val(data.town);
+            $('#email').val(data.email);
+            $('#country').val(data.country);
+            $('#address').val(data.address);
+            $('#phone').val(data.phone);
+            $('#activitytype').val(data.activitytype.activitytype);
+            $('#AddBookingProj').modal('show');
+            $('#addbooingtoprojbtn').on('click', function () {
+                $.ajax({
+                    url: "/project",
+                    type: "POST",
+                    data: {
+                        'artistename': data.name,
+                        'songtitle': $('#songtitle').val(),
+                        'projecttype': $('#projecttype').val(),
+                        'producer': $('#producer').val(),
+                        'engineer': $('#engineer').val(),
+                        'writer': $('#writer').val(),
+                        'town': $('#town').val(),
+                        'projectstartdate': $('#projectstartdate').val(),
+                        'combination': $('#combination').val(),
+                        'genre': $('#genre').val(),
+                        'activitytype': data.activitytype.id,
+//            'town':data.town,
+                         'email': $('#email').val(),
+                        'country': data.country,
+                        'phone': $('#phone').val(),
+                        'numberofhours': data.numberofours
+                    },
+                    dataType: "json",
+                    success: function () {
+                        swalInit.fire({
+                            title: 'Good job!',
+                            text: 'Project added successfully!',
+                            type: 'success',
+                            showCloseButton: true
+                        });
+                        $.ajax({
+                            url: "/delete_booking/" + data.id,
+                            type: "GET",
+                            success: function () {                               
+                              $('#AddBookingProj').modal('hide'); 
+                              $("#booking").DataTable().ajax.reload(); 
+                           }                            
+                        });
+                                             
+                    }
+                });
+            });
         });
     }
 };
-
 //END,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
- 
+//delete_booking 'artistename': $('#artistename').val( ),

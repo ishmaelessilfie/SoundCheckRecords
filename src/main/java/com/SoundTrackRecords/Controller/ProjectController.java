@@ -70,6 +70,7 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.ui.Model;
 import org.springframework.util.ResourceUtils;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -119,6 +120,7 @@ public class ProjectController {
         objectNode.put("ProjectCount", projectRepository.getProjectCount());
         objectNode.put("ProjectVocalCount", projectRepository.getProjectVocalRecording());
         objectNode.put("ProjectWritingCount", projectRepository.getProjectWriting());
+        objectNode.put("booking", bookingRepository.getBooking());
 // List<ProjectDto> projectList = projectService.getProjectList();
 // Long prjectCount = projectList.stream().mapToLong(proj->proj.getId()).count();
         return objectNode;
@@ -133,15 +135,16 @@ public class ProjectController {
     }
 //LIST OF ALL PROJECT TYPE   
 
+    
     @RequestMapping(value = "/projecttypeList")
 //    @Cacheable(cacheNames = { "projectCache" })
     public List<ProjectType> getProjectTypeList() {
         return projectTypeRepository.findAll();
     }
 //LIST OF ALL ACTIVITIES
-
+    @CrossOrigin(origins= "http://localhost")
     @RequestMapping("/activitytypeList")
-//    @Cacheable(cacheNames = { "projectCache" })
+    @Cacheable(cacheNames = { "projectCache" })
     public List<ActivityType> getActivityTypeList() {
         return activityTypeRepository.findAll();
     }
@@ -218,8 +221,7 @@ public class ProjectController {
         boolean  pdf =projectRepository.getIspdfexcelcreated(id);
        if( pdf ==true) {          
            return new AppResponse("Invoice Already generated", "201"); 
-       }else{
-                
+       }else{                
         Double studiotimecost = invoice.getStudiotimecost();
         Integer timeinhr = invoice.getTimeinhr();
         Double mixingcost = invoice.getMixingcost();
@@ -278,7 +280,6 @@ public class ProjectController {
 
 //GENERATE INVOICE AS PDF
     @GetMapping("/invoicePDF/{id}")
-
     public void soundcheckInvoicePDF(HttpServletResponse response, @PathVariable Long id) throws NullPointerException, SQLException, IOException, JRException {
         List<InvoiceDto> invoice = invoiceRepository.getInoiceForPdf(id);
         JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(invoice);
@@ -301,8 +302,7 @@ public class ProjectController {
     }
     
     
-    
-    
+       
 //    @PostMapping("client")
 //    public ResponseEntity<byte[]> export(List<ClientJsonDto> datas, HttpServletResponse response) {
 //

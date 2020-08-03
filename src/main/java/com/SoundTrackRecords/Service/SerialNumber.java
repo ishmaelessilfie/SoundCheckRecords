@@ -31,8 +31,8 @@ public class SerialNumber {
 	{
 	       Random rand = new Random();  
 	        int rand_int2 = rand.nextInt(10);
-	         System.out.println(rand_int2);
-	         String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+//	         System.out.println(rand_int2);
+	         String characters = "ABCDEFGHJKLMNPQRSTUVWXYZ";
 	         String randomString = "";
 	         int length = 3;
 	         char [] text = new char [length];
@@ -45,15 +45,26 @@ public class SerialNumber {
 	          {
 	          	randomString+= text[i];
 	            }
-	         System.out.println(randomString);
+//	         System.out.println(randomString);
              int rand_int1= rand.nextInt(1000); 
-            System.out.println(rand_int1);
+//            System.out.println(rand_int1);
 	               String vehicleRegistrationNumber = rand_int2+ randomString+rand_int1;
-	               System.out.println(vehicleRegistrationNumber);
+//	               System.out.println(vehicleRegistrationNumber);
 		         return vehicleRegistrationNumber;
 	      	
 	}
-	
+    
+    
+    public  String convert(String str){
+    StringBuilder sb = new StringBuilder(str);
+    for(int i=0;i<sb.length(); i++){
+        if(sb.charAt(i)<48||sb.charAt(i)>57){
+            sb.deleteCharAt(i);
+            i--;
+        }
+    }   
+    return sb.toString();
+     }
 	
 }
 

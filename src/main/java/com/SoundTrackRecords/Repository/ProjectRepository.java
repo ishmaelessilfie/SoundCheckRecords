@@ -30,7 +30,7 @@ public interface ProjectRepository extends JpaRepository<Project, Long> {
   
     public List<ProjectDto> getProjectlist();
     //Vocal Recording count
-    @Query("SELECT count(p.activitytype) as projectcount from Project p where p.activitytype= activitytype.activitytype.id and activitytype.activitytype='Vocal Recording' group by activitytype.activitytype ")
+    @Query("SELECT count(p.activitytype) as projectcount from Project p where p.activitytype= activitytype.activitytype.id and activitytype.activitytype='Recording' group by activitytype.activitytype ")
     public String getProjectVocalRecording();
     //Writing count
     @Query("SELECT count(p.activitytype) as projectcount FROM  Project p where activitytype.activitytype.id=p.activitytype and activitytype.activitytype='Writing' group by activitytype.activitytype ")

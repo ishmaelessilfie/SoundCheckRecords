@@ -61,6 +61,7 @@ public class Project implements Serializable{
     private String email;
     @NotNull(message="Please enter town/village/city")
     private String town;
+     private Integer numberofhours=0;
     @NotNull(message="Please enter country")
     private String country;
     @NotNull(message="Please enter date")

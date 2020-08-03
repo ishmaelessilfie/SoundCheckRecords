@@ -42,4 +42,9 @@ public class ActivityType implements Serializable{
     @OneToMany(mappedBy="activitytype", cascade = CascadeType.ALL)
     private List<Project> project;
     
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @Transient 
+    @OneToMany(mappedBy="activitytype", cascade = CascadeType.ALL)
+    private List<Booking> booking;
+    
 }

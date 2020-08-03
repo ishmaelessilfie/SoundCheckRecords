@@ -13,7 +13,7 @@
         <link href="../assets/css/layout.min.css" rel="stylesheet" type="text/css"/>
         <link href="../assets/css/components.min.css" rel="stylesheet" type="text/css"/>
         <link href="../assets/css/colors.min.css" rel="stylesheet" type="text/css"/>
-        <link href="../assets/css/custom.css" rel="stylesheet" type="text/css"/> 
+        <!--<link href="../assets/css/custom.css" rel="stylesheet" type="text/css"/>--> 
     </head>
     <body>
         <div class="navbar navbar-expand-md navbar-light navbar-static" >
@@ -110,9 +110,6 @@
                 <span class="mr-1"><i class=" mr-3 "></i>
                     <span id="timee"  style="color:greenyellow"></span>
                 </span>
-<!--                <span><i class='icon_clock_alt'></i>
-                    <span th:text="${#dates.format(#dates.createNow(), 'dd MMM yyyy')}" style="color:greenyellow"></span>
-                </span>-->
                 <ul class="navbar-nav">
                     <li class="nav-item dropdown">
                         <a href="#" class="navbar-nav-link dropdown-toggle caret-0" data-toggle="dropdown">
@@ -124,7 +121,7 @@
                         <a href="#A" class="navbar-nav-link dropdown-toggle caret-0" data-toggle="dropdown">
                             <i class="icon-bubbles4"></i>
                             <span class="d-md-none ml-2">Messages</span>
-                            <span class="badge badge-pill bg-warning-400 ml-auto ml-md-0">2</span>
+                            <span class="badge badge-pill bg-warning-400 ml-auto ml-md-0 booking"></span>
                         </a>
                     </li>
                     <li class="nav-item dropdown dropdown-user">
@@ -242,7 +239,7 @@
                             <div class="d-flex justify-content-center" >
                                 <a href="#" class="btn btn-link btn-float text-default caret-0"><i class="icon-bars-alt"></i><span>Statistics</span></a>
                                 <a href="invoiceList" class="btn btn-link btn-float text-default"><i class="icon-calculator"></i> <span>Invoices</span></a>
-                                <a href="bookings" class="btn btn-link btn-float text-default"><i class="icon-calendar5"></i> <span>Schedule</span></a>
+                                <a href="bookings" class="btn btn-link btn-float text-default"><i class="icon-calendar5"></i> <span>Schedules</span></a>
                             </div>
                         </div>
                     </div>
@@ -262,7 +259,7 @@
                             <h5 class="modal-title">Add Project</h5>
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                         </div>
-                        <form  id="main" class="form-validate" >
+                        <form  id="main" class="form-validate " >
                             <div style="margin-bottom:-15px;">
                                 <h6 style="text-align:center;">Artiste information</h6>
                             </div>
@@ -293,23 +290,23 @@
                                         <div class="col-sm-3">
                                             <label >Activity<span class="text-danger">*</span></label>
                                             <select class="form-control activitytypead" id="activitytypead" name="activitytype" required>
-                                                <option value="">--Select activity type--</option>
+                                                <option value="">--Select Service type--</option>
                                             </select>
-                                            <!--                                        <div class="invalid-feedback">Please select activity type to continue</div>-->
+                                          
                                         </div>
                                         <div class="col-sm-3">
                                             <label >Genre<span class="text-danger">*</span></label>
                                             <select class="form-control genread" id="genread" name="genre" required>
                                                 <option value="">--Select genre--</option>
                                             </select>
-                                            <!--                                        <div class="invalid-feedback">Please select activity type to continue</div>-->
+                                                                                
                                         </div>
                                         <div class="col-sm-3">
                                             <label> Combination<span class="text-danger">*</span></label>
                                             <select class="form-control combinationad" id="combinationad" name="combination" required>
                                                 <option value="">--Select combination--</option>
                                             </select>
-                                            <!--                                         <div class="invalid-feedback">Please select combination type to continue</div>-->
+                                            
                                         </div>
                                     </div>
                                 </div>
@@ -367,7 +364,7 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="reset" class="btn btn-light" id="reset">Reset <i class="icon-reload-alt ml-2"></i></button>
+                                <!--<button type="reset" class="btn btn-light" id="reset">Reset <i class="icon-reload-alt ml-2"></i></button>-->
                                 <button type="button" class="btn btn-primary ml-3"id="addprojectbtn" >Submit <i class="icon-paperplane ml-2"></i></button>
                             </div>
                         </form>
@@ -488,7 +485,8 @@
         <script src="../global_assets/js/demo_pages/form2valid.js"></script>
         <script src="../global_assets/js/demo_pages/datatables_responsive.js"></script>
         <script src="../global_assets/js/demo_pages/picker_date.js"></script>       
-         <script src="../assets/js/scripts.js"></script>
+        <script src="../assets/js/scripts.js"></script>
+        <!--<script src="../assets/js/sweetalert2.js"></script>-->
             
 </body>
    

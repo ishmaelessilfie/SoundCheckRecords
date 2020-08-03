@@ -1,6 +1,7 @@
 
 package com.SoundTrackRecords.Model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.util.Date;
@@ -8,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import lombok.Data;
@@ -34,13 +36,22 @@ public class Booking implements Serializable{
     private String name;
     private String email;
     private String phone;
-    private String address;
-    private String projecttype;
+    @ManyToOne  
+    private ActivityType activitytype;
     private String numberofours; 
-    @Temporal(javax.persistence.TemporalType.DATE)
+    private String country;
+    private String address;
+    private String message;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM/dd/yyyy")
     private Date dateofbooking;
-
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+     private Date rescheduleddate;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+    private Date datebooked; 
+    private int seen ;
+  
     
+
     
     
    }
