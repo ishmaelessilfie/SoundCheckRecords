@@ -38,7 +38,7 @@ public class Booking implements Serializable{
     private String phone;
     @ManyToOne  
     private ActivityType activitytype;
-    private String numberofours; 
+    private String numberofours ; 
     private String country;
     private String address;
     private String message;
