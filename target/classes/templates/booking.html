@@ -42,7 +42,7 @@
                 <div class="modal-dialog modal-full">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title">Add Project</h5>
+                            <h5 class="modal-title">Add Booking To projects</h5>
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                         </div>
                         <form  id="bookingForm" class="form-validate" >
@@ -68,25 +68,25 @@
                                     <div class="row">
                                         <div class="col-sm-3">
                                             <label >Project Type<span class="text-danger">*</span></label>
-                                            <select class="form-control select-basic  projecttypead" id="projecttype" name="projecttype" required>
+                                            <select class="form-control select-basic projecttypead " id="projecttypead" name="projecttype" required>
                                                  <option value="">--Select poject type--</option>
                                             </select>  
                                             
                                         </div>
                                         <div class="col-sm-3">
                                             <label >Activity<span class="text-danger">*</span></label>
-                                             <input type="text" class="form-control" id="activitytype" name="activitytype" required/>                                         
+                                             <input type="text" class="form-control activitytypead" id="activitytypead" name="activitytype" required/>                                         
                                         </div>
                                         <div class="col-sm-3">
                                             <label >Genre<span class="text-danger">*</span></label>
-                                            <select class="form-control genread" id="genre" name="genre" required>
+                                            <select class="form-control  genread" id="genread" name="genre" required>
                                                 <option value="">--Select genre--</option>
                                             </select>
                                                                                 
                                         </div>
                                         <div class="col-sm-3">
                                             <label> Combination<span class="text-danger">*</span></label>
-                                            <select class="form-control combinationad" id="combination" name="combination" required>
+                                            <select class="form-control combinationad" id="combinationad"  name="combination" required>
                                                 <option value="">--Select combination--</option>
                                             </select>                                                                             
                                         </div>
@@ -152,9 +152,48 @@
                         </form>
                     </div>
                 </div>
-            </div>      
-            <!--END,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,, -->
-            
+            </div>   
+                 
+           <!--END,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,, -->
+             <div id="BookingModal" class="modal fade" tabindex="-1">
+                <div class="modal-dialog modal-small modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Reschedule Appointment</h5>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div  class="modal-body">
+                            <!--                        <form  class="form-validate-upd" >-->
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <label >Client date</label>
+                                       
+                                        <input type="text" id="dateofbooking" class="form-control" readonly name="dateofbooking"  />
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <label >Your preferred date</label>
+                                        <input type="text" id="rescheduleddate " class="form-control pickadate-accessibility"  name="rescheduleddate " required/>
+                                
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <form id="fileUploadFormup">
+                                            <label >Message(if any) </label>
+                                            <!--                                             <input type="hidden" id="hoto" class="form-control"  name="filehidden"/>    -->
+                                            <textarea type="text" id="message " class="form-control"  name="message " required></textarea> 
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="cancel" class="btn btn-link" data-dismiss="modal">close</button>
+                                <button type="button" class="btn bg-primary" id="reschedulebtn" >Submit</button>
+                            </div>
+                            <!--                    </form>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
 
         </div>                                 
     </body>

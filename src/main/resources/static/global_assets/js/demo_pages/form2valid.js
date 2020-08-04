@@ -47,30 +47,7 @@ var FormValidatio = function() {
         });
     };
 
-    // Touchspin
-    var _componentTouchspi = function() {
-        if (!$().TouchSpin) {
-            console.warn('Warning - touchspin.min.js is not loaded.');
-            return;
-        }
-
-        // Define variables
-        var $touchspinContaine = $('.touchspin-postfix');
-
-        // Initialize
-        $touchspinContaine.TouchSpin({
-            min: 0,
-            max: 100,
-            step: 0.1,
-            decimals: 2,
-            postfix: '%'
-        });
-
-        // Trigger value change when +/- buttons are clicked
-        $touchspinContaine.on('touchspin.on.startspin', function() {
-            $(this).trigger('blur');
-        });
-    };
+  
 
     // Select2 select
     var _componentSelect = function() {

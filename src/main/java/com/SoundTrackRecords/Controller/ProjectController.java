@@ -39,40 +39,28 @@ import java.security.Principal;
 import java.util.Date;
 import com.itextpdf.text.log.Logger;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
-import net.sf.jasperreports.engine.JRDataSource;
-import net.sf.jasperreports.engine.JREmptyDataSource;
 import org.springframework.http.ResponseEntity;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
-import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.export.SimpleExporterInput;
 import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
-import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.ui.Model;
-import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -108,7 +96,7 @@ public class ProjectController {
         this.usersRepository = usersRepository;
         this.mapper = mapper;
         this.serialNumber = serialNumber;
-         this.bookingRepository = bookingRepository;
+        this.bookingRepository = bookingRepository;
     }
     Logger log = LoggerFactory.getLogger(ProjectController.class);
 //TOTAL NUMBER OF PROJECTS, TOTAL NUMBER OF WRITINGS, AND TOTAL NUMBER OF VOCALS TO INDEX PAGE
@@ -125,11 +113,17 @@ public class ProjectController {
 // Long prjectCount = projectList.stream().mapToLong(proj->proj.getId()).count();
         return objectNode;
     }
+    
+    @RequestMapping("/bookingdata")
+    public ObjectNode bookingdata() {
+        ObjectNode objectNode = mapper.createObjectNode();       
+        objectNode.put("booking", bookingRepository.getBooking());
+        return objectNode;
+    }
 
     @RequestMapping("/userProfile")
 //    @Cacheable(cacheNames = {"projectCache"})
     public Users userProfile(Principal principal) {
-
         String un = principal.getName();
         return usersRepository.findByUsername(un);
     }
@@ -142,8 +136,8 @@ public class ProjectController {
         return projectTypeRepository.findAll();
     }
 //LIST OF ALL ACTIVITIES
-//    @CrossOrigin(origins= "http://localhost")
-    @CrossOrigin(origins= "http://soundcheckgh.com")
+    @CrossOrigin(origins= "http://localhost")
+//    @CrossOrigin(origins= "http://soundcheckgh.com")
     @RequestMapping("/activitytypeList")
     @Cacheable(cacheNames = { "projectCache" })
     public List<ActivityType> getActivityTypeList() {
@@ -172,19 +166,12 @@ public class ProjectController {
         return ResponseEntity.created(new URI("/project" + result.getId())).body(result);
     }
 //LIST OF ALL PROJECTS
-
     @GetMapping(value = "/projectlist")
 //    @Cacheable(cacheNames = { "projectCache" })
     public List<Project> projectList() {
         return projectRepository.findAll();
-
     }
-   @GetMapping(value = "/booking")
-//    @Cacheable(cacheNames = { "projectCache" })
-    public List<Booking> projectBooking() {
-        return bookingRepository.findAll();
-
-    }
+    
 //LIST OF ALL SONGS
     @GetMapping("/songlist")
     //  @Cacheable(cacheNames = { "projectCache" })
@@ -194,7 +181,7 @@ public class ProjectController {
 //LIST OF ALL ARTISTES
 
     @GetMapping("/artistlist")
-//    @Cacheable(cacheNames = { "projectCache" })
+//   @Cacheable(cacheNames = { "projectCache" })
     public List<ArtisteListDto> artiste() {
         return projectRepository.getArtisteDetail();
     }

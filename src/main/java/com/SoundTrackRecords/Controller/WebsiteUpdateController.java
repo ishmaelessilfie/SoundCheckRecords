@@ -32,14 +32,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RestController
 public class WebsiteUpdateController {
 
-    @Autowired
-    BookingRepository bookingRepository;
-    @Autowired 
-    SerialNumber serialNumber;
+   
+   private final BookingRepository bookingRepository; 
+   private final SerialNumber serialNumber;
+   
+   @Autowired
+   public WebsiteUpdateController(BookingRepository bookingRepository, SerialNumber serialNumber) {
+        this.bookingRepository = bookingRepository;
+        this.serialNumber = serialNumber;
+    }
 
 
-//    @CrossOrigin(origins= "http://localhost")
-    @CrossOrigin(origins= "http://soundcheckgh.com")   
+    @CrossOrigin(origins= "http://localhost")
+//    @CrossOrigin(origins= "http://soundcheckgh.com")   
     @RequestMapping(value = "/booking", method = {RequestMethod.POST})
     public AppResponse booking(Booking booking ) {
         booking.setNumberofours((serialNumber.convert(booking.getNumberofours())));
@@ -54,7 +59,7 @@ public class WebsiteUpdateController {
        return  bookingRepository.findAll();
     }
     
-     @RequestMapping(value = "/reschedule/{id}", method =  RequestMethod.PUT)
+    @RequestMapping(value = "/reschedule/{id}", method =  RequestMethod.PUT)
     ResponseEntity<Booking> rescheduleappointment(Booking booking, @PathVariable long id) {
        
         Booking result = bookingRepository.save(booking);
