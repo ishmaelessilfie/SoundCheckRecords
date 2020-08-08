@@ -848,12 +848,7 @@ project.viewBookingList = function () {
                     data: formData,
                     dataType: "json",
                     success: function () {
-                        swalInit.fire({
-                            title: 'Good job!',
-                            text: 'Project added successfully!',
-                            type: 'success',
-                            showCloseButton: true
-                        });
+                       
                         $.ajax({
                             url: "/delete_booking/" + result.id,
                             type: "GET",
@@ -862,6 +857,12 @@ project.viewBookingList = function () {
                                 $("#booking").DataTable().ajax.reload();
                                 $('#bookingForm')[0].reset();
                             }
+                        });
+                        swalInit.fire({
+                            title: 'Good job!',
+                            text: 'Project added successfully!',
+                            type: 'success',
+                            showCloseButton: true
                         });
                     }
                 });
