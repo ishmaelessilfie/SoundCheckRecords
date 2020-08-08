@@ -14,11 +14,13 @@ com\SoundTrackRecords\Exception\MyFileNotFoundException.class
 com\SoundTrackRecords\Model\Genre.class
 com\SoundTrackRecords\Model\CheeseType.class
 com\SoundTrackRecords\Model\News.class
+com\SoundTrackRecords\validator\Validate.class
 com\SoundTrackRecords\Model\EngineersLog.class
 com\SoundTrackRecords\Configuration\SecurityConfiguration.class
 com\SoundTrackRecords\Service\FileStorageService.class
 com\SoundTrackRecords\Model\ProjectType.class
 com\SoundTrackRecords\Repository\BookingLogRepository.class
+com\SoundTrackRecords\utils\MethodUtils.class
 com\SoundTrackRecords\Configuration\FileStorageProperties.class
 com\SoundTrackRecords\SoundTrackRecordsApplication.class
 com\SoundTrackRecords\Repository\BookingRepository.class
@@ -27,6 +29,7 @@ com\SoundTrackRecords\Service\SerialNumber.class
 com\SoundTrackRecords\Repository\UserRepository.class
 com\SoundTrackRecords\Model\Project.class
 com\SoundTrackRecords\Model\BookingLog.class
+com\SoundTrackRecords\utils\ErrorUtils.class
 com\SoundTrackRecords\Controller\WebsiteUpdateController.class
 com\SoundTrackRecords\Configuration\CacheConfig.class
 com\SoundTrackRecords\DTO\ArtisteListDto.class

@@ -1,5 +1,6 @@
 package com.SoundTrackRecords.Controller;
 
+import com.SoundTrackRecords.Exception.FileStorageException;
 import java.io.IOException;
 import java.util.List;
 
@@ -47,11 +48,13 @@ public class UsersRestController {
     //ADD USER....................................
 
     @RequestMapping(value = AppConstants.USER_URI, method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public AppResponse createUsers(
+    public AppResponse createUsers (
             @RequestParam(value = AppConstants.USER_JSON_PARAM, required = true) String empJson,
             @RequestParam(required = true, value = AppConstants.USER_FILE_PARAM) MultipartFile file)
             throws JsonParseException, JsonMappingException, IOException {
+       
         String fileName = fileStorageService.storeFile(file);
+       
         String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path(AppConstants.DOWNLOAD_PATH)
                 .path(fileName).toUriString();
         Users users = objectMapper.readValue(empJson, Users.class);
@@ -63,6 +66,7 @@ public class UsersRestController {
         applicationService.createUser(users);
         users.setPhoto(fileDownloadUri);
         applicationService.createUser(users);
+        
         return new AppResponse(AppConstants.SUCCESS_CODE, AppConstants.SUCCESS_MSG);
     }
     // END,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,

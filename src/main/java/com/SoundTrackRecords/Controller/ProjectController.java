@@ -11,7 +11,6 @@ import com.SoundTrackRecords.DTO.InvoiceList;
 import com.SoundTrackRecords.DTO.SongDetailDto;
 import com.SoundTrackRecords.Model.ActivityType;
 import com.SoundTrackRecords.Model.AppResponse;
-import com.SoundTrackRecords.Model.Booking;
 import com.SoundTrackRecords.Model.CheeseType;
 import com.SoundTrackRecords.Model.Combination;
 import com.SoundTrackRecords.Model.Genre;
@@ -30,6 +29,7 @@ import com.SoundTrackRecords.Repository.InvoiceRepository;
 import com.SoundTrackRecords.Repository.ProjectRepository;
 import com.SoundTrackRecords.Repository.UserRepository;
 import com.SoundTrackRecords.Service.SerialNumber;
+import com.SoundTrackRecords.utils.ErrorUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.itextpdf.text.log.LoggerFactory;
@@ -59,6 +59,7 @@ import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.export.SimpleExporterInput;
 import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -72,7 +73,6 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 public class ProjectController {
-
     private final ProjectTypeRepository projectTypeRepository;
     private final ActivityTypeRepository activityTypeRepository;
     private final GenreRepository genreRepository;
@@ -82,10 +82,8 @@ public class ProjectController {
     private final UserRepository usersRepository;
     private final ObjectMapper mapper;
     private final SerialNumber serialNumber;
-    private final BookingRepository bookingRepository;
-    
+    private final BookingRepository bookingRepository;   
 //   @Autowired
-
     public ProjectController(BookingRepository bookingRepository,ProjectTypeRepository projectTypeRepository, SerialNumber serialNumber, ActivityTypeRepository activityTypeRepository, GenreRepository genreRepository, CombinationRepository combinationRepository, ProjectRepository projectRepository, InvoiceRepository invoiceRepository, UserRepository usersRepository, ObjectMapper mapper) {
         this.projectTypeRepository = projectTypeRepository;
         this.activityTypeRepository = activityTypeRepository;
@@ -139,31 +137,29 @@ public class ProjectController {
     @CrossOrigin(origins= "http://localhost")
 //    @CrossOrigin(origins= "http://soundcheckgh.com")
     @RequestMapping("/activitytypeList")
-    @Cacheable(cacheNames = { "projectCache" })
+   // @Cacheable(cacheNames = { "projectCache" })
     public List<ActivityType> getActivityTypeList() {
         return activityTypeRepository.findAll();
     }
-//LIST OF ALL GENRES
-
-    @RequestMapping("/genreList")
+    @RequestMapping("/genreList") //LIST OF ALL GENRES
 //    @Cacheable(cacheNames = { "projectCache" })
     public List<Genre> getgenreList() {
         return genreRepository.findAll();
     }
-//LIST OF ALL COMBINATIONS
-
-    @RequestMapping("/combinationList")
+    @RequestMapping("/combinationList") //LIST OF ALL COMBINATIONS..........
 //    @Cacheable(cacheNames = { "projectCache" })
     public List<Combination> combinationList() {
         return combinationRepository.findAll();
     }
-//ADD NEW PROJECT
-
-    @RequestMapping(value = "/project", method = {RequestMethod.POST})
-    ResponseEntity<Project> createCategory(@Valid Project project) throws URISyntaxException {
+    @RequestMapping(value = "/project", method = {RequestMethod.POST}) //ADD NEW PROJECT...............
+   public AppResponse createCategory(@Valid Project project, BindingResult result) throws URISyntaxException {
+        if(result.hasErrors()) {
+          //  ErrorUtils.customErrors(result.getAllErrors())
+            return new AppResponse("Please check all the required fields and provide their inputs", "500");
+        }
         project.setNumber(serialNumber.generateRegistrationNumber());
-        Project result = projectRepository.save(project);
-        return ResponseEntity.created(new URI("/project" + result.getId())).body(result);
+        projectRepository.save(project);
+        return new AppResponse("Project added successfuly", "200");
     }
 //LIST OF ALL PROJECTS
     @GetMapping(value = "/projectlist")
@@ -192,8 +188,12 @@ public class ProjectController {
     }
 //DELETE A PROJECT
     @GetMapping(value = "/delete_project/{id}")
-    public void addressProect(@PathVariable Long id) {
+    public void addressProject(@PathVariable Long id) {
         projectRepository.deleteById(id);
+    }
+    @GetMapping(value = "/getProject/{id}")
+    public Project getProject(@PathVariable Long id) {
+       return projectRepository.getOne(id);
     }
 
     //UPDATE PROJECT

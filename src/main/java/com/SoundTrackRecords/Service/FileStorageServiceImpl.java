@@ -44,7 +44,7 @@ public class FileStorageServiceImpl implements FileStorageService {
 	public String storeFile(MultipartFile file) throws IOException {
 		
 		if (!(file.getOriginalFilename().endsWith(AppConstants.PNG_FILE_FORMAT) || file.getOriginalFilename().endsWith(AppConstants.JPEG_FILE_FORMAT) || file.getOriginalFilename().endsWith(AppConstants.JPG_FILE_FORMAT)))
-			throw new FileStorageException(AppConstants.INVALID_FILE_FORMAT);
+			throw new FileStorageException("Only PNG, JPEG and JPG images are allowed");
 		
 		File f = new File(AppConstants.TEMP_DIR+file.getOriginalFilename());
 		
@@ -58,7 +58,7 @@ public class FileStorageServiceImpl implements FileStorageService {
 		   if(width>300 || height>300) {
 			   if(f.exists())
 				   f.delete();
-			   throw new FileStorageException(AppConstants.INVALID_FILE_DIMENSIONS);
+			   throw new FileStorageException("Invalid file dimensions. File dimension should note be more than 300 X 300");
 		   }
 		
 		   if(f.exists())
@@ -66,8 +66,8 @@ public class FileStorageServiceImpl implements FileStorageService {
 		
 		String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 		try {
-			if (fileName.contains(AppConstants.INVALID_FILE_DELIMITER)) {
-				throw new FileStorageException(AppConstants.INVALID_FILE_PATH_NAME + fileName);
+			if (fileName.contains("Invalid delimeter")) {
+				throw new FileStorageException("Sorry! Filename contains invalid path sequence" + fileName);
 			}
 			String newFileName = System.currentTimeMillis() + AppConstants.FILE_SEPERATOR + fileName;
                         //String newFileName = fileName;

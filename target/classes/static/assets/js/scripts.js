@@ -17,6 +17,8 @@ $('document').ready(function () {
     formatAMPM();
 
 });
+
+
 //DATE AND TIME DISPLAY 
 $("#timee").html(formatAMPM());
 function formatAMPM() {
@@ -122,19 +124,28 @@ $('#addprojectbtn').on('click', function (e) {
         data: formData,
         dataType: "json",
         success: function (data) {
+//           alert(data.message)
+            if(data.code==200){
             swalInit.fire({
                 title: 'Good job!',
-                text: 'Project added successfully!',
+                text: data.message,
                 type: 'success',
                 showCloseButton: true
             });
-//             swal("Good job!!","Project added successfully!", "success")            
             $('#main')[0].reset();
             $("#main").validate().reset();
             $('#projectList').DataTable().ajax.reload();
             project.statistics().ajax.reload();
+        }else{
+            swalInit.fire({
+                title: 'An Error Occured',
+                text: data.message,
+                type: 'error',
+                showCloseButton: true
+            });
         }
-    });
+    }
+});
 });
 //PROJECTLIST DATATABLE..............................................
 project.viewProject = function () {
@@ -167,43 +178,25 @@ project.viewProject = function () {
                 }
             ]
         });
+         
         var projTable = $('#projectList').DataTable();
         //EDIT PROJECT........................................................
         projTable.on('click', '.editbtn', function () {
             $tr = $(this).closest('tr');
             var data = projTable.row($tr).data();
-            _fetchProjectType(function (result) {
-                $.each(result, function (i, item) {
-                    $('#projecttype').append($('<option>', {
-                        value: item.id,
-                        text: item.projecttype
-                    }));
-                });
-            });
-            _fetchActivityType(function (result) {
-                $.each(result, function (i, item) {
-                    $('#activitytype').append($('<option>', {
-                        value: item.id,
-                        text: item.activitytype
-                    }));
-                });
-            });
-            _fetchGenre(function (result) {
-                $.each(result, function (i, item) {
-                    $('#genre').append($('<option>', {
-                        value: item.id,
-                        text: item.genre
-                    }));
-                });
-            });
-            _fetchCombination(function (result) {
-                $.each(result, function (i, item) {
-                    $('#combination').append($('<option>', {
-                        value: item.id,
-                        text: item.combination
-                    }));
-                });
-            });
+           $.ajax({
+               url: "getProject/" + data.id,
+               type:"GET",
+               success: function(data){
+        
+         $('#activitytype').val(data.activitytype.id);
+         $('#projecttype').val(data.projecttype.id);
+         $('#combination').val(data.combination.id);
+         $('#genre').val(data.genre.id);
+         
+
+
+                   
             $('#id').val(data.id);
             $('#artistename').val(data.artistename);
             $('#songtitle').val(data.songtitle);
@@ -217,6 +210,8 @@ project.viewProject = function () {
             $('#phone').val(data.phone);
             $('#number').val(data.number);
             $('#EditRecord').modal('show');
+              }
+           });
         });
         $('.submitupdatebtn').on('click', function () {
             var formData = $('#editformid').serialize();
@@ -835,37 +830,22 @@ project.viewBookingList = function () {
         });
         bookingTable.on('click', '.signoutbtn', function () {
             $tr = $(this).closest('tr');
-            var data = bookingTable.row($tr).data();
-            $('#artistename').val(data.name);
-            $('#town').val(data.town);
-            $('#email').val(data.email);
-            $('#country').val(data.country);
-            $('#address').val(data.address);
-            $('#phone').val(data.phone);
-            $('.activitytypead').val(data.activitytype.activitytype);
+            var result = bookingTable.row($tr).data();
+            $('#artistename').val(result.name);
+            $('#town').val(result.town);
+            $('#email').val(result.email);
+            $('#country').val(result.country);
+            $('#address').val(result.address);
+            $('#phone').val(result.phone);
+            $('.activitytypead').val(result.activitytype.id);
             $('#AddBookingProj').modal('show');
+           
             $('#addbooingtoprojbtn').on('click', function () {
+                var formData = $("#bookingForm").serialize();
                 $.ajax({
                     url: "/project",
                     type: "POST",
-                    data: {
-                        'artistename': data.name,
-                        'songtitle': $('#songtitle').val(),
-                        'projecttype': $('#projecttypead').val(),
-                        'producer': $('#producer').val(),
-                        'engineer': $('#engineer').val(),
-                        'writer': $('#writer').val(),
-                        'town': $('#town').val(),
-                        'projectstartdate': $('#projectstartdate').val(),
-                        'combination': $('.combinationad').val(),
-                        'genre': $('#genrebo').val(),
-                        'activitytype': data.activitytype.id,
-//            'town':data.town,
-                        'email': $('#email').val(),
-                        'country': data.country,
-                        'phone': $('#phone').val(),
-                        'numberofhours': data.numberofours
-                    },
+                    data: formData,
                     dataType: "json",
                     success: function () {
                         swalInit.fire({
@@ -875,22 +855,23 @@ project.viewBookingList = function () {
                             showCloseButton: true
                         });
                         $.ajax({
-                            url: "/delete_booking/" + data.id,
+                            url: "/delete_booking/" + result.id,
                             type: "GET",
                             success: function () {
                                 $('#AddBookingProj').modal('hide');
                                 $("#booking").DataTable().ajax.reload();
+                                $('#bookingForm')[0].reset();
                             }
                         });
                     }
                 });
             });
-        });
+        });       
         bookingTable.on('click', '.deletebooking', function () {
             $tr = $(this).closest('tr');
             var data = bookingTable.row($tr).data();
             var id= data.id;           
-            project.deleteBooking(id)        
+            project.deleteBooking(id) ;       
         });
         project.deleteBooking = function (id) {
             url = "/delete_booking/";

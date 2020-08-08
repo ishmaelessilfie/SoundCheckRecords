@@ -18,7 +18,6 @@ var DatatableResponsive = function() {
             console.warn('Warning - datatables.min.js is not loaded.');
             return;
         }
-
         // Setting datatable defaults
         $.extend( $.fn.dataTable.defaults, {
             autoWidth: false,
@@ -36,8 +35,6 @@ var DatatableResponsive = function() {
                 paginate: { 'first': 'First', 'last': 'Last', 'next': $('html').attr('dir') == 'rtl' ? '&larr;' : '&rarr;', 'previous': $('html').attr('dir') == 'rtl' ? '&rarr;' : '&larr;' }
             }
         });
-
-
         // Basic responsive configuration
         $('.datatable-responsive').DataTable();
 
@@ -68,11 +65,9 @@ var DatatableResponsive = function() {
         });
     };
 
-
     return {
         init: function() {
             _componentDatatableResponsive();
-//            _componentSelect2();
         }
     }
 }();

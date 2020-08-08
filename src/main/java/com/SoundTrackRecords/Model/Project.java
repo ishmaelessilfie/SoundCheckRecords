@@ -64,8 +64,9 @@ public class Project implements Serializable{
      private Integer numberofhours=0;
     @NotNull(message="Please enter country")
     private String country;
-    @NotNull(message="Please enter date")
+   
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+    @NotNull(message="Please enter date")
     private Date projectstartdate;
     private String number;
     @NotNull(message="Please enter song title")
