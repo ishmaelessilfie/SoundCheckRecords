@@ -6,31 +6,32 @@
 package com.SoundTrackRecords.Model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 import javax.persistence.CascadeType;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.hibernate.annotations.GenericGenerator;
 
 /**
  *
@@ -44,60 +45,57 @@ import lombok.ToString;
 @Table(name="project")
 
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Project implements Serializable{
+public class Project{
 
-  
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @NotNull(message="Please enter artiste name")
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "uuid2")
+    @Id 
+    private UUID id;
+    @NotBlank(message="This field is reqired")
     private String artistename;
-    @NotNull(message="Please enter phone number")
+    @NotBlank(message="This field is required")
     @Size(min=10, max=10)
     private String phone;
-    @Email(message="Please email is invalid, check and enter again")
-    @NotNull(message="Please enter email")
+    @Email(message="This field is required")
+    @NotBlank(message="This field is required")
     private String email;
-    @NotNull(message="Please enter town/village/city")
+    @NotBlank(message="This field is required")
     private String town;
      private Integer numberofhours=0;
-    @NotNull(message="Please enter country")
+    @NotBlank(message="Please enter country")
     private String country;
-   
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "d MMMM,yyyy")
     @NotNull(message="Please enter date")
     private Date projectstartdate;
     private String number;
-    @NotNull(message="Please enter song title")
+    @NotBlank(message="Please enter song title")
     private String songtitle;
-    @ManyToOne
-    @NotNull(message="Please select genre")
-    private Genre genre;
-    @NotNull(message="Please enter writer name")
+    @NotBlank(message="Please enter writer name")
     private String writer;
-    @NotNull(message="Please enter producer name")
+    
+    @NotBlank(message="Please enter producer name")
     private String producer;
-    @NotNull(message="Please enter engineer name")
+    
+    @NotBlank(message="Please enter engineer name")
     private String engineer;
-    @ManyToOne
-    @NotNull(message="Please select combination")
-    private Combination combination;
-    @ManyToOne
-    @NotNull(message="Please select project type")
-    private ProjectType projecttype;
-    @ManyToOne
-    @NotNull(message="Please enter activity type")
-    private ActivityType activitytype;
+    
+    @NotBlank(message="This field is reqiured")
+    private String genre;
+    
+    @NotBlank(message = "This field is required")
+    private String combination;
+    
+    @NotBlank(message="This field is required")
+    private String projecttype;
+    
+    @NotBlank(message="This field is required")
+    private String activitytype;
+    
     private boolean ispdfexcelcreated =false;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @Transient
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
-    private List<Invoice> invoice;
-    
-    private CheeseType type;
-    
-    
-  
-    
+    private List<Invoice> invoice;  
+//    private CheeseType type;
+       
 }

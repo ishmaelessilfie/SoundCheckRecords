@@ -29,6 +29,7 @@
                             <th>Service</th>
                             <th>Hours</th>
                             <th>Date booked</th>
+                            <th>Rescheduled Date</th>
                             <th class="text-center">Actions</th>
                             <th>Status</th>
 
@@ -39,7 +40,7 @@
             
             <!--ADD PROJECT................................................ -->
             <div id="AddBookingProj" class="modal fade " tabindex="-1">
-                <div class="modal-dialog modal-full">
+                <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title">Add Booking To projects</h5>
@@ -50,45 +51,53 @@
                                 <h6 style="text-align:center;">Artiste information</h6>
                             </div>
                             <div class="modal-body">
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-sm-8">
-                                            <label >Artiste(S)<span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control"id="artistename" name="artistename" required/>
-                                            <div class="invalid-feedback">Please enter artiste name to continue.</div>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <label >Song tittle<span class="text-danger">*</span></label>
-
-                                            <input type="text" class="form-control" id="songtitle" name="songtitle" required/>                                
+                                 <div class="form-group">
+                                    <div class="row">                                      
+                                        <div class="col-sm-6 ">
+                                            <table class="table-responsive artiste_field" id="artiste_field">
+                                                <tr> 
+                                                    <label >Artiste(S)<span class="text-danger">*</span></label>
+                                                    <td width="100%"><input type="text" class="form-control artistename" name="artistename" required/></td>
+                                                    <td ><button type="button" name="add" id="addArtisteInput" class="btn btn-success btn-sm addArtisteInput"><i class="icon-plus3"></i></button></td> 
+                                                </tr>  
+                                            </table>
+                                        </div>                                       
+                                        <div class="col-sm-6">
+                                            <table class="table-responsive songlist_field" id="songlist_field">
+                                                <tr>
+                                                    <label >Song tittle(s)<span class="text-danger">*</span></label>
+                                                    <td width="100%"><input type="text" class="form-control songtitle" id="songtitle" name="songtitle" required/></td>
+                                                    <td ><button type="button" name="add" id="songlistInput" class="btn btn-success btn-sm songlistInput"><i class="icon-plus3"></i></button></td>
+                                                </tr>
+                                            </table>
                                         </div>                                       
                                     </div>
-                                </div>
+                                </div>  
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-sm-3">
                                             <label >Project Type<span class="text-danger">*</span></label>
-                                            <select class="form-control select-basic projecttypead" id="projecttypead" name="projecttype" required>
+                                            <select class="form-control select-basic projecttypead"  name="projecttype" required>
                                                  <option value="">--Select poject type--</option>
                                             </select>  
                                             
                                         </div>
                                         <div class="col-sm-3">
                                             <label >Activity<span class="text-danger">*</span></label>
-                                               <select class="form-control select-basic activitytypead" id="projecttypead" name="activitytype" required>
+                                               <select class="form-control select-basic activitytypead"  name="activitytype" required>
                                                  <option value="">--Select activity type--</option>
                                             </select>                                           
                                         </div>
                                         <div class="col-sm-3">
                                             <label >Genre<span class="text-danger">*</span></label>
-                                            <select class="form-control  genread" id="genread" name="genre" required>
+                                            <select class="form-control  genread" name="genre" required>
                                                 <option value="">--Select genre--</option>
                                             </select>
                                                                                 
                                         </div>
                                         <div class="col-sm-3">
                                             <label> Combination<span class="text-danger">*</span></label>
-                                            <select class="form-control combinationad" id="combinationad"  name="combination" required>
+                                            <select class="form-control combinationad"   name="combination" required>
                                                 <option value="">--Select combination--</option>
                                             </select>                                                                             
                                         </div>
@@ -97,24 +106,35 @@
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-sm-6">
-                                            <label >Writer(s)<span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" id="writer" name="writer" required/>
-                                            <!--                                         <div class="invalid-feedback">Please enter song title to continue</div>
-                                            -->
+                                            <table class="table-responsive writers_field" id="writers_field">
+                                                <tr>
+                                                    <label >Writer(s)<span class="text-danger">*</span></label>
+                                                    <td width="100%"><input type="text" class="form-control writer"  name="writer" required/></td>
+                                                    <td ><button type="button" name="add" id="writersInput"  class="btn btn-success btn- writersInput"><i class="icon-plus3"></i></button></td>
+                                                </tr>
+                                            </table>
                                         </div>
                                         <div class="col-sm-6">
-                                            <label >Producer(s)<span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" id="producer" name="producer" required/>
-                                            <!-- <div class="invalid-feedback">Please enter producer to continue</div>-->
+                                            <table class="table-responsive producers_field" id="producers_field">
+                                                <tr>
+                                                    <label >Producer(s)<span class="text-danger">*</span></label>
+                                                    <td width="100%"><input type="text" class="form-control producer" name="producer" required/></td>
+                                                    <td ><button type="button" name="add" id="producersInput"   class="btn btn-success btn-sm producersInput"><i class="icon-plus3"></i></button></td>
+                                                </tr>
+                                            </table>
                                         </div>
                                         <div class="col-sm-6">
-                                            <label >Engineer(S)<span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" id="engineer" name="engineer" required/>
-                                            <!--                                         <div class="invalid-feedback">Please enter engineer to continue</div>-->
+                                            <table class="table-responsive engineers_field" id="engineers_field">
+                                                <tr>
+                                                    <label >Engineer(S)<span class="text-danger">*</span></label>
+                                                    <td width="100%"><input type="text" class="form-control engineer"  name="engineer" required/></td>
+                                                    <td ><button type="button" name="add" id="engineersInput"  class="btn btn-success btn-sm engineersInput"><i class="icon-plus3"></i></button></td>
+                                                </tr>
+                                            </table>
                                         </div>
                                         <div class="col-sm-6">
                                             <label >Start date<span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control pickadate-accessibility" id="projectstartdate" name="projectstartdate"  required/>   
+                                            <input type="text" class="form-control pickadate-accessibility"  name="projectstartdate"  required/>   
                                         </div>
                                     </div>
                                 </div>
@@ -122,17 +142,17 @@
                                     <div class="row">
                                         <div class="col-sm-4">
                                             <label >City/Town/Village<span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" id="town" name="town" required/>
+                                            <input type="text" class="form-control" name="town" required/>
                                             <!--                                          <div class="invalid-feedback">Please enter City/Town/Village to continue</div>-->
                                         </div>
                                         <div class="col-sm-4">
                                             <label >Country<span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" id="country" name="country" required/>
+                                            <input type="text" class="form-control" name="country" required/>
                                             <!--                                        <div class="invalid-feedback">Please enter country to continue</div>-->
                                         </div>
                                         <div class="col-sm-4">
                                             <label >Phone #<span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" id="phone" name="phone" required/>
+                                            <input type="text" class="form-control"  name="phone" required/>
                                             <!--                                        <div class="invalid-feedback">Please enter phone to continue</div>-->
                                         </div>
                                     </div>
@@ -141,7 +161,7 @@
                                     <div class="row">
                                         <div class="col-sm-6">
                                             <label >Email<span class="text-danger">*</span></label>
-                                            <input type="email" class="form-control" id="email" name="email"  required/>
+                                            <input type="email" class="form-control" name="email"  required/>
                                             <!--  <div class="invalid-feedback">Please enter valid email to continue</div>-->
                                         </div>
                                     </div>
@@ -149,7 +169,7 @@
                             </div>
                             <div class="modal-footer">
                                 <!--<button type="reset" class="btn btn-light" id="reset">Reset <i class="icon-reload-alt ml-2"></i></button>-->
-                                <button type="button" class="btn btn-primary ml-3" id="addbooingtoprojbtn"> Submit <i class="icon-paperplane ml-2"></i></button>
+                                <button type="submit" class="btn btn-primary ml-3" id="addbooingtoprojbtn"> Submit <i class="icon-paperplane ml-2"></i></button>
                             </div>
                         </form>
                     </div>
@@ -165,25 +185,26 @@
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                         </div>
                         <div  class="modal-body">
-                            <!--                        <form  class="form-validate-upd" >-->
+                           <form  class="form-validate-upd" id="rescheduleForm">
+                            
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <label >Client date</label>
-                                       
-                                        <input type="text" id="dateofbooking" class="form-control" readonly name="dateofbooking"  />
+                                       <input type="hidden" id="seen" class="form-control" value="2" readonly name="seen"   />
+                                        <input type="text" id="datebooked" class="form-control" readonly name="datebooked"  />
                                     </div>
                                     <div class="col-sm-12">
                                         <label >Your preferred date</label>
-                                        <input type="text" id="rescheduleddate " class="form-control pickadate-accessibility"  name="rescheduleddate " required/>
+                                        <input type="text" id="rescheduleddate" class="form-control pickadate-accessibility"  name="rescheduleddate" required/>
                                 
                                     </div>
                                     <div class="col-sm-12">
-                                        <form id="fileUploadFormup">
+                                       
                                             <label >Message(if any) </label>
                                             <!--                                             <input type="hidden" id="hoto" class="form-control"  name="filehidden"/>    -->
                                             <textarea type="text" id="message " class="form-control"  name="message " required></textarea> 
-                                        </form>
+                                       
                                     </div>
                                 </div>
                             </div>
@@ -191,7 +212,7 @@
                                 <button type="cancel" class="btn btn-link" data-dismiss="modal">close</button>
                                 <button type="button" class="btn bg-primary" id="reschedulebtn" >Submit</button>
                             </div>
-                            <!--                    </form>-->
+                       </form>
                         </div>
                     </div>
                 </div>

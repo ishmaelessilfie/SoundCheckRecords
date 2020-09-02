@@ -6,14 +6,14 @@
 package com.SoundTrackRecords.Controller;
 
 
+import com.SoundTrackRecords.Model.Users;
 import com.SoundTrackRecords.Repository.InvoiceRepository;
 import com.SoundTrackRecords.Repository.ProjectRepository;
+import com.SoundTrackRecords.Repository.UserRepository;
 import com.SoundTrackRecords.Service.ProjectService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
 
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,18 +27,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 public class AuthenticationController {
-    @Autowired
-    ProjectRepository projectRepository;
-    @Autowired
-    ProjectService projectService;
-    @Autowired
-    InvoiceRepository invoiceRepository;
-    
-    
-   
+
+//    @Autowired
+//    UserRepository userRepository;
+
     @RequestMapping("/login")
-    public String login() { 
-        return "login";
+    public String login(Model model, String error) {
+//        Users user = userRepository.findByUsername(username);
+        if (error != null) {
+            model.addAttribute("error", "username and password invalid");
+        }
+              return "login";
     }
     
     @RequestMapping("/logout")
@@ -48,6 +47,7 @@ public class AuthenticationController {
     
     @RequestMapping("/")
     public String index() {
+        
         return "index"; //index.html page 
     }
     
@@ -70,15 +70,16 @@ public class AuthenticationController {
         return "artistlist"; //tabel.html page 
     }
     
-     @RequestMapping("/songList")
+    @RequestMapping("/songList")
     public String songlist() {
         return "songlist"; //tabel.html page 
     }
     
-     @RequestMapping("/bookings")
+    @RequestMapping("/bookings")
     public String bookings() {
         return "booking"; //tabel.html page 
-    }
     
     
 }
+
+    }

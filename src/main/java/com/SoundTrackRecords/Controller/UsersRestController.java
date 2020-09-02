@@ -27,8 +27,7 @@ import com.SoundTrackRecords.Service.ApplicationService;
 import com.SoundTrackRecords.Service.FileStorageService;
 import com.SoundTrackRecords.utils.AppConstants;
 import java.util.Date;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
+import java.util.UUID;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -54,10 +53,13 @@ public class UsersRestController {
             throws JsonParseException, JsonMappingException, IOException {
        
         String fileName = fileStorageService.storeFile(file);
-       
         String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path(AppConstants.DOWNLOAD_PATH)
                 .path(fileName).toUriString();
         Users users = objectMapper.readValue(empJson, Users.class);
+       Users username = usersRepository.findByUsername(users.getUsername());
+       if(username !=null){
+        return  new AppResponse("username already exists", "202");
+       }
         users.setRole("ADMIN");
         users.setPassword(encoder.encode(users.getPassword()));
         users.setPhoto(fileDownloadUri);
@@ -67,7 +69,7 @@ public class UsersRestController {
         users.setPhoto(fileDownloadUri);
         applicationService.createUser(users);
         
-        return new AppResponse(AppConstants.SUCCESS_CODE, AppConstants.SUCCESS_MSG);
+        return new AppResponse(AppConstants.SUCCESS_CODE, "User added successfully");
     }
     // END,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 
@@ -77,14 +79,19 @@ public class UsersRestController {
           @RequestParam(value = AppConstants.USER_JSON_PARAM, required = true) String empJson,
             @RequestParam(required = true, value = "file") MultipartFile file)
             throws JsonParseException, JsonMappingException, IOException {
+        
         String fileName = fileStorageService.storeFile(file);
         String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path(AppConstants.DOWNLOAD_PATH)
                 .path(fileName).toUriString();
+        
        Users users = objectMapper.readValue(empJson, Users.class);
 
         String inputpassword = usersRepository.getPassword(users.getUsername());
         String inputphotos = usersRepository.getPhotos(users.getUsername());
-
+        
+        
+//        Users username = usersRepository.findByUsername(users.getUsername());
+       
         if (users.getPassword().equals(inputpassword)) {
             users.setPassword(users.getPassword());
         } else {
@@ -98,7 +105,7 @@ public class UsersRestController {
         users.setRole("ADMIN");
 //      users.setFilename(fileName);
         applicationService.createUser(users);
-        return new AppResponse(AppConstants.SUCCESS_CODE, AppConstants.SUCCESS_MSG);
+        return new AppResponse(AppConstants.SUCCESS_CODE, "user profile updated successfully");
     }
     //END,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 
@@ -112,7 +119,7 @@ public class UsersRestController {
 
     //DELETE USER....................
     @GetMapping(value = "/delete_user/{id}")
-    public void addressIvoice(@PathVariable Long id) {
+    public void addressIvoice(@PathVariable UUID id) {
          usersRepository.deleteById(id);
     }
     //END,,,,,,,,,,,,,,,,,,,,,,,,,,    

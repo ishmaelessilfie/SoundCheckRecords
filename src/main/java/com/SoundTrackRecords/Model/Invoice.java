@@ -10,18 +10,21 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.UUID;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.hibernate.annotations.GenericGenerator;
 
 /**
  *
@@ -34,18 +37,23 @@ import lombok.ToString;
 @Data
 @Table(name="invoice")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Invoice implements Serializable{
-    private static final long serialVersionUID = 1L;
+public class Invoice{
+    //private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+     @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "uuid2")
+   // @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    private Long id;
+    private UUID id;
     private Double masteringcost;
     private Double studiotimecost;
     private Double mixingcost;
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
-    @Temporal(TemporalType.TIMESTAMP)
+    @JsonFormat(pattern="yyyy/MM/dd")
+//    @Temporal(TemporalType.TIMESTAMP)
     private Date datecreated;
+    @PrePersist
+    public void setDatecreated(){this.datecreated=new Date();}
+    
     private Double totalcost;
     private int timeinhr;
     private String invoiceno;

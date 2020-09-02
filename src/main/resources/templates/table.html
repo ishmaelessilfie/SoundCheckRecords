@@ -7,11 +7,11 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
         <meta  content="width=device-width, value-scale=1"/>
         <title >Sound Check Records</title>
-        
+
     </head>
     <body>
         <div class="content pt-0" layout:fragment="main-content" >
-            
+
             <div class="card" >
                 <div class="card-header header-elements-inline">
                     <h1 class="card-title">Project List</h1>
@@ -36,144 +36,167 @@
                         </tr>
                     </thead>             
                 </table>
-               </div>   
-            
- <!-- EDIT PROJECT........................................................-->
-                <div id="EditRecord" class="modal fade" tabindex="-1">
-                    <form  class="form-valid" id="editformid" > 
-                        <div class="modal-dialog modal-full">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title">Update  project</h5>
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                </div>
+            </div>   
 
-                                <div style="margin-bottom:-15px;">
-                                    <h6 style="text-align:center;">Artiste information</h6>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="form-group">
-                                        <div class="row">
-                                            <div class="col-sm-8">
-                                                 <input type="hidden" name="id" id="id" >
-                                                <label >Artiste(S)</label>
-                                                <input type="text" class="form-control" name="artistename" id="artistename" required/>
-                                            </div>
-                                            <div class="col-sm-4">
-                                                <label >Song tittle</label>
-                                                <input type="text" id="songtitle" class="form-control" name="songtitle" required />
-                                            </div>
-                                        </div>
-                                    </div>                                                                    <div class="form-group">
-                                        <div class="row">
-                                            <div class="col-sm-3">
-                                                <label >Project Type</label>
-                                                <select class="form-control projecttypead" id="projecttype" readonly name="projecttype"  >
-                                                    <option value="" disabled> ---Choose project type--- </option>
-                                                   
-                                                </select>  
-
-                                            </div>
-                                            <div class="col-sm-3">
-                                                <label >Activity</label>
-                                                <select class="form-control activitytypead" id="activitytype" readonly name="activitytype">
-                                                    <option value="" disabled> ---Choose activity type--- </option>
-                                                   
-                                                </select>
-                                            </div>
-                                            <div class="col-sm-3">
-                                                <label >Genre</label>
-                                                <select class="form-control genread" id="genre" readonly name="genre">
-                                                    <option value="" disabled> ---Choose genre--- </option>                                                  
-                                                </select>
-                                            </div>
-                                            <div class="col-sm-3">
-                                                <label> Combination</label>
-                                                <select class="form-control combinationad" id="combination" readonly name="combination">
-                                                    <option value="" disabled> ---Choose combination type--- </option>                                                   
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="row">
-                                            <div class="col-sm-6">
-                                                <label >Writer(s)</label>
-                                                <input type="text" id="writer" class="form-control" name="writer" required/>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <label >Producer(s)</label>
-                                                <input type="text" id="producer" class="form-control" name="producer" required/>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <label >Engineer(S) </label>
-                                                <input type="text" id="engineer" class="form-control" name="engineer" required/>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <label >Start date </label>
-                                                <input type="text" class="form-control pickadate-accessibility" id="projectstartdate" value=""   name="projectstartdate" />  
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="row">
-                                            <div class="col-sm-4">
-                                                <label >City/Town/Village</label>
-                                                <input type="text" id="town" class="form-control" name="town" required/>
-                                            </div>
-                                            <div class="col-sm-4">
-                                                <label >Country</label>
-                                                <input type="text" id="country" class="form-control" name="country" required/>
-                                            </div>
-                                            <div class="col-sm-4">
-                                                <label >Project Code</label>
-                                                <input type="text" id="number" class="form-control" name="number" readonly required/>
-                                            </div>   
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="row">
-                                            <div class="col-sm-6">
-                                                <label >Email</label>
-                                                <input type="text" id="email" class="form-control" name="email" required/>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <label >Phone #</label>
-                                                <input type="text" id="phone" class="form-control" name="phone" required/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
-                                    <button type="button"  class="btn bg-primary submitupdatebtn">Submit form</button>
-                                </div>
-
+            <!-- EDIT PROJECT........................................................-->
+            <div id="EditRecord" class="modal fade" tabindex="-1">
+                <form  class="form-valid" id="editformid" > 
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Update  project</h5>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
                             </div>
+
+                            <div style="margin-bottom:-15px;">
+                                <h6 style="text-align:center;">Artiste information</h6>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <div class="row">                                      
+                                        <div class="col-sm-6 ">
+                                            <input type="hidden" id="projup" class="form-control" name="id"  />
+                                            <table class="table-responsive artiste_field" id="artiste_field">
+                                                <tr> 
+                                                    <label >Artiste(S)<span class="text-danger">*</span></label>
+                                                    <td width="100%"><input type="text" class="form-control artistename" id="artistename" name="artistename" required/></td>
+                                                    <td ><button type="button" name="add" id="addArtisteInput" class="btn btn-success btn-sm addArtisteInput"><i class="icon-plus3"></i></button></td> 
+                                                </tr>  
+                                            </table>
+                                        </div>                                       
+                                        <div class="col-sm-6">
+                                            <table class="table-responsive songlist_field" id="songlist_field">
+                                                <tr>
+                                                    <label >Song tittle(s)<span class="text-danger">*</span></label>
+                                                    <td width="100%"><input type="text" class="form-control songtitle" id="songtitle"  name="songtitle" required/></td>
+                                                    <td ><button type="button" name="add" id="songlistInput" class="btn btn-success btn-sm songlistInput"><i class="icon-plus3"></i></button></td>
+                                                </tr>
+                                            </table>
+                                        </div>                                       
+                                    </div>
+                                </div>                                                                  
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <label >Project Type</label>
+                                            <select class="form-control projecttypead"  readonly name="projecttype"  >
+                                                <option value="" disabled> ---Choose project type--- </option>
+                                            </select>  
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <label >Activity</label>
+                                            <select class="form-control activitytypead"  readonly name="activitytype">
+                                                <option value="" disabled> ---Choose activity type--- </option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <label >Genre</label>
+                                            <select class="form-control genread"  readonly name="genre">
+                                                <option value="" disabled> ---Choose genre--- </option>                                                  
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <label> Combination</label>
+                                            <select class="form-control combinationad"  readonly name="combination">
+                                                <option value="" disabled> ---Choose combination type--- </option>                                                   
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <table class="table-responsive writers_field" id="writers_field">
+                                                <tr>
+                                                    <label >Writer(s)<span class="text-danger">*</span></label>
+                                                    <td width="100%"><input type="text" class="form-control writer" id="writer" name="writer" required/></td>
+                                                    <td ><button type="button" name="add" id="writersInput"  class="btn btn-success btn- writersInput"><i class="icon-plus3"></i></button></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <table class="table-responsive producers_field" id="producers_field">
+                                                <tr>
+                                                    <label >Producer(s)<span class="text-danger">*</span></label>
+                                                    <td width="100%"><input type="text" class="form-control producer" id="producer" name="producer" required/></td>
+                                                    <td ><button type="button" name="add" id="producersInput"   class="btn btn-success btn-sm producersInput"><i class="icon-plus3"></i></button></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <table class="table-responsive engineers_field" id="engineers_field">
+                                                <tr>
+                                                    <label >Engineer(S)<span class="text-danger">*</span></label>
+                                                    <td width="100%"><input type="text" class="form-control engineer" id="engineer" name="engineer" required/></td>
+                                                    <td ><button type="button" name="add" id="engineersInput"  class="btn btn-success btn-sm engineersInput"><i class="icon-plus3"></i></button></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label >Start date<span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control pickadate-accessibility projectstartdate" id="projectstartdate" name="projectstartdate"  required/>   
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <label >City/Town/Village</label>
+                                            <input type="text"  class="form-control" id="town" name="town" required/>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <label >Country</label>
+                                            <input type="text"  class="form-control" id="country" name="country" required/>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <label >Project Code</label>
+                                            <input type="text"  class="form-control" id="number" name="number" readonly required/>
+                                        </div>   
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <label >Email</label>
+                                            <input type="text"  class="form-control" id="email" name="email" required/>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label >Phone #</label>
+                                            <input type="text"  class="form-control" id="phone" name="phone" required/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                                <button type="submit"  class="btn bg-primary submitupdatebtn">Submit form</button>
+                            </div>
+
                         </div>
-                    </form>
+                    </div>
+                </form>
             </div>
-             <!-- END,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,-->
-             
-             
+            <!-- END,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,-->
+
+
             <!-- ADD INVOICE............................................... -->
             <div id="AddInvoice" class="modal fade" tabindex="-1">
-            <form  id="invice" class="form-validate-jquery container">
-             <div class="modal-dialog modal-small">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Invoice Entry</h5>
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="form-group another">
-                                <div class="row">
+                <form  id="invice" class="form-validate-jquery container">
+                    <div class="modal-dialog modal-small">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Invoice Entry</h5>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group another">
+                                    <div class="row">
                                         <div class="col-sm-4">
-                                             <input type="hidden" name="id" id="myid"/>
-<!--                                             <input type="hidden" name="project" id="projectid"/>-->
-                                       
+                                            <input type="hidden" name="id" id="myid"/>
+                                            <!--                                             <input type="hidden" name="project" id="projectid"/>-->
+
                                             <label >Studio Hours Cost</label>
-                                             <input type="text" id="studiotimecost" class="form-control another"  name="studiotimecost" placeholder="Enter 0 if no bill required" required/>
+                                            <input type="text" id="studiotimecost" class="form-control another"  name="studiotimecost" placeholder="Enter 0 if no bill required" required/>
                                         </div>
                                         <div class="col-sm-4">
                                             <label >Number of Hours</label>
@@ -187,126 +210,126 @@
                                             <label >Mastering Cost </label>
                                             <input type="text" class="form-control" id="masteringcost" value=""  name="masteringcost" placeholder="Enter 0 if no bill required" required/>
                                         </div>
-                                     <div class="col-sm-4">
+                                        <div class="col-sm-4">
                                             <label >Cost of Instruments </label>
                                             <input type="text" class="form-control" id="costofintruments" value=""  name="costofintruments" placeholder="Enter 0 if you don' require it" required />
                                         </div>
+                                    </div>
+                                </div>
+
+                                <div class="modal-footer">
+
+                                    <!--<button type="reset" class="btn btn-light" id="reset">Reset <i class="icon-reload-alt ml-2"></i></button>-->
+                                    <button type="button" class="btn bg-primary" id="eer">Submit</button>
+
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- END,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,-->    
 
+            <!-- VIEW PROJECT DETAIL........................................................-->
+            <div id="ViewDetail" class="modal fade" tabindex="-1">
+                <form  class="editForm" >
+                    <div class="modal-dialog modal-md">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Project Detail</h5>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group another">
+                                    <div class="row">
+                                        <div class="col-sm-8">
+                                            <input type="hidden" name="id" id="idd">
+
+                                                <label >Artiste(S)</label>
+                                                <input type="text" class="form-control" name="artistename" readonly id="artistenameview"/>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <label >Song tittle</label>
+                                            <input type="text" id="songtitleview" class="form-control" readonly name="songtitle" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <label >Project Type</label>
+                                            <input type="text" id="projecttypeview" class="form-control" readonly name="projecttype"/>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label >Activity</label>
+                                            <input type="text" id="activitytypeview" class="form-control" readonly name="activitytype"/>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label >Genre</label>
+                                            <input type="text" id="genreview" class="form-control" readonly name="genre"/>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label> Combination</label>
+                                            <input type="text" id="combinationview" class="form-control" readonly name="combination"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group another">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <label >Writer(s)</label>
+                                            <input type="text" id="writerview" class="form-control" readonly name="writer"/>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label >Producer(s)</label>
+                                            <input type="text" id="producerview" class="form-control" readonly name="producer"/>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label >Engineer(S) </label>
+                                            <input type="text" id="engineerview" class="form-control" readonly name="engineer"/>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label >Start date </label>
+                                            <input type="text" class="form-control" id="projectstartdateview" value="" readonly name="projectstartdate"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group another">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <label >City/Town/Village</label>
+                                            <input type="text" id="townview" class="form-control" readonly name="town"/>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label >Country</label>
+                                            <input type="text" id="countryview" class="form-control" readonly name="country"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <label >Email</label>
+                                            <input type="text" id="emailview" class="form-control" readonly name="email"/>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label >Phone #</label>
+                                            <input type="text" id="phoneview" class="form-control" readonly name="phone"/>
+
+                                            <span class="form-text text-muted">0544793757</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="modal-footer">
-                               
-                                 <!--<button type="reset" class="btn btn-light" id="reset">Reset <i class="icon-reload-alt ml-2"></i></button>-->
-                                 <button type="button" class="btn bg-primary" id="eer">Submit</button>
+                                <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
 
                             </div>
                         </div>
                     </div>
-             </div>
-            </form>
-        </div>
-         <!-- END,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,-->    
-            
-        <!-- VIEW PROJECT DETAIL........................................................-->
-        <div id="ViewDetail" class="modal fade" tabindex="-1">
-                    <form  class="editForm" >
-                        <div class="modal-dialog modal-md">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title">Project Detail</h5>
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="form-group another">
-                                        <div class="row">
-                                            <div class="col-sm-8">
-                                                 <input type="hidden" name="id" id="idd">
-                                                
-                                                <label >Artiste(S)</label>
-                                                <input type="text" class="form-control" name="artistename" readonly id="artistenameview"/>
-                                            </div>
-                                            <div class="col-sm-4">
-                                                <label >Song tittle</label>
-                                                <input type="text" id="songtitleview" class="form-control" readonly name="songtitle" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="row">
-                                            <div class="col-sm-6">
-                                                <label >Project Type</label>
-                                                 <input type="text" id="projecttypeview" class="form-control" readonly name="projecttype"/>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <label >Activity</label>
-                                                <input type="text" id="activitytypeview" class="form-control" readonly name="activitytype"/>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <label >Genre</label>
-                                               <input type="text" id="genreview" class="form-control" readonly name="genre"/>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <label> Combination</label>
-                                                 <input type="text" id="combinationview" class="form-control" readonly name="combination"/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group another">
-                                        <div class="row">
-                                            <div class="col-sm-6">
-                                                <label >Writer(s)</label>
-                                                <input type="text" id="writerview" class="form-control" readonly name="writer"/>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <label >Producer(s)</label>
-                                                <input type="text" id="producerview" class="form-control" readonly name="producer"/>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <label >Engineer(S) </label>
-                                                <input type="text" id="engineerview" class="form-control" readonly name="engineer"/>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <label >Start date </label>
-                                                <input type="text" class="form-control" id="projectstartdateview" value="" readonly name="projectstartdate"/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group another">
-                                        <div class="row">
-                                            <div class="col-sm-6">
-                                                <label >City/Town/Village</label>
-                                                <input type="text" id="townview" class="form-control" readonly name="town"/>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <label >Country</label>
-                                                <input type="text" id="countryview" class="form-control" readonly name="country"/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="row">
-                                            <div class="col-sm-6">
-                                                <label >Email</label>
-                                                <input type="text" id="emailview" class="form-control" readonly name="email"/>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <label >Phone #</label>
-                                                <input type="text" id="phoneview" class="form-control" readonly name="phone"/>
-
-                                                <span class="form-text text-muted">0544793757</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
-
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div> 
-         <!--END,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,-->
+                </form>
+            </div> 
+            <!--END,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,-->
         </div>
     </body>
 </html>

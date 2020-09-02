@@ -5,12 +5,13 @@
  */
 package com.SoundTrackRecords.Repository;
 import com.SoundTrackRecords.Model.BookingLog;
+import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  *
  * @author Ish
  */
-public interface BookingLogRepository extends JpaRepository<BookingLog, Long> {
+public interface BookingLogRepository extends JpaRepository<BookingLog, UUID> {
     
 }

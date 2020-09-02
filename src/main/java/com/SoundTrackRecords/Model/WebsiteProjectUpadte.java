@@ -16,6 +16,8 @@ import javax.persistence.GenerationType;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.Id;
 import java.io.Serializable;
+import java.util.UUID;
+import org.hibernate.annotations.GenericGenerator;
 /**
  *
  * @author Ish
@@ -26,11 +28,12 @@ import java.io.Serializable;
 @Data
 @Table(name="websiteprojectupdate")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class WebsiteProjectUpadte implements Serializable{
-    private static final long serialVersionUID = 1L;
+public class WebsiteProjectUpadte{
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+     @GeneratedValue(generator = "uuid2")
+     @GenericGenerator(name = "uuid2", strategy = "uuid2")
+//    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID id;
     private String photo;
     private String title;
     private String doneby;

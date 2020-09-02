@@ -10,25 +10,15 @@ package com.SoundTrackRecords.Model;
  * @author Ish
  */
 public enum CheeseType {
-    HARD ("Hard"),
-    SOFT ("Soft"),
-    FAKE ("Fake"),
-    UNKNOWN ("Unknown"),
-    AWURADE ("Awurade"),
-    NYAME ("Nyame"),
-    MEDAWO ("Medawo"),
-    ASE ("Ase");
+    Writing,
+    Recording,
+   Production,
+   Engineering,
+   Mixing
     
     
-    private final String name;
-
-    private CheeseType(String name) {
-        this.name = name;
-    }
+   
     
-    public String getName(){
-        return name;
-    }
     
 
     

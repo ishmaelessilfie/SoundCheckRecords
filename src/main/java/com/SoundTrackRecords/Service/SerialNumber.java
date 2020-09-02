@@ -23,7 +23,8 @@ public class SerialNumber {
     InvoiceRepository invoiceRepository;
     public String gebrateInvoice(){
         
-        String invno ="SCR"+new SimpleDateFormat("dMYY").format(new Date())+invoiceRepository.getInvoiceCount();
+      //  String invno ="SCR"+new SimpleDateFormat("dMYYHm").format(new Date())+invoiceRepository.getInvoiceCount();
+      String invno ="SCR"+new SimpleDateFormat("dMYYHHmm").format(new Date());
         return invno;
     }
    
@@ -40,17 +41,13 @@ public class SerialNumber {
 	         {
 	         	text[i] = characters.charAt(rand.nextInt(characters.length()));
 	         }
-	         
 	         for(int i = 0 ; i<text.length; i++)
 	          {
 	          	randomString+= text[i];
 	            }
-//	         System.out.println(randomString);
              int rand_int1= rand.nextInt(1000); 
-//            System.out.println(rand_int1);
-	               String vehicleRegistrationNumber = rand_int2+ randomString+rand_int1;
-//	               System.out.println(vehicleRegistrationNumber);
-		         return vehicleRegistrationNumber;
+	      String vehicleRegistrationNumber = rand_int2+ randomString+rand_int1;
+              return vehicleRegistrationNumber;
 	      	
 	}
     

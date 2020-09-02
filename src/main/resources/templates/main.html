@@ -253,7 +253,7 @@
             
             <!--ADD PROJECT................................................ -->
             <div id="AddRecord" class="modal fade " tabindex="-1">
-                <div class="modal-dialog modal-full">
+                <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title">Add Project</h5>
@@ -264,45 +264,54 @@
                                 <h6 style="text-align:center;">Artiste information</h6>
                             </div>
                             <div class="modal-body">
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-sm-8">
-                                            <label >Artiste(S)<span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control artistename"id="artistenamead" name="artistename" required/>
-                                            <div class="invalid-feedback">Please enter artiste name to continue.</div>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <label >Song tittle<span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control songtitle" id="songtitlead" name="songtitle" required/>                                
+                               <div class="form-group">
+                                    <div class="row">                                      
+                                        <div class="col-sm-6 ">
+                                            <table class="table-responsive artiste_field" id="artiste_field">
+                                                <tr> 
+                                                    <label >Artiste(S)<span class="text-danger">*</span></label>
+                                                    <td width="100%"><input type="text" class="form-control artistename"id="artistenamead" name="artistename" required/></td>
+                                                    <td ><button type="button" name="add" id="addArtisteInput" class="btn btn-success btn-sm addArtisteInput"><i class="icon-plus3"></i></button></td> 
+                                                </tr>  
+                                            </table>
+                                        </div>                                       
+                                        <div class="col-sm-6">
+                                            <table class="table-responsive songlist_field" id="songlist_field">
+                                                <tr>
+                                                    <label >Song tittle(s)<span class="text-danger">*</span></label>
+                                                    <td width="100%"><input type="text" class="form-control songtitle" id="songtitlead" name="songtitle" required/></td>
+                                                    <td ><button type="button" name="add" id="songlistInput" class="btn btn-success btn-sm songlistInput"><i class="icon-plus3"></i></button></td>
+                                                </tr>
+                                            </table>
                                         </div>                                       
                                     </div>
-                                </div>
+                                </div> 
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-sm-3">
                                             <label >Project Type<span class="text-danger">*</span></label>
-                                            <select class="form-control select-basic  projecttypead"  name="projecttype" required>
+                                            <select class="form-control select-basic  projecttypead" id="projecttype" name="projecttype" required>
                                                  <option value="">--Select poject type--</option>
                                             </select>  
                                             <!--                                         <div class="invalid-feedback">Please enter select project type to continue</div>-->
                                         </div>
                                         <div class="col-sm-3">
                                             <label >Activity<span class="text-danger">*</span></label>
-                                            <select class="form-control activitytypead"  name="activitytype" required>
+                                            <select class="form-control activitytypead" id="activitytype"  name="activitytype" required>
                                                 <option value="">--Select Service type--</option>
                                             </select>
                                           
                                         </div>
                                         <div class="col-sm-3">
                                             <label >Genre<span class="text-danger">*</span></label>
-                                            <select class="form-control genread"  name="genre" required>
+                                            <select class="form-control genread" id="genre"  name="genre" required>
                                                 <option value="">--Select genre--</option>
                                             </select>
                                                                                 
                                         </div>
                                         <div class="col-sm-3">
                                             <label> Combination<span class="text-danger">*</span></label>
-                                            <select class="form-control combinationad"  name="combination" required>
+                                            <select class="form-control combinationad" id="combination"  name="combination" required>
                                                 <option value="">--Select combination--</option>
                                             </select>
                                             
@@ -312,24 +321,35 @@
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-sm-6">
-                                            <label >Writer(s)<span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control writer" id="writerad" name="writer" required/>
-                                            <!--                                         <div class="invalid-feedback">Please enter song title to continue</div>
-                                            -->
+                                            <table class="table-responsive writers_field" id="writers_field">
+                                                <tr>
+                                                    <label >Writer(s)<span class="text-danger">*</span></label>
+                                                    <td width="100%"><input type="text" class="form-control writer" id="writerad" name="writer" required/></td>
+                                                    <td ><button type="button" name="add" id="writersInput"  class="btn btn-success btn- writersInput"><i class="icon-plus3"></i></button></td>
+                                                </tr>
+                                            </table>
                                         </div>
                                         <div class="col-sm-6">
-                                            <label >Producer(s)<span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control producer" id="producerad" name="producer" required/>
-                                            <!-- <div class="invalid-feedback">Please enter producer to continue</div>-->
+                                            <table class="table-responsive producers_field" id="producers_field">
+                                                <tr>
+                                                    <label >Producer(s)<span class="text-danger">*</span></label>
+                                                    <td width="100%"><input type="text" class="form-control producer" id="producerad" name="producer" required/></td>
+                                                    <td ><button type="button" name="add" id="producersInput"   class="btn btn-success btn-sm producersInput"><i class="icon-plus3"></i></button></td>
+                                                </tr>
+                                            </table>
                                         </div>
                                         <div class="col-sm-6">
-                                            <label >Engineer(S)<span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control engineer" id="engineerad" name="engineer" required/>
-                                            <!--                                         <div class="invalid-feedback">Please enter engineer to continue</div>-->
+                                            <table class="table-responsive engineers_field" id="engineers_field">
+                                                <tr>
+                                                    <label >Engineer(S)<span class="text-danger">*</span></label>
+                                                    <td width="100%"><input type="text" class="form-control engineer" id="engineerad" name="engineer" required/></td>
+                                                    <td ><button type="button" name="add" id="engineersInput"  class="btn btn-success btn-sm engineersInput"><i class="icon-plus3"></i></button></td>
+                                                </tr>
+                                            </table>
                                         </div>
                                         <div class="col-sm-6">
                                             <label >Start date<span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control pickadate-accessibility projectstartdate" id="projectstartdatead" name="projectstartdate"  required/>   
+                                            <input type="text" class="form-control pickadate-accessibility" id="projectstartdatead" name="projectstartdate"  required/>   
                                         </div>
                                     </div>
                                 </div>
@@ -338,12 +358,12 @@
                                         <div class="col-sm-4">
                                             <label >City/Town/Village<span class="text-danger">*</span></label>
                                             <input type="text" class="form-control town" id="townad" name="town" required/>
-                                            <!--                                          <div class="invalid-feedback">Please enter City/Town/Village to continue</div>-->
+                                          
                                         </div>
                                         <div class="col-sm-4">
                                             <label >Country<span class="text-danger">*</span></label>
                                             <input type="text" class="form-control country" id="countryad" name="country" required/>
-                                            <!--                                        <div class="invalid-feedback">Please enter country to continue</div>-->
+                                            
                                         </div>
                                         <div class="col-sm-4">
                                             <label >Phone #<span class="text-danger">*</span></label>
@@ -382,7 +402,7 @@
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                         </div>
                         <div  class="modal-body">
-                            <!--                        <form  class="form-validate-upd" >-->
+                          
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-sm-12">
@@ -396,19 +416,17 @@
                                         <input type="hidden" id="datecreat" class="form-control"  name="datecreated" /> 
                                     </div>
                                     <div class="col-sm-12">
-                                        <form id="fileUploadFormup">
+                                        <form id="fileUploadForm">
                                             <label >Photo </label>
-                                            <!--                                             <input type="hidden" id="hoto" class="form-control"  name="filehidden"/>    -->
-                                            <input type="file" id="photoo" class="form-control"  name="file" required/> 
+                                            <input type="file" class="form-control"  name="file" required/> 
                                         </form>
-                                    </div>
+                                    </div>   
                                 </div>
-                            </div>
+                            </div>                               
                             <div class="modal-footer">
                                 <button type="cancel" class="btn btn-link" data-dismiss="modal">close</button>
                                 <button type="submit" class="btn bg-primary" id="btnSubmitprofileupd" >Submit</button>
-                            </div>
-                            <!--                    </form>-->
+                            </div>                              
                         </div>
                     </div>
                 </div>

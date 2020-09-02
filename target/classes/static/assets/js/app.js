@@ -143,6 +143,7 @@ var App = function () {
         });
     };
 
+
     // Show right, hide secondary
     var _sidebarRightSecondaryToggle = function() {
         $(document).on('click', '.sidebar-right-secondary-toggle', function (e) {

@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.SoundTrackRecords.Model.Users;
 import com.fasterxml.jackson.databind.JsonNode;
+import java.util.UUID;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
@@ -17,10 +18,8 @@ import org.springframework.stereotype.Repository;
  * @author Ish
  */
 @Repository
-public interface UserRepository extends JpaRepository<Users, Long> {
+public interface UserRepository extends JpaRepository<Users, UUID> {
     
-   
-
    @Query ("SELECT photo as photo from Users where username= ?1")
    public String getUserPhoto(String username);
    @Query("SELECT password as password from Users where username=?1")  
@@ -28,7 +27,9 @@ public interface UserRepository extends JpaRepository<Users, Long> {
    @Query("SELECT photo as photo from Users where username=?1")  
    public String getPhotos(String username);
    public Users findByUsername(String un);
-//   public Users findUserById(String un);
+  @Query ("update Users set isLoggedin=true where username=?1")
+   public String updateLoginStatus(String username);
+   
 
    
     

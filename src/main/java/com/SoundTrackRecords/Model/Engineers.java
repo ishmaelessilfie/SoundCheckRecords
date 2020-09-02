@@ -7,6 +7,7 @@ package com.SoundTrackRecords.Model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
+import java.util.UUID;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,6 +16,7 @@ import javax.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.hibernate.annotations.GenericGenerator;
 
 
 /**
@@ -28,11 +30,14 @@ import lombok.ToString;
 @Data
 @Table(name="Engineers")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Engineers implements Serializable{
-    private static final long serialVersionUID = 1L;
+public class Engineers {
+//    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private UUID id; 
+     @GeneratedValue(generator = "uuid2")
+     @GenericGenerator(name = "uuid2", strategy = "uuid2")
+//    @GeneratedValue(strategy = GenerationType.AUTO)
     private String photo;
     private String title;
     private String name;

@@ -10,6 +10,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import java.util.Date;
+import java.util.UUID;
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @ToString
@@ -17,11 +19,12 @@ import java.util.Date;
 @Data
 @Table(name="newslog")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class NewsLog implements Serializable{
-    private static final long serialVersionUID = 1L;
+public class NewsLog{
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+     @GeneratedValue(generator = "uuid2")
+     @GenericGenerator(name = "uuid2", strategy = "uuid2")
+//    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID id;
     private String photo;
     private String title;
     private String note;

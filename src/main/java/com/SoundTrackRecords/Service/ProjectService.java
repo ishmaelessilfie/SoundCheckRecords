@@ -6,8 +6,6 @@
 package com.SoundTrackRecords.Service;
 
 import com.SoundTrackRecords.DTO.ProjectDto;
-import com.SoundTrackRecords.Model.Genre;
-import com.SoundTrackRecords.Repository.GenreRepository;
 import com.SoundTrackRecords.Repository.ProjectRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ProjectService {
    @Autowired
    ProjectRepository projectRepository;
-   @Autowired
-   GenreRepository genreRepository;
-   
+ 
    
 //   @Cacheable(cacheNames = { "projectCache" })
    public List<ProjectDto> getProjectList(){

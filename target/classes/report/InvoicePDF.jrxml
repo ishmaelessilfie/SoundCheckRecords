@@ -39,7 +39,7 @@
 				<text><![CDATA[SoundCheck reocords studio]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="64" y="18" width="92" height="20" uuid="327e9459-1963-4f40-a2bd-c01528db9878"/>
+				<reportElement x="66" y="18" width="92" height="20" uuid="327e9459-1963-4f40-a2bd-c01528db9878"/>
 				<textElement markup="none">
 					<font fontName="SansSerif" size="10" isBold="false"/>
 				</textElement>
@@ -53,28 +53,28 @@
 				<text><![CDATA[Teshie-Nungua First Junction]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="92" y="43" width="60" height="21" uuid="97128def-a797-4f4c-bb9f-b12b95102a53"/>
+				<reportElement x="66" y="43" width="60" height="21" uuid="97128def-a797-4f4c-bb9f-b12b95102a53"/>
 				<textElement markup="none">
 					<font fontName="SansSerif" size="10" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Accra]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="67" y="56" width="101" height="17" uuid="c8e2d8cc-3143-4049-83b7-97d855ce7668"/>
+				<reportElement x="49" y="56" width="240" height="17" uuid="c8e2d8cc-3143-4049-83b7-97d855ce7668"/>
 				<textElement>
 					<font fontName="SansSerif" size="10" isBold="false"/>
 				</textElement>
-				<text><![CDATA[Tel: 0243323743]]></text>
+				<text><![CDATA[Tel: 0243323743/0542007599]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="34" y="71" width="181" height="17" uuid="31329016-fdb7-435f-90a5-4084e289e48b"/>
 				<textElement>
 					<font fontName="SansSerif" size="10" isBold="false"/>
 				</textElement>
-				<text><![CDATA[email: addicolishama@gmail.com]]></text>
+				<text><![CDATA[email: info@soundckeckgh.com]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="17" y="84" width="214" height="17" uuid="65cbca76-d122-4ca0-9993-e9fdbb05c7a4"/>
+				<reportElement x="34" y="84" width="214" height="17" uuid="65cbca76-d122-4ca0-9993-e9fdbb05c7a4"/>
 				<textElement>
 					<font fontName="SansSerif" size="10" isBold="false"/>
 				</textElement>

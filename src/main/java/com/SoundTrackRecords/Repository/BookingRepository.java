@@ -6,6 +6,7 @@
 package com.SoundTrackRecords.Repository;
 
 import com.SoundTrackRecords.Model.Booking;
+import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -13,7 +14,7 @@ import org.springframework.data.jpa.repository.Query;
  *
  * @author Ish
  */
-public interface BookingRepository extends JpaRepository<Booking, Long> {
+public interface BookingRepository extends JpaRepository<Booking, UUID> {
     @Query("select count(*) from Booking where seen = 0")
     public String getBooking();
     

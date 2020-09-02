@@ -6,14 +6,15 @@
 package com.SoundTrackRecords.DTO;
 
 import java.util.Date;
+import java.util.UUID;
 
 /**
  *
  * @author Ish
  */
 public interface InvoiceList {
-    Long getProject();
-    Long getId();
+    UUID getProject();
+    UUID getId();
     Date getDatecreated();
     String getInvoiceno();
     String getNumber();

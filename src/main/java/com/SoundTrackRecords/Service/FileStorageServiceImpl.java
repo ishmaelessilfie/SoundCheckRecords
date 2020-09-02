@@ -40,7 +40,8 @@ public class FileStorageServiceImpl implements FileStorageService {
 		}
 	}
 
-	@Override
+	
+        @Override
 	public String storeFile(MultipartFile file) throws IOException {
 		
 		if (!(file.getOriginalFilename().endsWith(AppConstants.PNG_FILE_FORMAT) || file.getOriginalFilename().endsWith(AppConstants.JPEG_FILE_FORMAT) || file.getOriginalFilename().endsWith(AppConstants.JPG_FILE_FORMAT)))
